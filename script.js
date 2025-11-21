@@ -275,21 +275,60 @@ function initEmployeeDashboard() {
     const q = query(collection(db, "tasks"), where("assignedTo", "==", currentUser.name));
     const unsub = onSnapshot(q, (snapshot) => {
         const taskList = document.getElementById('emp-task-list');
-        taskList.innerHTML = '';
+        const reportSelect = document.getElementById('report-task-select');
+
+        if (taskList) taskList.innerHTML = '';
+        if (reportSelect) {
+            // Keep default option
+            reportSelect.innerHTML = '<option value="">Select Task...</option>';
+        }
+
         if (snapshot.empty) {
-            taskList.innerHTML = '<li>No tasks assigned yet.</li>';
+            if (taskList) taskList.innerHTML = '<li>No tasks assigned yet.</li>';
         } else {
             snapshot.forEach(doc => {
                 const task = doc.data();
-                const li = document.createElement('li');
-                li.className = 'task-item';
-                li.innerHTML = `
-                        <input type="checkbox" ${task.status === 'Done' ? 'checked' : ''}>
-                        <label>${task.title}</label>
-                        <span class="tag ${task.priority === 'High' ? 'high' : task.priority === 'Medium' ? 'medium' : 'done'}">${task.priority}</span>
-                    `;
-                taskList.appendChild(li);
+                const taskId = doc.id;
+
+                // Populate Task List
+                if (taskList) {
+                    const li = document.createElement('li');
+                    li.className = 'task-item';
+                    li.innerHTML = `
+                            <div class="task-header">
+                                <strong>${task.title}</strong>
+                                <span class="tag ${task.priority === 'High' ? 'high' : task.priority === 'Medium' ? 'medium' : 'done'}">${task.status}</span>
+                            </div>
+                            <p class="text-small">${task.description || 'No description'}</p>
+                            <div class="task-meta">
+                                <span>📅 Due: ${task.deadline || 'N/A'}</span>
+                                <span>📂 ${task.projectId || 'General'}</span>
+                            </div>
+                            ${task.status !== 'Completed' ? `<button class="btn-small btn-complete" data-id="${taskId}">Mark Complete</button>` : ''}
+                        `;
+                    taskList.appendChild(li);
+                }
+
+                // Populate Report Dropdown
+                if (reportSelect && task.status !== 'Completed') {
+                    const option = document.createElement('option');
+                    option.value = taskId;
+                    option.textContent = task.title;
+                    reportSelect.appendChild(option);
+                }
             });
+
+            // Attach "Mark Complete" listeners
+            if (taskList) {
+                taskList.querySelectorAll('.btn-complete').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        const tid = e.target.getAttribute('data-id');
+                        if (confirm('Mark this task as completed?')) {
+                            await updateDoc(doc(db, "tasks", tid), { status: "Completed" });
+                        }
+                    });
+                });
+            }
         }
     });
     unsubscribeListeners.push(unsub);
@@ -300,17 +339,27 @@ const empReportForm = document.getElementById('emp-report-form');
 if (empReportForm) {
     empReportForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const taskId = document.getElementById('report-task-select').value;
         const text = empReportForm.querySelector('textarea').value;
-        if (text && db) {
+
+        if (taskId && text && db) {
+            // Get task title for reference
+            const taskSelect = document.getElementById('report-task-select');
+            const taskTitle = taskSelect.options[taskSelect.selectedIndex].text;
+
             await addDoc(collection(db, "reports"), {
-                employee: currentUser.name,
+                taskId: taskId,
+                taskTitle: taskTitle,
+                submittedBy: currentUser.name,
+                reportText: text,
+                submittedAt: Date.now(),
                 date: new Date().toLocaleDateString(),
-                summary: text,
-                status: "Pending",
-                createdAt: Date.now()
+                status: "Pending"
             });
             alert("Report submitted successfully!");
             empReportForm.reset();
+        } else {
+            alert("Please select a task and enter report details.");
         }
     });
 }
@@ -319,77 +368,9 @@ if (empReportForm) {
 const btnClockIn = document.getElementById('emp-clock-in');
 const btnClockOut = document.getElementById('emp-clock-out');
 
-// Helper to update attendance
-async function updateAttendance(status) {
-    // Find existing attendance doc or create new
-    const q = query(collection(db, "attendance"), where("name", "==", currentUser.name));
-    const snapshot = await getDocs(q);
-
-    if (!snapshot.empty) {
-        await updateDoc(doc(db, "attendance", snapshot.docs[0].id), { status: status });
-    } else {
-        await addDoc(collection(db, "attendance"), { name: currentUser.name, status: status });
-    }
-}
-
-if (btnClockIn && btnClockOut) {
-    btnClockIn.addEventListener('click', async () => {
-        btnClockIn.classList.add('hidden');
-        btnClockOut.classList.remove('hidden');
-        await updateAttendance("Clocked In");
-        alert('You have clocked in.');
-    });
-
-    btnClockOut.addEventListener('click', async () => {
-        btnClockOut.classList.add('hidden');
-        btnClockIn.classList.remove('hidden');
-        await updateAttendance("Clocked Out");
-        alert('You have clocked out.');
-    });
-}
-
-// --- 5. Manager Dashboard Logic ---
-function initManagerDashboard() {
-    // Listen for Reports
-    const qReports = query(collection(db, "reports"), orderBy("createdAt", "desc"), limit(10));
-    const unsubReports = onSnapshot(qReports, (snapshot) => {
-        const reportTableBody = document.querySelector('#view-dashboard-manager .data-table tbody');
-        if (reportTableBody) {
-            reportTableBody.innerHTML = '';
-            snapshot.forEach(doc => {
-                const rep = doc.data();
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                        <td>${rep.employee}</td>
-                        <td>${rep.date}</td>
-                        <td>${rep.summary}</td>
-                        <td><span class="tag ${rep.status === 'Reviewed' ? 'done' : 'medium'}">${rep.status}</span></td>
-                    `;
-                reportTableBody.appendChild(tr);
-            });
         }
     });
-    unsubscribeListeners.push(unsubReports);
-
-    // Listen for Attendance
-    const unsubAttendance = onSnapshot(collection(db, "attendance"), (snapshot) => {
-        const attendanceList = document.querySelector('.attendance-list');
-        if (attendanceList) {
-            attendanceList.innerHTML = '';
-            snapshot.forEach(doc => {
-                const att = doc.data();
-                const li = document.createElement('li');
-                li.className = 'status-item';
-                const color = att.status === 'Clocked In' ? '#10b981' : '#ef4444';
-                li.innerHTML = `
-                        <span class="dot" style="background: ${color};"></span> 
-                        <span>${att.name} (${att.status})</span>
-                    `;
-                attendanceList.appendChild(li);
-            });
-        }
-    });
-    unsubscribeListeners.push(unsubAttendance);
+unsubscribeListeners.push(unsubAttendance);
 }
 
 // Manager Assign Task
@@ -397,14 +378,20 @@ const assignTaskForm = document.getElementById('mgr-assign-task-form');
 if (assignTaskForm) {
     assignTaskForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const title = assignTaskForm.querySelector('input').value;
-        const empSelect = assignTaskForm.querySelector('select');
+        const title = document.getElementById('task-title').value;
+        const desc = document.getElementById('task-desc').value;
+        const project = document.getElementById('task-project').value;
+        const deadline = document.getElementById('task-deadline').value;
+        const empSelect = document.getElementById('task-emp-select');
         const empName = empSelect.options[empSelect.selectedIndex].text;
 
         if (title && empSelect.value && db) {
             await addDoc(collection(db, "tasks"), {
                 title: title,
-                priority: "Medium",
+                description: desc,
+                projectId: project,
+                deadline: deadline,
+                priority: "Medium", // Default
                 status: "Pending",
                 assignedTo: empName,
                 createdAt: Date.now()
@@ -418,20 +405,18 @@ if (assignTaskForm) {
 // Manager Role Assignment
 const roleForm = document.getElementById('mgr-role-form');
 if (roleForm) {
-    roleForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const empName = document.getElementById('role-emp-select').value;
-        const newRole = document.getElementById('role-input').value;
+    const empName = document.getElementById('role-emp-select').value;
+    const newRole = document.getElementById('role-input').value;
 
-        if (empName && newRole && db) {
-            await addDoc(collection(db, "notifications"), {
-                message: `Manager updated ${empName}'s role to: ${newRole}`,
-                createdAt: Date.now()
-            });
-            alert(`Role for ${empName} updated. Owner notified.`);
-            roleForm.reset();
-        }
-    });
+    if (empName && newRole && db) {
+        await addDoc(collection(db, "notifications"), {
+            message: `Manager updated ${empName}'s role to: ${newRole}`,
+            createdAt: Date.now()
+        });
+        alert(`Role for ${empName} updated. Owner notified.`);
+        roleForm.reset();
+    }
+});
 }
 
 // --- 6. Owner Dashboard Logic ---

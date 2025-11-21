@@ -121,9 +121,13 @@
 
                 <!-- Daily Report -->
                 <div class="card">
-                    <h3>Daily Report Submission</h3>
+                    <h3>Submit Task Report</h3>
                     <form id="emp-report-form">
-                        <textarea placeholder="What did you accomplish today?" rows="4"></textarea>
+                        <select id="report-task-select" required>
+                            <option value="">Select Task...</option>
+                            <!-- Populated via JS -->
+                        </select>
+                        <textarea placeholder="Report details..." rows="4" required></textarea>
                         <button type="submit" class="btn-primary">Submit Report</button>
                     </form>
                 </div>
@@ -194,9 +198,15 @@
                 <div class="card">
                     <h3>Assign Task</h3>
                     <form id="mgr-assign-task-form">
-                        <input type="text" placeholder="Task Title" required>
-                        <select required>
+                        <input type="text" id="task-title" placeholder="Task Title" required>
+                        <textarea id="task-desc" placeholder="Task Description" rows="2"></textarea>
+                        <div class="form-row">
+                            <input type="text" id="task-project" placeholder="Project ID" required>
+                            <input type="date" id="task-deadline" required>
+                        </div>
+                        <select id="task-emp-select" required>
                             <option value="">Select Employee</option>
+                            <!-- Populated via JS if needed, or static -->
                             <option value="emp1">John Doe</option>
                             <option value="emp2">Jane Smith</option>
                         </select>
