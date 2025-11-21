@@ -343,7 +343,7 @@ if (loginForm) {
 
             if (!querySnapshot.empty) {
                 const userDoc = querySnapshot.docs[0];
-                currentUser = { id: userDoc.id, ...userDoc.data(), uid: user.uid }; // Add Firebase Auth UID to currentUser
+                currentUser = { id: userDoc.id, ...userDoc.data(), uid: user.uid };
 
                 navBtns.login.classList.add('hidden');
                 navBtns.logout.classList.remove('hidden');
@@ -369,8 +369,35 @@ if (loginForm) {
                     alert("Login successful but role is undefined.");
                 }
             } else {
-                alert('User profile not found in database. Please contact admin.');
-                await signOut(auth); // Sign out if no profile found
+                // Auto-create profile if missing
+                console.log("User authenticated but no profile found. Creating default profile...");
+                let defaultRole = 'client';
+                if (email.includes('admin')) defaultRole = 'owner';
+                else if (email.includes('manager')) defaultRole = 'manager';
+                else if (email.includes('emp')) defaultRole = 'employee';
+
+                const newProfile = {
+                    email: email,
+                    role: defaultRole,
+                    name: email.split('@')[0],
+                    createdAt: Date.now(),
+                    uid: user.uid
+                };
+
+                const docRef = await addDoc(collection(db, "users"), newProfile);
+                currentUser = { id: docRef.id, ...newProfile };
+
+                alert(`Profile created for ${email}. Logging in...`);
+                navBtns.login.classList.add('hidden');
+                navBtns.logout.classList.remove('hidden');
+
+                if (currentUser.role === 'employee') initEmployeeDashboard();
+                if (currentUser.role === 'manager') initManagerDashboard();
+                if (currentUser.role === 'client') initClientDashboard();
+                if (currentUser.role === 'owner') initOwnerDashboard();
+
+                const roleViewMap = { 'employee': 'employee', 'manager': 'manager', 'client': 'client', 'owner': 'owner' };
+                switchView(roleViewMap[currentUser.role]);
             }
         } catch (error) {
             console.error("Login error:", error);
