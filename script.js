@@ -29,18 +29,96 @@ try {
 // --- DATA SEEDING (Run once to populate DB) ---
 const INITIAL_DATA = {
     users: [
-        { email: 'admin@brandify.com', role: 'owner', name: 'Admin User' },
-        { email: 'manager@brandify.com', role: 'manager', name: 'Sarah Manager' },
-        { email: 'emp@brandify.com', role: 'employee', name: 'John Employee' },
-        { email: 'client@brandify.com', role: 'client', name: 'Alpha Corp' }
+        {
+            email: 'admin@brandify.com',
+            role: 'owner',
+            name: 'Admin User',
+            position: 'CEO',
+            department: 'Executive',
+            salary: 120000,
+            contactInfo: { phone: '555-0101', address: '123 Admin St', bankDetails: 'BankA-123' },
+            createdAt: Date.now()
+        },
+        {
+            email: 'manager@brandify.com',
+            role: 'manager',
+            name: 'Sarah Manager',
+            position: 'Project Manager',
+            department: 'Operations',
+            salary: 85000,
+            contactInfo: { phone: '555-0102', address: '456 Manager Ln', bankDetails: 'BankB-456' },
+            createdAt: Date.now()
+        },
+        {
+            email: 'emp@brandify.com',
+            role: 'employee',
+            name: 'John Employee',
+            position: 'Developer',
+            department: 'Engineering',
+            salary: 65000,
+            contactInfo: { phone: '555-0103', address: '789 Dev Rd', bankDetails: 'BankC-789' },
+            createdAt: Date.now()
+        },
+        {
+            email: 'client@brandify.com',
+            role: 'client',
+            name: 'Alpha Corp',
+            position: 'Client POC',
+            department: 'External',
+            salary: 0,
+            contactInfo: { phone: '555-0104', address: '101 Client Blvd', bankDetails: 'N/A' },
+            createdAt: Date.now()
+        }
+    ],
+    projects: [
+        {
+            name: "Alpha Automation",
+            clientId: "client@brandify.com", // In real app, use UID
+            managerId: "manager@brandify.com",
+            status: "Active",
+            startDate: "2025-01-01",
+            endDate: "2025-06-30",
+            details: "Full marketing automation setup.",
+            createdAt: Date.now()
+        }
     ],
     tasks: [
-        { title: "Setup HubSpot Workflows for Alpha", priority: "High", status: "Pending", assignedTo: "John Employee", createdAt: Date.now() },
-        { title: "Review Ad Copy for Beta Corp", priority: "Medium", status: "Pending", assignedTo: "John Employee", createdAt: Date.now() }
+        {
+            title: "Setup HubSpot Workflows",
+            description: "Configure initial lead nurturing workflows.",
+            assignedTo: "John Employee",
+            projectId: "Alpha Automation",
+            status: "Pending",
+            priority: "High",
+            deadline: "2025-02-15",
+            createdAt: Date.now()
+        },
+        {
+            title: "Review Ad Copy",
+            description: "Check compliance for Q1 ad campaign.",
+            assignedTo: "John Employee",
+            projectId: "Alpha Automation",
+            status: "Pending",
+            priority: "Medium",
+            deadline: "2025-02-20",
+            createdAt: Date.now()
+        }
     ],
     attendance: [
-        { name: "John Employee", status: "Clocked In" },
-        { name: "Jane Smith", status: "Absent" }
+        { employeeId: "emp@brandify.com", name: "John Employee", date: "2025-11-21", status: "Clocked In", remarks: "On time" },
+        { employeeId: "manager@brandify.com", name: "Sarah Manager", date: "2025-11-21", status: "Clocked In", remarks: "Remote" }
+    ],
+    employee_requests: [
+        { requestType: "Leave", employeeId: "emp@brandify.com", managerId: "manager@brandify.com", status: "Pending", details: "Sick leave for Friday", createdAt: Date.now() }
+    ],
+    payslips: [
+        { employeeId: "emp@brandify.com", month: "October 2025", salary: 5416, bonuses: 200, deductions: 100, netPay: 5516, createdAt: Date.now(), downloadUrl: "#" }
+    ],
+    invoices: [
+        { clientId: "client@brandify.com", projectId: "Alpha Automation", amount: 5000, status: "Unpaid", details: "Initial Setup Fee", createdAt: Date.now(), dueDate: "2025-12-01" }
+    ],
+    messages: [
+        { senderId: "manager@brandify.com", receiverId: "client@brandify.com", message: "Project kickoff was successful.", type: "text", timestamp: Date.now() }
     ]
 };
 
@@ -50,11 +128,23 @@ async function seedDatabase() {
     const snapshot = await getDocs(usersRef);
 
     if (snapshot.empty) {
-        console.log("Seeding database...");
-        for (const user of INITIAL_DATA.users) await addDoc(collection(db, "users"), user);
-        for (const task of INITIAL_DATA.tasks) await addDoc(collection(db, "tasks"), task);
-        for (const att of INITIAL_DATA.attendance) await addDoc(collection(db, "attendance"), att);
-        alert("Database seeded! You can now login.");
+        console.log("Seeding database with extended model...");
+
+        // Helper to seed collection
+        const seed = async (colName, data) => {
+            for (const item of data) await addDoc(collection(db, colName), item);
+        };
+
+        await seed("users", INITIAL_DATA.users);
+        await seed("projects", INITIAL_DATA.projects);
+        await seed("tasks", INITIAL_DATA.tasks);
+        await seed("attendance", INITIAL_DATA.attendance);
+        await seed("employee_requests", INITIAL_DATA.employee_requests);
+        await seed("payslips", INITIAL_DATA.payslips);
+        await seed("invoices", INITIAL_DATA.invoices);
+        await seed("messages", INITIAL_DATA.messages);
+
+        alert("Database seeded with new comprehensive model! You can now login.");
     }
 }
 

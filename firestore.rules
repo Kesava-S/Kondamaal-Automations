@@ -1,0 +1,96 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper function to check roles
+    function hasRole(role) {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == role;
+    }
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    // --- USERS ---
+    // Admin: Full access
+    // Manager: Read employees in their department (simplified to all for now, or requires dept check)
+    // Employee: Read/Write own profile
+    // Client: No access to other users
+    match /users/{userId} {
+      allow read, write: if hasRole('owner');
+      allow read: if hasRole('manager');
+      allow read, write: if isOwner(userId);
+    }
+
+    // --- EMPLOYEE REQUESTS ---
+    // Admin: Full access
+    // Manager: Read/Write for managed employees
+    // Employee: Create/Read own
+    match /employee_requests/{requestId} {
+      allow read, write: if hasRole('owner');
+      allow read, write: if hasRole('manager');
+      allow create, read: if isOwner(resource.data.employeeId);
+    }
+
+    // --- ATTENDANCE ---
+    // Admin: Full access
+    // Manager: Read team
+    // Employee: Read/Write own
+    match /attendance/{attendanceId} {
+      allow read, write: if hasRole('owner');
+      allow read: if hasRole('manager');
+      allow read, write: if isOwner(resource.data.employeeId);
+    }
+
+    // --- PAYSLIPS ---
+    // Admin: Full access
+    // Manager: Read only
+    // Employee: Read own
+    match /payslips/{payslipId} {
+      allow read, write: if hasRole('owner');
+      allow read: if hasRole('manager');
+      allow read: if isOwner(resource.data.employeeId);
+    }
+
+    // --- PROJECTS ---
+    // Admin: Full access
+    // Manager: Read/Write assigned
+    // Employee: Read if assigned (via tasks or direct assignment)
+    // Client: Read own
+    match /projects/{projectId} {
+      allow read, write: if hasRole('owner');
+      allow read, write: if hasRole('manager');
+      allow read: if hasRole('employee'); // Simplified
+      allow read: if resource.data.clientId == request.auth.uid;
+    }
+
+    // --- TASKS ---
+    // Admin: Full access
+    // Manager: Read/Write
+    // Employee: Read/Write own
+    // Client: Read project tasks
+    match /tasks/{taskId} {
+      allow read, write: if hasRole('owner');
+      allow read, write: if hasRole('manager');
+      allow read, write: if resource.data.assignedTo == request.auth.uid; // Assuming assignedTo stores UID or Name
+      allow read: if hasRole('client'); // Simplified
+    }
+
+    // --- INVOICES ---
+    // Admin: Full access
+    // Manager: Read/Write
+    // Client: Read own
+    match /invoices/{invoiceId} {
+      allow read, write: if hasRole('owner');
+      allow read, write: if hasRole('manager');
+      allow read: if resource.data.clientId == request.auth.uid;
+    }
+
+    // --- MESSAGES ---
+    // Admin: Read all
+    // Others: Read/Write if sender or receiver
+    match /messages/{messageId} {
+      allow read: if hasRole('owner');
+      allow read, write: if request.auth.uid == resource.data.senderId || request.auth.uid == resource.data.receiverId;
+    }
+  }
+}
