@@ -332,6 +332,7 @@ if (loginForm) {
                 // Initialize Real-time Listeners
                 if (currentUser.role === 'employee') initEmployeeDashboard();
                 if (currentUser.role === 'manager') initManagerDashboard();
+                if (currentUser.role === 'client') initClientDashboard();
                 if (currentUser.role === 'owner') initOwnerDashboard();
 
                 // Force view switch based on role
@@ -422,6 +423,26 @@ function initEmployeeDashboard() {
         }
     });
     unsubscribeListeners.push(unsub);
+
+    // Listen for Payslips
+    const qPayslips = query(collection(db, "payslips"), where("employeeId", "==", currentUser.email));
+    const unsubPayslips = onSnapshot(qPayslips, (snapshot) => {
+        const payslipList = document.getElementById('emp-payslip-list');
+        if (payslipList) {
+            payslipList.innerHTML = '';
+            if (snapshot.empty) {
+                payslipList.innerHTML = '<li>No payslips found.</li>';
+            } else {
+                snapshot.forEach(doc => {
+                    const pay = doc.data();
+                    const li = document.createElement('li');
+                    li.innerHTML = `📄 <a href="${pay.downloadUrl || '#'}" target="_blank">${pay.month} - $${pay.netPay}</a>`;
+                    payslipList.appendChild(li);
+                });
+            }
+        }
+    });
+    unsubscribeListeners.push(unsubPayslips);
 }
 
 // Employee Report Submission
@@ -500,6 +521,33 @@ function initManagerDashboard() {
         }
     });
     unsubscribeListeners.push(unsubAttendance);
+
+    // Listen for Employee Requests
+    const qRequests = query(collection(db, "employee_requests"), where("managerId", "==", currentUser.email));
+    const unsubRequests = onSnapshot(qRequests, (snapshot) => {
+        const reqList = document.getElementById('mgr-request-list');
+        if (reqList) {
+            reqList.innerHTML = '';
+            if (snapshot.empty) {
+                reqList.innerHTML = '<li>No pending requests.</li>';
+            } else {
+                snapshot.forEach(doc => {
+                    const req = doc.data();
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <strong>${req.requestType}</strong> from ${req.employeeId} <br>
+                        <span class="text-small">${req.details}</span>
+                        <div class="action-buttons" style="margin-top:0.5rem;">
+                            <button class="btn-small">Approve</button>
+                            <button class="btn-small" style="background:#ef4444;">Reject</button>
+                        </div>
+                    `;
+                    reqList.appendChild(li);
+                });
+            }
+        }
+    });
+    unsubscribeListeners.push(unsubRequests);
 }
 
 // Manager Assign Task
@@ -663,7 +711,60 @@ function initOwnerDashboard() {
     }
 }
 
-// --- 7. AI Chatbot Logic & Inquiry Form ---
+// --- 8. Client Dashboard Logic ---
+function initClientDashboard() {
+    // Listen for Projects
+    const qProjects = query(collection(db, "projects"), where("clientId", "==", currentUser.email));
+    const unsubProjects = onSnapshot(qProjects, (snapshot) => {
+        const projectList = document.getElementById('client-project-list');
+        if (projectList) {
+            projectList.innerHTML = '';
+            if (snapshot.empty) {
+                projectList.innerHTML = '<p>No active projects.</p>';
+            } else {
+                snapshot.forEach(doc => {
+                    const proj = doc.data();
+                    const div = document.createElement('div');
+                    div.className = 'status-timeline'; // Reusing style
+                    div.innerHTML = `
+                        <h4>${proj.name}</h4>
+                        <p>${proj.details}</p>
+                        <p><strong>Status:</strong> ${proj.status}</p>
+                        <p><small>${proj.startDate} to ${proj.endDate}</small></p>
+                    `;
+                    projectList.appendChild(div);
+                });
+            }
+        }
+    });
+    unsubscribeListeners.push(unsubProjects);
+
+    // Listen for Invoices
+    const qInvoices = query(collection(db, "invoices"), where("clientId", "==", currentUser.email));
+    const unsubInvoices = onSnapshot(qInvoices, (snapshot) => {
+        const invList = document.getElementById('client-invoice-list');
+        if (invList) {
+            invList.innerHTML = '';
+            if (snapshot.empty) {
+                invList.innerHTML = '<li>No invoices found.</li>';
+            } else {
+                snapshot.forEach(doc => {
+                    const inv = doc.data();
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        🧾 <strong>${inv.details}</strong> - $${inv.amount} 
+                        <span class="tag ${inv.status === 'Paid' ? 'done' : 'high'}">${inv.status}</span>
+                        <br><small>Due: ${inv.dueDate}</small>
+                    `;
+                    invList.appendChild(li);
+                });
+            }
+        }
+    });
+    unsubscribeListeners.push(unsubInvoices);
+}
+
+// --- 9. AI Chatbot Logic & Inquiry Form ---
 const chatInput = document.getElementById('ai-chat-input');
 const chatSend = document.getElementById('ai-chat-send');
 const chatMessages = document.getElementById('ai-chat-messages');

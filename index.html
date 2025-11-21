@@ -152,6 +152,14 @@
                         <li>🎉 Team lunch this Friday!</li>
                     </ul>
                 </div>
+
+                <!-- Payslips (New) -->
+                <div class="card">
+                    <h3>My Payslips</h3>
+                    <ul class="file-list" id="emp-payslip-list">
+                        <!-- Payslips injected via JS -->
+                    </ul>
+                </div>
             </div>
         </section>
 
@@ -192,6 +200,14 @@
                     </ul>
                     <button class="btn-secondary full-width-btn" style="margin-top: 1rem; width: 100%;">Manage Leave
                         Requests</button>
+                </div>
+
+                <!-- Employee Requests (New) -->
+                <div class="card">
+                    <h3>Pending Requests</h3>
+                    <ul class="notification-list" id="mgr-request-list">
+                        <!-- Requests injected via JS -->
+                    </ul>
                 </div>
 
                 <!-- Task Assignment -->
@@ -273,33 +289,17 @@
                 <!-- Project Status -->
                 <div class="card">
                     <h3>Project Timeline</h3>
-                    <div class="status-timeline">
-                        <div class="status-item completed">
-                            <span class="dot"></span>
-                            <span class="text">Onboarding & Strategy</span>
-                        </div>
-                        <div class="status-item active">
-                            <span class="dot"></span>
-                            <span class="text">Implementation (Current)</span>
-                        </div>
-                        <div class="status-item">
-                            <span class="dot"></span>
-                            <span class="text">Testing & QA</span>
-                        </div>
-                        <div class="status-item">
-                            <span class="dot"></span>
-                            <span class="text">Final Launch</span>
-                        </div>
+                    <div id="client-project-list">
+                        <!-- Projects injected via JS -->
                     </div>
                 </div>
 
                 <!-- Documents -->
+                <!-- Invoices (New) -->
                 <div class="card">
-                    <h3>Documents & Files</h3>
-                    <ul class="file-list">
-                        <li>📄 <a href="#">Project_Proposal_v2.pdf</a></li>
-                        <li>📊 <a href="#">Q3_Performance_Report.pdf</a></li>
-                        <li>🧾 <a href="#">Invoice_#1023.pdf</a></li>
+                    <h3>Invoices</h3>
+                    <ul class="file-list" id="client-invoice-list">
+                        <!-- Invoices injected via JS -->
                     </ul>
                 </div>
 
