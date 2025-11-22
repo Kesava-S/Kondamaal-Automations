@@ -360,18 +360,24 @@
                     <div class="admin-grid">
                         <div class="admin-panel">
                             <h4>👥 Assign Roles & Users</h4>
-                            <div class="control-row">
-                                <input type="text" id="admin-new-user-email" placeholder="New User Email">
-                                <select id="admin-new-user-role">
-                                    <option value="">Assign Role...</option>
+                            <div class="control-row" style="flex-wrap: wrap; gap: 10px;">
+                                <input type="text" id="admin-new-user-name" placeholder="Name" required
+                                    style="flex: 1;">
+                                <input type="email" id="admin-new-user-email" placeholder="Email" required
+                                    style="flex: 1;">
+                                <input type="password" id="admin-new-user-pass" placeholder="Password" required
+                                    style="flex: 1;">
+                                <select id="admin-new-user-role" required style="flex: 1;">
+                                    <option value="">Select Role</option>
                                     <option value="manager">Manager</option>
                                     <option value="employee">Employee</option>
                                     <option value="client">Client</option>
                                 </select>
-                                <button id="admin-add-user-btn" class="btn-small">Add</button>
+                                <input type="text" id="admin-new-user-dept" placeholder="Department" style="flex: 1;">
+                                <button id="admin-add-user-btn" class="btn-primary">Add User</button>
                             </div>
-                            <div class="control-list" id="admin-user-list">
-                                <!-- Users injected via JS -->
+                            <div id="admin-user-list" class="user-list">
+                                <!-- Populated via JS -->
                             </div>
                         </div>
 

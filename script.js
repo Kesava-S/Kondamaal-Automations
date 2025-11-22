@@ -1,8 +1,8 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { initializeApp, deleteApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
     getFirestore, collection, getDocs, addDoc, query, where, onSnapshot, updateDoc, deleteDoc, doc, orderBy, limit, getDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 // --- FIREBASE CONFIGURATION ---
 // TODO: Replace with your actual Firebase project configuration
@@ -950,21 +950,39 @@ function initManagerDashboard() {
 
         newEmpForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const name = newEmpForm.querySelector('#mgr-new-emp-name').value;
             const email = newEmpForm.querySelector('#mgr-new-emp-email').value;
-            if (email && db) {
+            const password = newEmpForm.querySelector('#mgr-new-emp-pass').value;
+            const role = newEmpForm.querySelector('#mgr-new-emp-role').value;
+            const dept = newEmpForm.querySelector('#mgr-new-emp-dept').value;
+
+            if (name && email && password && db) {
                 try {
+                    // 1. Create Auth User (Secondary App)
+                    const secondaryApp = initializeApp(firebaseConfig, "SecondaryMgr");
+                    const secondaryAuth = getAuth(secondaryApp);
+                    await createUserWithEmailAndPassword(secondaryAuth, email, password);
+                    await signOut(secondaryAuth);
+                    await deleteApp(secondaryApp);
+
+                    // 2. Create Firestore Profile
                     await addDoc(collection(db, "users"), {
+                        name: name,
                         email: email,
-                        role: 'employee',
-                        name: email.split('@')[0],
+                        role: role, // 'employee' or 'intern'
+                        department: dept || 'Operations',
+                        position: role.charAt(0).toUpperCase() + role.slice(1),
                         createdAt: Date.now()
                     });
-                    alert('Employee added successfully. They can now login with this email.');
+
+                    alert(`Employee ${name} added successfully! Login ID: ${email}`);
                     newEmpForm.reset();
                 } catch (err) {
                     console.error("Error adding employee:", err);
-                    alert("Failed to add employee.");
+                    alert("Failed to add employee: " + err.message);
                 }
+            } else {
+                alert("Please fill in all required fields.");
             }
         });
     }
@@ -1085,36 +1103,53 @@ function initOwnerDashboard() {
         addUserBtn.parentNode.replaceChild(newBtn, addUserBtn);
 
         newBtn.addEventListener('click', async () => {
+            const name = document.getElementById('admin-new-user-name').value;
             const email = emailInput.value;
+            const password = document.getElementById('admin-new-user-pass').value;
             const role = roleInput.value;
-            if (email && role && db) {
+            const dept = document.getElementById('admin-new-user-dept').value;
+
+            if (name && email && password && role && db) {
                 try {
-                    // Create Firestore Profile
+                    // 1. Create Auth User (using secondary app to avoid logging out current user)
+                    const secondaryApp = initializeApp(firebaseConfig, "Secondary");
+                    const secondaryAuth = getAuth(secondaryApp);
+                    await createUserWithEmailAndPassword(secondaryAuth, email, password);
+                    await signOut(secondaryAuth); // Sign out the new user immediately
+                    await deleteApp(secondaryApp); // Cleanup
+
+                    // 2. Create Firestore Profile
                     await addDoc(collection(db, "users"), {
+                        name: name,
                         email: email,
                         role: role,
-                        name: email.split('@')[0], // Default name
+                        department: dept || 'General',
+                        position: role.charAt(0).toUpperCase() + role.slice(1), // Default position
                         createdAt: Date.now()
                     });
 
                     // Notify Managers if a new employee is added
                     if (role === 'employee') {
                         await addDoc(collection(db, "notifications"), {
-                            message: `Admin added new employee: ${email}`,
+                            message: `Admin added new employee: ${name} (${email})`,
                             targetRole: 'manager',
                             createdAt: Date.now()
                         });
                     }
 
-                    alert('User added successfully. Note: Password must be set by user or via Auth console.');
+                    alert(`User ${name} added successfully! They can login with the provided password.`);
+                    // Reset form
+                    document.getElementById('admin-new-user-name').value = '';
                     emailInput.value = '';
+                    document.getElementById('admin-new-user-pass').value = '';
                     roleInput.value = '';
+                    document.getElementById('admin-new-user-dept').value = '';
                 } catch (e) {
                     console.error("Error adding user: ", e);
-                    alert("Failed to add user.");
+                    alert("Failed to add user: " + e.message);
                 }
             } else {
-                alert("Please enter email and select a role.");
+                alert("Please fill in all required fields (Name, Email, Password, Role).");
             }
         });
     }
