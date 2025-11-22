@@ -145,12 +145,11 @@
                     </div>
                 </div>
 
-                <!-- Announcements -->
-                <div class="card">
-                    <h3>Announcements</h3>
-                    <ul class="notification-list">
-                        <li>📢 New health policy updated.</li>
-                        <li>🎉 Team lunch this Friday!</li>
+                <!-- Announcements (Dynamic) -->
+                <div class="card" id="emp-announcement-card">
+                    <h3>📢 Announcements</h3>
+                    <ul class="notification-list" id="emp-announcement-list">
+                        <!-- Injected via JS -->
                     </ul>
                 </div>
 
@@ -376,9 +375,7 @@
                                 <input type="text" id="admin-new-user-dept" placeholder="Department" style="flex: 1;">
                                 <button id="admin-add-user-btn" class="btn-primary">Add User</button>
                             </div>
-                            <div id="admin-user-list" class="user-list">
-                                <!-- Populated via JS -->
-                            </div>
+                            <!-- User List Removed from here -->
                         </div>
 
                         <div class="admin-panel">
@@ -399,6 +396,27 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Employee Directory (New) -->
+            <div class="card full-width">
+                <h3>📂 Employee Directory</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Email (Login ID)</th>
+                            <th>Password</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-employee-table">
+                        <!-- Populated via JS -->
+                    </tbody>
+                </table>
+            </div>
             </div>
 
             <!-- Executive Task Assignment (New) -->

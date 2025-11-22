@@ -1032,8 +1032,8 @@ function initOwnerDashboard() {
     });
     unsubscribeListeners.push(unsubInquiries);
 
-    // --- User Management Logic ---
-    const userList = document.getElementById('admin-user-list');
+    // --- User Management Logic (Updated for Employee Directory) ---
+    const userTableBody = document.getElementById('admin-employee-table');
     const addUserBtn = document.getElementById('admin-add-user-btn');
     const emailInput = document.getElementById('admin-new-user-email');
     const roleInput = document.getElementById('admin-new-user-role');
@@ -1041,35 +1041,36 @@ function initOwnerDashboard() {
     // Listen for Users
     const qUsers = query(collection(db, "users"));
     const unsubUsers = onSnapshot(qUsers, (snapshot) => {
-        if (userList) {
-            userList.innerHTML = ''; // Clear list to prevent duplicates
+        if (userTableBody) {
+            userTableBody.innerHTML = ''; // Clear table
             snapshot.forEach(doc => {
                 const user = doc.data();
                 // Don't allow deleting self
                 const isSelf = currentUser && user.email === currentUser.email;
 
-                const div = document.createElement('div');
-                div.className = 'control-item';
-                div.innerHTML = `
-                    <div style="display:flex; flex-direction:column;">
-                        <span style="font-weight:600;">${user.name || user.email}</span>
-                        <span style="font-size:0.85em; color:#666;">${user.role.toUpperCase()} ${user.position ? '• ' + user.position : ''}</span>
-                    </div>
-                    ${!isSelf ? `<button class="text-btn delete" data-id="${doc.id}">Remove</button>` : ''}
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${user.name || 'N/A'}</td>
+                    <td><span class="tag ${user.role === 'owner' ? 'high' : user.role === 'manager' ? 'medium' : 'low'}">${user.role.toUpperCase()}</span></td>
+                    <td>${user.department || 'General'}</td>
+                    <td>${user.email}</td>
+                    <td>********</td> <!-- Password hidden for security -->
+                    <td>
+                        ${!isSelf ? `<button class="btn-small delete-btn" style="background:#ef4444;" data-id="${doc.id}">Remove</button>` : '<span class="text-small">Current User</span>'}
+                    </td>
                 `;
-                userList.appendChild(div);
+                userTableBody.appendChild(tr);
             });
 
             // Attach event listeners to delete buttons
-            userList.querySelectorAll('.text-btn.delete').forEach(btn => {
+            userTableBody.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
                     const uid = e.target.getAttribute('data-id');
-                    // Find user name for notification
                     const userItem = snapshot.docs.find(d => d.id === uid).data();
                     const userName = userItem.name || userItem.email;
                     const userRole = userItem.role;
 
-                    if (confirm('Are you sure you want to remove this user?')) {
+                    if (confirm(`Are you sure you want to remove ${userName}? This cannot be undone.`)) {
                         try {
                             await deleteDoc(doc(db, "users", uid));
 
