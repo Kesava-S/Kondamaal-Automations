@@ -592,190 +592,109 @@
                         <tbody id="admin-task-monitoring-table">
                             <!-- Populated via JS -->
                         </tbody>
+                        <!-- 5. Global Announcement -->
+                        <div class="card full-width">
+                            <h3>📢 Global Announcement</h3>
+                            <p class="text-small">Send a popup greeting/announcement to users.</p>
+                            <form id="owner-announcement-form" style="display:flex; gap:10px; flex-wrap:wrap;">
+                                <input type="text" id="announcement-input" placeholder="Enter message..."
+                                    style="flex:2; min-width:200px;" required>
+                                <select id="announcement-target" style="flex:1; min-width:150px;">
+                                    <option value="all">All Users</option>
+                                    <option value="internal">Internal (Emp + Mgr)</option>
+                                    <option value="employees">Employees Only</option>
+                                    <option value="managers">Managers Only</option>
+                                    <option value="clients">Clients Only</option>
+                                </select>
+                                <button type="submit" class="btn-secondary">Post</button>
+                            </form>
+                        </div>
+                        <div class="card">
+                            <h3>Onboard New Client</h3>
+                            <form id="owner-onboard-client-form">
+                                <div class="form-group">
+                                    <input type="text" id="onboard-client-name" placeholder="Client / Company Name"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="onboard-project-name" placeholder="Project Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="date" id="onboard-start-date" required>
+                                </div>
+                                <button type="submit" class="btn-primary full-width-btn">Create Project</button>
+                            </form>
+                        </div>
+
+                        <!-- Project Overview -->
+                        <div class="card">
+                            <h3>Active Projects</h3>
+                            <ul class="project-list" id="owner-project-list">
+                                <!-- Populated via JS -->
+                            </ul>
+                        </div>
+
+                        <!-- User & Role Management (New) -->
+                        <div class="card full-width">
+                            <h3>User & Role Management</h3>
+                            <div class="admin-grid">
+                                <div class="admin-panel">
+                                    <h4>👥 Assign Roles & Users</h4>
+                                    <div class="form-group">
+                                        <input type="text" id="admin-new-user-name" placeholder="Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" id="admin-new-user-email" placeholder="Email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" id="admin-new-user-pass" placeholder="Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <select id="admin-new-user-role" required>
+                                            <option value="">Select Role</option>
+                                            <option value="manager">Manager</option>
+                                            <option value="employee">Employee</option>
+                                            <option value="client">Client</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" id="admin-new-user-dept" placeholder="Department">
+                                    </div>
+                                    <button id="admin-add-user-btn" class="btn-primary full-width-btn">Add User</button>
+                                    <!-- User List Removed from here -->
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                </div>
+
+                <!-- Employee Directory (New) -->
+                <div class="card full-width">
+                    <h3>📂 Employee Directory</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Department</th>
+                                <th>Email (Login ID)</th>
+                                <th>Password</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-employee-table">
+                            <!-- Populated via JS -->
+                        </tbody>
                     </table>
                 </div>
-
-                <!-- Client Onboarding (New) -->
-                <div class="card">
-                    <h3>Onboard New Client</h3>
-                    <form id="owner-onboard-client-form">
-                        <div class="form-group">
-                            <input type="text" id="onboard-client-name" placeholder="Client / Company Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="onboard-project-name" placeholder="Project Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="date" id="onboard-start-date" required>
-                        </div>
-                        <button type="submit" class="btn-primary full-width-btn">Create Project</button>
-                    </form>
-                </div>
-
-                <!-- Project Overview -->
-                <div class="card">
-                    <h3>Active Projects</h3>
-                    <ul class="project-list" id="owner-project-list">
-                        <!-- Populated via JS -->
-                    </ul>
-                </div>
-
-                <!-- User & Role Management (New) -->
-                <div class="card full-width">
-                    <h3>User & Role Management</h3>
-                    <div class="admin-grid">
-                        <div class="admin-panel">
-                            <h4>👥 Assign Roles & Users</h4>
-                            <div class="form-group">
-                                <input type="text" id="admin-new-user-name" placeholder="Name" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" id="admin-new-user-email" placeholder="Email" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="password" id="admin-new-user-pass" placeholder="Password" required>
-                            </div>
-                            <div class="form-group">
-                                <select id="admin-new-user-role" required>
-                                    <option value="">Select Role</option>
-                                    <option value="manager">Manager</option>
-                                    <option value="employee">Employee</option>
-                                    <option value="client">Client</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="admin-new-user-dept" placeholder="Department">
-                            </div>
-                            <button id="admin-add-user-btn" class="btn-primary full-width-btn">Add User</button>
-                            <!-- User List Removed from here -->
-                        </div>
-
-
-
-
-                    </div>
-                </div>
             </div>
 
-            <!-- Employee Directory (New) -->
-            <div class="card full-width">
-                <h3>📂 Employee Directory</h3>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Role</th>
-                            <th>Department</th>
-                            <th>Email (Login ID)</th>
-                            <th>Password</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-employee-table">
-                        <!-- Populated via JS -->
-                    </tbody>
-                </table>
-            </div>
-            </div>
 
-            <!-- Executive Task Assignment (New) -->
-            <div class="card full-width">
-                <h3>Assign Task (Executive)</h3>
-                <form id="owner-assign-task-form">
-                    <div class="form-row">
-                        <input type="text" id="owner-task-title" placeholder="Task Title" required>
-                        <select id="owner-task-target" required>
-                            <option value="">Select Manager or Employee</option>
-                            <!-- Populated via JS -->
-                        </select>
-                    </div>
-                    <textarea id="owner-task-desc" placeholder="Task Description" rows="2"></textarea>
-                    <div class="form-row">
-                        <input type="text" id="owner-task-project" placeholder="Project ID/Name" required>
-                        <input type="date" id="owner-task-deadline" required>
-                    </div>
-                    <button type="submit" class="btn-primary">Assign Task</button>
-                </form>
-            </div>
 
-            <!-- Global Task Monitoring (Admin) -->
-            <div class="card full-width">
-                <h3>Global Task Monitoring</h3>
-                <p class="text-small">Monitor tasks across all departments.</p>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Task</th>
-                            <th>Assigned To</th>
-                            <th>Assigned By</th>
-                            <th>Status</th>
-                            <th>Deadline</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-task-monitoring-table">
-                        <!-- Populated via JS -->
-                    </tbody>
-                </table>
-            </div>
 
-            <!-- Global Announcement (New) -->
-            <div class="card full-width">
-                <h3>📢 Global Announcement</h3>
-                <p class="text-small">Send a popup greeting/announcement to users.</p>
-                <form id="owner-announcement-form" style="display:flex; gap:10px; flex-wrap:wrap;">
-                    <input type="text" id="announcement-input" placeholder="Enter message..."
-                        style="flex:2; min-width:200px;" required>
-                    <select id="announcement-target" style="flex:1; min-width:150px;">
-                        <option value="all">All Users</option>
-                        <option value="internal">Internal (Emp + Mgr)</option>
-                        <option value="employees">Employees Only</option>
-                        <option value="managers">Managers Only</option>
-                        <option value="clients">Clients Only</option>
-                    </select>
-                    <button type="submit" class="btn-secondary">Post</button>
-                </form>
-            </div>
-            </div>
-
-            <!-- Inquiry List (Owner) -->
-            <div class="card full-width">
-                <h3>Recent Inquiries</h3>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>WhatsApp</th>
-                            <th>Business</th>
-                            <th>Needs</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="owner-inquiry-table">
-                        <!-- Populated via JS -->
-                    </tbody>
-                </table>
-            </div>
-            </div>
-
-            <!-- Website Inquiries (New) -->
-            <div class="card full-width">
-                <h3>Recent Website Inquiries</h3>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Message</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="owner-inquiries-list">
-                        <!-- Inquiries injected via JS -->
-                    </tbody>
-                </table>
-            </div>
-            </div>
         </section>
     </main>
 
