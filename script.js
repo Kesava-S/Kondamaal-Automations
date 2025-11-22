@@ -295,29 +295,8 @@ if (navLogo) navLogo.addEventListener('click', goHome);
 
 if (navBtns.login) navBtns.login.addEventListener('click', () => switchView('login'));
 
-if (navBtns.logout) navBtns.logout.addEventListener('click', async () => {
-    try {
-        await signOut(auth);
-        currentUser = null;
-
-        // CRITICAL: Unsubscribe from all listeners to prevent duplicates on re-login
-        unsubscribeListeners.forEach(unsub => unsub());
-        unsubscribeListeners = [];
-
-        // Clear login form inputs
-        const loginEmail = document.getElementById('login-email');
-        const loginPass = document.getElementById('login-password');
-        if (loginEmail) loginEmail.value = '';
-        if (loginPass) loginPass.value = '';
-
-        navBtns.login.classList.remove('hidden');
-        navBtns.logout.classList.add('hidden');
-        switchView('login'); // Redirect to login page instead of landing
-        alert("Logged out successfully.");
-    } catch (error) {
-        console.error("Logout error:", error);
-    }
-});
+// Old logout listener removed to prevent duplicates and browser alerts.
+// See updated logic at the end of the file.
 
 // --- 3. Unified Login Logic (Firestore) ---
 const loginForm = document.getElementById('unified-login-form');
@@ -1695,9 +1674,23 @@ if (navBtns.logout) {
         try {
             await signOut(auth);
             currentUser = null;
+
+            // Unsubscribe from all listeners
+            unsubscribeListeners.forEach(unsub => unsub());
+            unsubscribeListeners = [];
+
+            // Clear login form inputs
+            const loginEmail = document.getElementById('login-email');
+            const loginPass = document.getElementById('login-password');
+            if (loginEmail) loginEmail.value = '';
+            if (loginPass) loginPass.value = '';
+
             navBtns.login.classList.remove('hidden');
             navBtns.logout.classList.add('hidden');
-            switchView('landing');
+
+            // Redirect to LOGIN page
+            switchView('login');
+
             showToast("Logged out successfully.", "success");
         } catch (error) {
             console.error("Logout error:", error);
