@@ -1561,8 +1561,8 @@ if (chatSend && chatInput) {
                 const validSlots = ["10 AM - 12 PM", "12 PM - 2 PM", "2 PM - 4 PM", "4 PM - 6 PM"];
                 if (validSlots.includes(text)) {
                     bookingData.time = text;
-                    response = "Got it. Finally, please enter your phone number so we can call you.";
-                    chatState = 'phone';
+                    response = "Got it. Now, please enter your Country Code (e.g., +1, +44, +91).";
+                    chatState = 'country_code';
                     valid = true;
                 } else {
                     response = "Please select one of the available time slots.";
@@ -1584,12 +1584,34 @@ if (chatSend && chatInput) {
                         chatMessages.scrollTop = chatMessages.scrollHeight;
                     }, 700);
                 }
-            } else if (chatState === 'phone') {
-                // Validate Phone
-                const phoneRegex = /^\+?[0-9\s\-]{7,15}$/;
-                if (phoneRegex.test(text)) {
-                    bookingData.phone = text;
-                    response = "Perfect! Your call has been scheduled. We will confirm shortly.";
+            } else if (chatState === 'country_code') {
+                // Validate Country Code
+                const ccRegex = /^\+\d{1,4}$/;
+                if (ccRegex.test(text)) {
+                    bookingData.countryCode = text;
+                    response = "Thanks. Now please enter your Mobile Number.";
+                    chatState = 'mobile';
+                    valid = true;
+                } else {
+                    response = "Please enter a valid Country Code starting with + (e.g., +1).";
+                }
+            } else if (chatState === 'mobile') {
+                // Validate Mobile Number
+                const mobileRegex = /^\d{7,15}$/;
+                if (mobileRegex.test(text.replace(/[\s-]/g, ''))) {
+                    bookingData.mobile = text;
+                    response = "Great. Finally, please enter your Email Address.";
+                    chatState = 'email';
+                    valid = true;
+                } else {
+                    response = "Please enter a valid Mobile Number (digits only).";
+                }
+            } else if (chatState === 'email') {
+                // Validate Email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailRegex.test(text)) {
+                    bookingData.email = text;
+                    response = "Perfect! Your call has been scheduled. We will confirm shortly via email.";
                     chatState = 'done';
                     valid = true;
 
@@ -1607,7 +1629,7 @@ if (chatSend && chatInput) {
                         }
                     }
                 } else {
-                    response = "Please enter a valid phone number (e.g. +1234567890).";
+                    response = "Please enter a valid Email Address.";
                 }
             } else if (chatState === 'done') {
                 response = "You are all set! Is there anything else?";
