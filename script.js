@@ -2,7 +2,7 @@ import { initializeApp, deleteApp } from "https://www.gstatic.com/firebasejs/10.
 import {
     getFirestore, collection, getDocs, addDoc, query, where, onSnapshot, updateDoc, deleteDoc, doc, orderBy, limit, getDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 // --- FIREBASE CONFIGURATION ---
 // TODO: Replace with your actual Firebase project configuration
@@ -256,6 +256,55 @@ const navBtns = {
 
 let currentUser = null;
 let unsubscribeListeners = [];
+
+// --- Session Persistence ---
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        console.log("Session restored for:", user.email);
+        // 1. Fetch User Profile
+        // Try to find user by email (since we used email as key in seed, but moving to UID is better)
+        // Ideally: const docRef = doc(db, "users", user.uid);
+        // Fallback: Query by email
+        const q = query(collection(db, "users"), where("email", "==", user.email));
+        const snapshot = await getDocs(q);
+
+        if (!snapshot.empty) {
+            const userDoc = snapshot.docs[0];
+            currentUser = { id: userDoc.id, ...userDoc.data(), uid: user.uid };
+
+            // Update UI
+            navBtns.login.classList.add('hidden');
+            navBtns.logout.classList.remove('hidden');
+
+            // Initialize Dashboard
+            if (currentUser.role === 'employee') initEmployeeDashboard();
+            if (currentUser.role === 'manager') initManagerDashboard();
+            if (currentUser.role === 'client') initClientDashboard();
+            if (currentUser.role === 'owner') initOwnerDashboard();
+
+            // Redirect if on landing page
+            const activeView = document.querySelector('.view.active');
+            if (activeView && activeView.id === 'view-landing') {
+                const roleViewMap = { 'employee': 'employee', 'manager': 'manager', 'client': 'client', 'owner': 'owner' };
+                switchView(roleViewMap[currentUser.role]);
+            }
+        } else {
+            console.error("Auth valid but Firestore profile missing.");
+            await signOut(auth);
+        }
+    } else {
+        console.log("No active session.");
+        currentUser = null;
+        navBtns.login.classList.remove('hidden');
+        navBtns.logout.classList.add('hidden');
+        // Don't auto-redirect to landing here to allow browsing, 
+        // but if they were on a dashboard, they should be kicked out.
+        const activeView = document.querySelector('.view.active');
+        if (activeView && activeView.id.includes('dashboard')) {
+            switchView('landing');
+        }
+    }
+});
 
 function switchView(viewName) {
     // 1. Hide all views
