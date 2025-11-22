@@ -1520,22 +1520,35 @@ if (chatSend && chatInput) {
                 // Validate Date (YYYY-MM-DD)
                 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
                 if (dateRegex.test(text)) {
-                    bookingData.date = text;
-                    response = "Great. What time works best? (e.g., 14:00 or 2 PM)";
-                    chatState = 'time';
-                    valid = true;
+                    const inputDate = new Date(text);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0); // Reset time for accurate comparison
+
+                    if (isNaN(inputDate.getTime())) {
+                        response = "That doesn't look like a valid date. Please use YYYY-MM-DD.";
+                    } else if (inputDate < today) {
+                        response = "You cannot book a consultation in the past. Please enter a future date.";
+                    } else {
+                        bookingData.date = text;
+                        response = "Great. What time works best? (e.g., 14:00 or 2 PM)";
+                        chatState = 'time';
+                        valid = true;
+                    }
                 } else {
-                    response = "Please enter a valid date in YYYY-MM-DD format.";
+                    response = "Please enter a valid date in YYYY-MM-DD format (e.g., 2024-12-01).";
                 }
             } else if (chatState === 'time') {
-                // Simple Time Validation
-                if (text.length > 1) {
+                // Validate Time (Simple 12h/24h check)
+                // Matches: 14:00, 2:30 PM, 2pm, 14.00
+                const timeRegex = /^([0-1]?[0-9]|2[0-3])[:.]?([0-5][0-9])?\s?(AM|PM|am|pm)?$/;
+
+                if (timeRegex.test(text) || text.toLowerCase().includes('pm') || text.toLowerCase().includes('am')) {
                     bookingData.time = text;
                     response = "Got it. Finally, please enter your phone number so we can call you.";
                     chatState = 'phone';
                     valid = true;
                 } else {
-                    response = "Please enter a valid time.";
+                    response = "Please enter a valid time (e.g., 14:00, 2:30 PM).";
                 }
             } else if (chatState === 'phone') {
                 // Validate Phone
