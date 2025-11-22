@@ -467,12 +467,8 @@ function renderMyTasks(containerId, userName) {
             snapshot.forEach(doc => tasks.push({ id: doc.id, ...doc.data() }));
 
             // Filter and Sort
-            const pendingTasks = tasks.filter(t => t.status !== 'Completed');
-            const completedTasks = tasks.filter(t => t.status === 'Completed')
-                .sort((a, b) => (b.completedAt || 0) - (a.completedAt || 0));
-
-            // Show all pending + last 2 completed
-            const tasksToShow = [...pendingTasks, ...completedTasks.slice(0, 2)];
+            // Filter: Show ONLY pending tasks
+            const tasksToShow = tasks.filter(t => t.status !== 'Completed');
 
             tasksToShow.forEach(task => {
                 const li = document.createElement('li');
