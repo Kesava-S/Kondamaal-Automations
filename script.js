@@ -579,10 +579,15 @@ function initEmployeeDashboard() {
                 if (!personalList) {
                     personalList = document.createElement('ul');
                     personalList.id = 'emp-personal-notifs';
-                    const li = document.createElement('li');
-                    li.innerHTML = `🔔 ${note.message}`;
-                    personalList.appendChild(li);
-                });
+                    // personalList.className = 'notification-list'; // Optional: add class if needed
+                    notifList.parentNode.insertBefore(personalList, notifList);
+                }
+
+                // Append to the list
+                const li = document.createElement('li');
+                li.innerHTML = `🔔 ${note.message}`;
+                personalList.appendChild(li);
+            });
         }
     });
     unsubscribeListeners.push(unsubNotif);
