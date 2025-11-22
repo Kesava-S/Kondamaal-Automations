@@ -1357,28 +1357,42 @@ if (multiStepForm) {
         btn.addEventListener('click', () => {
             const currentInputs = steps[currentStep].querySelectorAll('input, textarea');
             let valid = true;
-            let firstErrorMsg = "";
 
             currentInputs.forEach(input => {
                 const name = input.name;
                 const value = input.value.trim();
                 const isRequired = input.hasAttribute('required');
+                const errorMsgEl = input.nextElementSibling; // Get the .error-message div
 
-                // Reset style
+                // Reset style and error message
+                input.classList.remove('error');
                 input.style.borderColor = '#cbd5e1';
+                if (errorMsgEl && errorMsgEl.classList.contains('error-message')) {
+                    errorMsgEl.textContent = '';
+                    errorMsgEl.classList.remove('visible');
+                }
+
+                let error = null;
 
                 // 1. Check Required
                 if (isRequired && !value) {
-                    valid = false;
-                    input.style.borderColor = '#ef4444'; // Red
-                    if (!firstErrorMsg) firstErrorMsg = "Please fill in all required fields.";
+                    error = "This field is required.";
                 }
                 // 2. Check Patterns (if value exists)
                 else if (value && patterns[name]) {
                     if (!patterns[name].regex.test(value)) {
-                        valid = false;
-                        input.style.borderColor = '#ef4444';
-                        if (!firstErrorMsg) firstErrorMsg = patterns[name].msg;
+                        error = patterns[name].msg;
+                    }
+                }
+
+                // Display Error
+                if (error) {
+                    valid = false;
+                    input.classList.add('error');
+                    input.style.borderColor = '#ef4444';
+                    if (errorMsgEl && errorMsgEl.classList.contains('error-message')) {
+                        errorMsgEl.textContent = error;
+                        errorMsgEl.classList.add('visible');
                     }
                 }
             });
@@ -1388,8 +1402,6 @@ if (multiStepForm) {
                     currentStep++;
                     updateStep();
                 }
-            } else {
-                alert(firstErrorMsg || "Please correct the highlighted fields.");
             }
         });
     });

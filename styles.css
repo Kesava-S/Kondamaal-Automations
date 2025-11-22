@@ -760,3 +760,22 @@ footer {
 .step-buttons button {
     flex: 1;
 }
+
+/* Inline Error Messages */
+.error-message {
+    color: var(--alert);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: none;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.error-message.visible {
+    display: block;
+}
+
+input.error,
+textarea.error {
+    border-color: var(--alert);
+    background-color: #fef2f2;
+}
