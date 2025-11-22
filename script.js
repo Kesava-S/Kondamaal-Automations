@@ -758,15 +758,18 @@ function initOwnerDashboard() {
             userList.innerHTML = '';
             snapshot.forEach(doc => {
                 const user = doc.data();
-                // Don't allow deleting self or critical admin if needed (logic can be enhanced)
+                // Don't allow deleting self
                 const isSelf = currentUser && user.email === currentUser.email;
 
                 const div = document.createElement('div');
                 div.className = 'control-item';
                 div.innerHTML = `
-                        <span>${user.name || user.email} (${user.role})</span>
-                        ${!isSelf ? `<button class="text-btn delete" data-id="${doc.id}">Remove</button>` : ''}
-                    `;
+                    <div style="display:flex; flex-direction:column;">
+                        <span style="font-weight:600;">${user.name || user.email}</span>
+                        <span style="font-size:0.85em; color:#666;">${user.role.toUpperCase()} ${user.position ? '• ' + user.position : ''}</span>
+                    </div>
+                    ${!isSelf ? `<button class="text-btn delete" data-id="${doc.id}">Remove</button>` : ''}
+                `;
                 userList.appendChild(div);
             });
 
