@@ -815,9 +815,7 @@ function initManagerDashboard() {
         });
     }
 }
-    }
 
-// Manager Assign Task
 // --- 6. Owner Dashboard Logic ---
 function initOwnerDashboard() {
     // Notifications (Admin/Owner)
@@ -837,6 +835,7 @@ function initOwnerDashboard() {
     unsubscribeListeners.push(unsubNotif);
 
     // Inquiries (Updated for Table)
+    const inquiryList = document.getElementById('owner-inquiry-table');
     const qInquiries = query(collection(db, "inquiries"), orderBy("createdAt", "desc"), limit(20));
     const unsubInquiries = onSnapshot(qInquiries, (snapshot) => {
         if (inquiryList) {
