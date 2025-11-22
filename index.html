@@ -417,6 +417,24 @@
                     </table>
                 </div>
 
+                <!-- Employee Task Monitoring (Manager) -->
+                <div class="card full-width">
+                    <h3>Employee Task Monitoring</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Assigned To</th>
+                                <th>Status</th>
+                                <th>Deadline</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mgr-task-monitoring-table">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
                 <!-- Inquiry List (Manager) -->
                 <div class="card full-width">
                     <h3>Recent Inquiries</h3>
@@ -612,6 +630,26 @@
                 </form>
             </div>
 
+            <!-- Global Task Monitoring (Admin) -->
+            <div class="card full-width">
+                <h3>Global Task Monitoring</h3>
+                <p class="text-small">Monitor tasks across all departments.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Assigned To</th>
+                            <th>Assigned By</th>
+                            <th>Status</th>
+                            <th>Deadline</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-task-monitoring-table">
+                        <!-- Populated via JS -->
+                    </tbody>
+                </table>
+            </div>
+
             <!-- Global Announcement (New) -->
             <div class="card full-width">
                 <h3>📢 Global Announcement</h3>
@@ -672,6 +710,9 @@
             </div>
         </section>
     </main>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
 
     <footer>
         <p>&copy; 2025 BrandiFy Digital. Automating your success.</p>

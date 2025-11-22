@@ -482,58 +482,71 @@ function initEmployeeDashboard() {
 
         if (taskList) taskList.innerHTML = '';
         if (reportSelect) {
-            // Keep default option
             reportSelect.innerHTML = '<option value="">Select Task...</option>';
         }
 
         if (snapshot.empty) {
             if (taskList) taskList.innerHTML = '<li>No tasks assigned yet.</li>';
         } else {
-            snapshot.forEach(doc => {
-                const task = doc.data();
-                const taskId = doc.id;
+            const tasks = [];
+            snapshot.forEach(doc => tasks.push({ id: doc.id, ...doc.data() }));
 
+            // Filter and Sort
+            const pendingTasks = tasks.filter(t => t.status !== 'Completed');
+            const completedTasks = tasks.filter(t => t.status === 'Completed')
+                .sort((a, b) => (b.completedAt || 0) - (a.completedAt || 0));
+
+            // Show all pending + last 2 completed
+            const tasksToShow = [...pendingTasks, ...completedTasks.slice(0, 2)];
+
+            tasksToShow.forEach(task => {
                 const li = document.createElement('li');
                 li.className = 'task-item';
+                const isCompleted = task.status === 'Completed';
 
-                // Check source
                 const sourceBadge = task.source === 'Executive'
                     ? '<span class="tag high" style="background:#7c3aed; color:white;">From Executive</span>'
                     : '<span class="tag" style="background:#e5e7eb; color:#374151;">From Manager</span>';
 
                 li.innerHTML = `
-                    <div style="flex:1;">
-                        <div style="display:flex; align-items:center; gap:10px; margin-bottom:5px;">
-                            <strong>${task.title}</strong>
-                            ${sourceBadge}
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <input type="checkbox" class="task-checkbox" data-id="${task.id}" ${isCompleted ? 'checked' : ''}>
+                        <div style="flex:1;">
+                            <div style="display:flex; align-items:center; gap:10px; margin-bottom:5px;">
+                                <strong style="${isCompleted ? 'text-decoration:line-through; color:#9ca3af;' : ''}">${task.title}</strong>
+                                ${sourceBadge}
+                            </div>
+                            <p class="text-small">${task.description || 'No description'}</p>
+                            <p class="text-small"><strong>Deadline:</strong> ${task.deadline || 'N/A'} | <strong>Project:</strong> ${task.projectId || 'N/A'}</p>
                         </div>
-                        <p class="text-small">${task.description || 'No description'}</p>
-                        <p class="text-small"><strong>Deadline:</strong> ${task.deadline || 'N/A'} | <strong>Project:</strong> ${task.projectId || 'N/A'}</p>
                     </div>
                     <div style="display:flex; flex-direction:column; gap:5px; align-items:flex-end;">
-                        <span class="status-badge ${task.status === 'Completed' ? 'status-completed' : 'status-pending'}">${task.status}</span>
-                        ${task.status !== 'Completed' ? `<button class="btn-small complete-btn" data-id="${taskId}">Mark Complete</button>` : ''}
+                        <span class="status-badge ${isCompleted ? 'status-completed' : 'status-pending'}">${task.status}</span>
                     </div>
                 `;
                 taskList.appendChild(li);
 
-                // Populate Report Dropdown
-                if (reportSelect && task.status !== 'Completed') {
+                // Populate Report Dropdown (only pending)
+                if (reportSelect && !isCompleted) {
                     const option = document.createElement('option');
-                    option.value = taskId;
+                    option.value = task.id;
                     option.textContent = task.title;
                     reportSelect.appendChild(option);
                 }
             });
 
-            // Attach "Mark Complete" listeners
+            // Attach Checkbox Listeners
             if (taskList) {
-                taskList.querySelectorAll('.btn-complete').forEach(btn => {
-                    btn.addEventListener('click', async (e) => {
+                taskList.querySelectorAll('.task-checkbox').forEach(cb => {
+                    cb.addEventListener('change', async (e) => {
                         const tid = e.target.getAttribute('data-id');
-                        if (confirm('Mark this task as completed?')) {
-                            await updateDoc(doc(db, "tasks", tid), { status: "Completed" });
-                        }
+                        const currentStatus = e.target.checked ? 'Pending' : 'Completed'; // Logic inverted because click happens before change? No, checked means it IS now checked.
+                        // If checked, we want to mark as Completed.
+                        // If unchecked, we want to mark as Pending.
+                        const newStatus = e.target.checked ? 'Completed' : 'Pending';
+
+                        // Optimistic UI update handled by re-render from snapshot, but we can toggle status
+                        await toggleTaskStatus(tid, newStatus === 'Completed' ? 'Pending' : 'Completed');
                     });
                 });
             }
@@ -1065,13 +1078,18 @@ function initOwnerDashboard() {
     // Listen for Users
     const qUsers = query(collection(db, "users"));
     const unsubUsers = onSnapshot(qUsers, (snapshot) => {
-        if (userTableBody) {
-            userTableBody.innerHTML = ''; // Clear table
-            snapshot.forEach(doc => {
-                const user = doc.data();
-                // Don't allow deleting self
-                const isSelf = currentUser && user.email === currentUser.email;
+        const employeeTable = document.getElementById('admin-employee-table');
+        const assignSelect = document.getElementById('owner-task-target');
 
+        if (employeeTable) employeeTable.innerHTML = '';
+        if (assignSelect) assignSelect.innerHTML = '<option value="">Select Manager or Employee</option>';
+
+        snapshot.forEach(doc => {
+            const user = doc.data();
+            const uid = doc.id;
+
+            // Populate Employee Table
+            if (employeeTable) {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${user.name || 'N/A'}</td>
@@ -1080,23 +1098,34 @@ function initOwnerDashboard() {
                     <td>${user.email}</td>
                     <td>********</td> <!-- Password hidden for security -->
                     <td>
-                        ${!isSelf ? `<button class="btn-small delete-btn" style="background:#ef4444;" data-id="${doc.id}">Remove</button>` : '<span class="text-small">Current User</span>'}
+                        ${user.email !== currentUser.email ? `<button class="btn-small delete-btn" data-id="${uid}" style="background:#ef4444; color:white;">Remove</button>` : ''}
                     </td>
                 `;
-                userTableBody.appendChild(tr);
-            });
+                employeeTable.appendChild(tr);
+            }
 
-            // Attach event listeners to delete buttons
-            userTableBody.querySelectorAll('.delete-btn').forEach(btn => {
+            // Populate Task Assignment Dropdown
+            if (assignSelect && (user.role === 'manager' || user.role === 'employee')) {
+                const option = document.createElement('option');
+                option.value = user.name; // Using name for assignment as per current schema
+                option.textContent = `${user.name} (${user.role})`;
+                assignSelect.appendChild(option);
+            }
+        });
+
+        // Attach Delete Listeners
+        if (employeeTable) {
+            employeeTable.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
                     const uid = e.target.getAttribute('data-id');
                     const userItem = snapshot.docs.find(d => d.id === uid).data();
                     const userName = userItem.name || userItem.email;
                     const userRole = userItem.role;
 
-                    if (confirm(`Are you sure you want to remove ${userName}? This cannot be undone.`)) {
+                    if (confirm('Are you sure you want to remove this user? This cannot be undone.')) {
                         try {
                             await deleteDoc(doc(db, "users", uid));
+                            // Note: This only deletes from Firestore, not Auth.
 
                             // Notify Managers if an employee is removed
                             if (userRole === 'employee') {
@@ -1640,12 +1669,60 @@ if (chatSend && chatInput) {
     });
 }
 
-function addMessage(text, sender) {
-    const div = document.createElement('div');
-    div.className = sender === 'ai' ? 'ai-msg' : 'user-msg';
-    div.textContent = text;
-    chatMessages.appendChild(div);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+// --- 11. Toast Notification Logic ---
+function showToast(message, type = 'info') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+
+    container.appendChild(toast);
+
+    // Auto remove
+    setTimeout(() => {
+        toast.style.animation = 'fadeOut 0.3s ease-out forwards';
+        toast.addEventListener('animationend', () => {
+            toast.remove();
+        });
+    }, 3000);
+}
+
+// --- 12. Logout Logic Update ---
+if (navBtns.logout) {
+    navBtns.logout.addEventListener('click', async () => {
+        try {
+            await signOut(auth);
+            currentUser = null;
+            navBtns.login.classList.remove('hidden');
+            navBtns.logout.classList.add('hidden');
+            switchView('landing');
+            showToast("Logged out successfully.", "success");
+        } catch (error) {
+            console.error("Logout error:", error);
+            showToast("Error logging out.", "error");
+        }
+    });
+}
+
+// --- 13. Task Management Helpers ---
+async function toggleTaskStatus(taskId, currentStatus) {
+    const newStatus = currentStatus === 'Completed' ? 'Pending' : 'Completed';
+    const updateData = { status: newStatus };
+    if (newStatus === 'Completed') {
+        updateData.completedAt = Date.now();
+    } else {
+        updateData.completedAt = null;
+    }
+
+    try {
+        await updateDoc(doc(db, "tasks", taskId), updateData);
+        showToast(`Task marked as ${newStatus}`, "success");
+    } catch (e) {
+        console.error("Error updating task:", e);
+        showToast("Failed to update task.", "error");
+    }
 }
 
 if (chatSend) {
