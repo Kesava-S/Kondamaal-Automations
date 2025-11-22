@@ -1441,6 +1441,16 @@ if (multiStepForm) {
         });
     });
 
+    // Prevent Accidental Reload
+    window.addEventListener('beforeunload', (e) => {
+        // Check if user has started the form (step > 0 or any input filled)
+        // Simple check: if currentStep > 0
+        if (currentStep > 0) {
+            e.preventDefault();
+            e.returnValue = ''; // Chrome requires returnValue to be set
+        }
+    });
+
     // Form Submission
     multiStepForm.addEventListener('submit', async (e) => {
         e.preventDefault();
