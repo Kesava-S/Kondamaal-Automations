@@ -1490,6 +1490,87 @@ if (multiStepForm) {
     });
 }
 
+// --- 10. AI Chatbot Booking Logic ---
+let chatState = 'date'; // date -> time -> phone -> done
+let bookingData = {};
+
+if (chatSend && chatInput) {
+    const addMessage = (text, sender) => {
+        const div = document.createElement('div');
+        div.className = sender === 'ai' ? 'ai-msg' : 'user-msg';
+        div.textContent = text;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+
+    chatSend.addEventListener('click', async () => {
+        const text = chatInput.value.trim();
+        if (!text) return;
+
+        // User Message
+        addMessage(text, 'user');
+        chatInput.value = '';
+
+        // AI Logic with Delay
+        setTimeout(async () => {
+            let response = "";
+            let valid = false;
+
+            if (chatState === 'date') {
+                // Validate Date (YYYY-MM-DD)
+                const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+                if (dateRegex.test(text)) {
+                    bookingData.date = text;
+                    response = "Great. What time works best? (e.g., 14:00 or 2 PM)";
+                    chatState = 'time';
+                    valid = true;
+                } else {
+                    response = "Please enter a valid date in YYYY-MM-DD format.";
+                }
+            } else if (chatState === 'time') {
+                // Simple Time Validation
+                if (text.length > 1) {
+                    bookingData.time = text;
+                    response = "Got it. Finally, please enter your phone number so we can call you.";
+                    chatState = 'phone';
+                    valid = true;
+                } else {
+                    response = "Please enter a valid time.";
+                }
+            } else if (chatState === 'phone') {
+                // Validate Phone
+                const phoneRegex = /^\+?[0-9\s\-]{7,15}$/;
+                if (phoneRegex.test(text)) {
+                    bookingData.phone = text;
+                    response = "Perfect! Your call has been scheduled. We will confirm shortly.";
+                    chatState = 'done';
+                    valid = true;
+
+                    // Save Booking to Firestore
+                    if (db) {
+                        try {
+                            await addDoc(collection(db, "bookings"), {
+                                ...bookingData,
+                                createdAt: Date.now(),
+                                status: 'Pending'
+                            });
+                        } catch (e) {
+                            console.error("Error saving booking:", e);
+                            response += " (System note: Error saving booking)";
+                        }
+                    }
+                } else {
+                    response = "Please enter a valid phone number (e.g. +1234567890).";
+                }
+            } else if (chatState === 'done') {
+                response = "You are all set! Is there anything else?";
+            }
+
+            addMessage(response, 'ai');
+        }, 600);
+    });
+}
+
 function addMessage(text, sender) {
     const div = document.createElement('div');
     div.className = sender === 'ai' ? 'ai-msg' : 'user-msg';
