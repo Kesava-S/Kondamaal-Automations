@@ -1319,30 +1319,94 @@ function initClientDashboard() {
 }
 
 // --- 9. AI Chatbot Logic & Inquiry Form ---
+// --- 9. AI Chatbot Logic & Multi-Step Form ---
 const chatInput = document.getElementById('ai-chat-input');
 const chatSend = document.getElementById('ai-chat-send');
 const chatMessages = document.getElementById('ai-chat-messages');
-const inquiryForm = document.getElementById('inquiry-form');
 
-// Handle Inquiry Form Submission
-if (inquiryForm) {
-    inquiryForm.addEventListener('submit', async (e) => {
+// Multi-Step Form Logic
+const multiStepForm = document.getElementById('multi-step-form');
+if (multiStepForm) {
+    const steps = multiStepForm.querySelectorAll('.quiz-step');
+    const progressFill = document.getElementById('quiz-progress');
+    let currentStep = 0;
+
+    const updateStep = () => {
+        steps.forEach((step, index) => {
+            step.classList.toggle('active', index === currentStep);
+        });
+        // Update Progress Bar (Steps are 1-6)
+        const progress = ((currentStep + 1) / steps.length) * 100;
+        if (progressFill) progressFill.style.width = `${progress}%`;
+    };
+
+    // Next Buttons
+    multiStepForm.querySelectorAll('.btn-next').forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Validate current step inputs (simple check)
+            const currentInputs = steps[currentStep].querySelectorAll('input[required], textarea[required]');
+            let valid = true;
+            currentInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    valid = false;
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = '#cbd5e1';
+                }
+            });
+
+            if (valid) {
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    updateStep();
+                }
+            } else {
+                alert("Please fill in all required fields.");
+            }
+        });
+    });
+
+    // Prev Buttons
+    multiStepForm.querySelectorAll('.btn-prev').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                updateStep();
+            }
+        });
+    });
+
+    // Form Submission
+    multiStepForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const name = inquiryForm.querySelector('input[type="text"]').value;
-        const email = inquiryForm.querySelector('input[type="email"]').value;
-        const message = inquiryForm.querySelector('textarea').value;
 
-        if (name && email && db) {
+        // Collect all data
+        const formData = new FormData(multiStepForm);
+        const data = {};
+        formData.forEach((value, key) => {
+            // Handle checkboxes (arrays)
+            if (data[key]) {
+                if (!Array.isArray(data[key])) {
+                    data[key] = [data[key]];
+                }
+                data[key].push(value);
+            } else {
+                data[key] = value;
+            }
+        });
+
+        if (db) {
             try {
                 await addDoc(collection(db, "inquiries"), {
-                    name: name,
-                    email: email,
-                    message: message,
+                    ...data,
                     createdAt: Date.now(),
-                    dateString: new Date().toLocaleDateString()
+                    dateString: new Date().toLocaleDateString(),
+                    status: 'New'
                 });
-                alert("Thank you! Your inquiry has been sent. We will contact you shortly.");
-                inquiryForm.reset();
+                alert("Thank you! Your comprehensive inquiry has been received. We will analyze your needs and contact you shortly.");
+                multiStepForm.reset();
+                currentStep = 0;
+                updateStep();
             } catch (error) {
                 console.error("Error sending inquiry:", error);
                 alert("There was an error sending your message. Please try again.");

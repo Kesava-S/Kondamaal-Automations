@@ -34,34 +34,147 @@
             <section class="inquiry-section">
                 <div class="card">
                     <h2>Get Started</h2>
-                    <form id="inquiry-form">
-                        <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="Tell us about your automation needs" rows="3" required></textarea>
+                    <div class="quiz-container" id="quiz-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="quiz-progress" style="width: 16%;"></div>
                         </div>
 
-                        <!-- AI Chatbot Call Booking Trigger -->
-                        <div class="form-group ai-booking-section">
-                            <label>Schedule a Call (AI Assistant)</label>
-                            <div id="ai-chat-widget" class="ai-chat-widget">
-                                <div id="ai-chat-messages" class="ai-chat-messages">
-                                    <div class="ai-msg">Hi! I can help you book a call. What time works best for you?
-                                    </div>
+                        <form id="multi-step-form">
+                            <!-- Step 1: Business Basics -->
+                            <div class="quiz-step active" data-step="1">
+                                <h3>1. Business Basics</h3>
+                                <div class="form-group">
+                                    <input type="text" name="businessName" placeholder="Business Name" required>
                                 </div>
-                                <div class="ai-chat-input-area">
-                                    <input type="text" id="ai-chat-input" placeholder="e.g., Tomorrow at 2 PM">
-                                    <button type="button" id="ai-chat-send">Send</button>
+                                <div class="form-group">
+                                    <input type="text" name="industry" placeholder="Industry / Nature of Business"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="size" placeholder="Size (Employees, Branches)">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="location" placeholder="Location(s)">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="website" placeholder="Website / Social Links">
+                                </div>
+                                <div class="step-buttons">
+                                    <button type="button" class="btn-primary btn-next">Next</button>
                                 </div>
                             </div>
-                        </div>
 
-                        <button type="submit" class="btn-primary">Send Inquiry</button>
-                    </form>
+                            <!-- Step 2: Current Process Overview -->
+                            <div class="quiz-step" data-step="2">
+                                <h3>2. Current Process Overview</h3>
+                                <div class="form-group">
+                                    <textarea name="manualTasks" placeholder="What daily tasks do you do manually?"
+                                        rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="departments"
+                                        placeholder="Departments Involved (Sales, HR, etc.)">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="tools"
+                                        placeholder="Existing Tools (CRM, Excel, WhatsApp, etc.)">
+                                </div>
+                                <div class="step-buttons">
+                                    <button type="button" class="btn-secondary btn-prev">Back</button>
+                                    <button type="button" class="btn-primary btn-next">Next</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Pain Points -->
+                            <div class="quiz-step" data-step="3">
+                                <h3>3. Pain Points</h3>
+                                <div class="form-group">
+                                    <textarea name="painPoints"
+                                        placeholder="Time-consuming tasks, errors, communication gaps..."
+                                        rows="4"></textarea>
+                                </div>
+                                <div class="step-buttons">
+                                    <button type="button" class="btn-secondary btn-prev">Back</button>
+                                    <button type="button" class="btn-primary btn-next">Next</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 4: Automation Needs -->
+                            <div class="quiz-step" data-step="4">
+                                <h3>4. Automation Needs</h3>
+                                <div class="form-group">
+                                    <label style="display:block; margin-bottom:0.5rem; font-weight:600;">Areas for
+                                        Automation:</label>
+                                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.5rem;">
+                                        <label><input type="checkbox" name="autoNeeds" value="Lead Management"> Lead
+                                            Management</label>
+                                        <label><input type="checkbox" name="autoNeeds" value="Employee Management">
+                                            Employee Management</label>
+                                        <label><input type="checkbox" name="autoNeeds" value="Project Workflows">
+                                            Project Workflows</label>
+                                        <label><input type="checkbox" name="autoNeeds" value="Client Communication">
+                                            Client Communication</label>
+                                        <label><input type="checkbox" name="autoNeeds" value="Billing & Invoices">
+                                            Billing & Invoices</label>
+                                        <label><input type="checkbox" name="autoNeeds" value="Reporting">
+                                            Reporting</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <select name="urgency">
+                                        <option value="">Level of Urgency</option>
+                                        <option value="High">High</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </div>
+                                <div class="step-buttons">
+                                    <button type="button" class="btn-secondary btn-prev">Back</button>
+                                    <button type="button" class="btn-primary btn-next">Next</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 5: Expectations -->
+                            <div class="quiz-step" data-step="5">
+                                <h3>5. Expectations</h3>
+                                <div class="form-group">
+                                    <textarea name="outcome" placeholder="What outcome do you expect?"
+                                        rows="2"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="budget" placeholder="Budget Range">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="timeline" placeholder="Timeline">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="contactPerson" placeholder="Primary Contact Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="contactEmail" placeholder="Primary Contact Email"
+                                        required>
+                                </div>
+                                <div class="step-buttons">
+                                    <button type="button" class="btn-secondary btn-prev">Back</button>
+                                    <button type="button" class="btn-primary btn-next">Next</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 6: Files / References -->
+                            <div class="quiz-step" data-step="6">
+                                <h3>6. Files / References</h3>
+                                <div class="form-group">
+                                    <p class="text-small">Upload sample workflows, spreadsheets, or screenshots
+                                        (Optional).</p>
+                                    <input type="file" multiple>
+                                </div>
+                                <div class="step-buttons">
+                                    <button type="button" class="btn-secondary btn-prev">Back</button>
+                                    <button type="submit" class="btn-primary">Submit Inquiry</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </section>
 
