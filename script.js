@@ -32,7 +32,7 @@ try {
 const INITIAL_DATA = {
     users: [
         {
-            email: 'admin@brandify.com',
+            email: 'admin@kondamaal.com',
             role: 'owner',
             name: 'Admin User',
             position: 'CEO',
@@ -42,7 +42,7 @@ const INITIAL_DATA = {
             createdAt: Date.now()
         },
         {
-            email: 'manager@brandify.com',
+            email: 'manager@kondamaal.com',
             role: 'manager',
             name: 'Sarah Manager',
             position: 'Project Manager',
@@ -52,7 +52,7 @@ const INITIAL_DATA = {
             createdAt: Date.now()
         },
         {
-            email: 'emp@brandify.com',
+            email: 'emp@kondamaal.com',
             role: 'employee',
             name: 'John Employee',
             position: 'Developer',
@@ -62,7 +62,7 @@ const INITIAL_DATA = {
             createdAt: Date.now()
         },
         {
-            email: 'client@brandify.com',
+            email: 'client@kondamaal.com',
             role: 'client',
             name: 'Alpha Corp',
             position: 'Client POC',
@@ -75,8 +75,8 @@ const INITIAL_DATA = {
     projects: [
         {
             name: "Alpha Automation",
-            clientId: "client@brandify.com", // In real app, use UID
-            managerId: "manager@brandify.com",
+            clientId: "client@kondamaal.com", // In real app, use UID
+            managerId: "manager@kondamaal.com",
             status: "Active",
             startDate: "2025-01-01",
             endDate: "2025-06-30",
@@ -107,20 +107,20 @@ const INITIAL_DATA = {
         }
     ],
     attendance: [
-        { employeeId: "emp@brandify.com", name: "John Employee", date: "2025-11-21", status: "Clocked In", remarks: "On time" },
-        { employeeId: "manager@brandify.com", name: "Sarah Manager", date: "2025-11-21", status: "Clocked In", remarks: "Remote" }
+        { employeeId: "emp@kondamaal.com", name: "John Employee", date: "2025-11-21", status: "Clocked In", remarks: "On time" },
+        { employeeId: "manager@kondamaal.com", name: "Sarah Manager", date: "2025-11-21", status: "Clocked In", remarks: "Remote" }
     ],
     employee_requests: [
-        { requestType: "Leave", employeeId: "emp@brandify.com", managerId: "manager@brandify.com", status: "Pending", details: "Sick leave for Friday", createdAt: Date.now() }
+        { requestType: "Leave", employeeId: "emp@kondamaal.com", managerId: "manager@kondamaal.com", status: "Pending", details: "Sick leave for Friday", createdAt: Date.now() }
     ],
     payslips: [
-        { employeeId: "emp@brandify.com", month: "October 2025", salary: 5416, bonuses: 200, deductions: 100, netPay: 5516, createdAt: Date.now(), downloadUrl: "#" }
+        { employeeId: "emp@kondamaal.com", month: "October 2025", salary: 5416, bonuses: 200, deductions: 100, netPay: 5516, createdAt: Date.now(), downloadUrl: "#" }
     ],
     invoices: [
-        { clientId: "client@brandify.com", projectId: "Alpha Automation", amount: 5000, status: "Unpaid", details: "Initial Setup Fee", createdAt: Date.now(), dueDate: "2025-12-01" }
+        { clientId: "client@kondamaal.com", projectId: "Alpha Automation", amount: 5000, status: "Unpaid", details: "Initial Setup Fee", createdAt: Date.now(), dueDate: "2025-12-01" }
     ],
     messages: [
-        { senderId: "manager@brandify.com", receiverId: "client@brandify.com", message: "Project kickoff was successful.", type: "text", timestamp: Date.now() }
+        { senderId: "manager@kondamaal.com", receiverId: "client@kondamaal.com", message: "Project kickoff was successful.", type: "text", timestamp: Date.now() }
     ]
 };
 

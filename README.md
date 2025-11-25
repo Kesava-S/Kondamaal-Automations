@@ -1,6 +1,6 @@
-# BrandiFy Digital Website
+# Kondamaal Website
 
-This is a prototype website for BrandiFy Digital, a Marketing Automation company.
+This is a prototype website for Kondamaal, a Marketing Automation company.
 
 ## Features
 
@@ -12,10 +12,10 @@ This is a prototype website for BrandiFy Digital, a Marketing Automation company
 ### 2. Unified Login System
 - **Single Login Page**: Automatically detects user role based on email.
 - **Demo Credentials**:
-  - **Owner**: `admin@brandify.com`
-  - **Manager**: `manager@brandify.com`
-  - **Employee**: `emp@brandify.com`
-  - **Client**: `client@brandify.com`
+  - **Owner**: `admin@kondamaal.com`
+  - **Manager**: `manager@kondamaal.com`
+  - **Employee**: `emp@kondamaal.com`
+  - **Client**: `client@kondamaal.com`
 
 ### 3. Role-Based Dashboards
 
