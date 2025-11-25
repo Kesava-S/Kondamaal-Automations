@@ -419,6 +419,12 @@ select:focus {
     gap: 1.5rem;
 }
 
+.dashboard-vertical-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
 /* Data Tables */
 .data-table {
     width: 100%;
