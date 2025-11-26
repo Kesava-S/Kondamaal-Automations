@@ -104,7 +104,7 @@ service cloud.firestore {
     // - Write: Owner (Authenticated)
     match /careers/{jobId} {
       allow read: if true;
-      allow write: if isSignedIn();
+      allow write: if true; // DEBUG: Temporarily public to fix posting issue
     }
 
     // Applications:

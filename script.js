@@ -1911,6 +1911,16 @@ const ownerJobForm = document.getElementById('owner-add-job-form');
 if (ownerJobForm) {
     ownerJobForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        if (!db) {
+            showToast("Database connection missing!", "error");
+            return;
+        }
+
+        const submitBtn = ownerJobForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = "Posting...";
+        submitBtn.disabled = true;
+
         try {
             await addDoc(collection(db, "careers"), {
                 title: document.getElementById('job-title').value,
@@ -1920,11 +1930,14 @@ if (ownerJobForm) {
                 perks: document.getElementById('job-perks').value,
                 createdAt: Date.now()
             });
-            showToast("New role posted!", "success");
+            showToast("New role posted successfully!", "success");
             ownerJobForm.reset();
         } catch (e) {
             console.error("Error posting job:", e);
-            showToast("Error posting job.", "error");
+            showToast("Error posting job: " + e.message, "error");
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
         }
     });
 }
