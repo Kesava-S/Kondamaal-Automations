@@ -319,9 +319,14 @@ onAuthStateChanged(auth, async (user) => {
         navBtns.logout.classList.add('hidden');
         navBtns.careers.classList.remove('hidden'); // Show Careers for guests
 
-        // 2. Redirect if on a dashboard
-        const activeView = document.querySelector('.view.active');
-        if (activeView && activeView.id.includes('dashboard')) {
+        // 2. Restore View or Redirect
+        const lastView = localStorage.getItem('lastView');
+        const allowedGuestViews = ['landing', 'login', 'careers'];
+
+        if (lastView && allowedGuestViews.includes(lastView)) {
+            switchView(lastView);
+        } else {
+            // Default to landing if no history or if history was a protected route
             switchView('landing');
         }
     }
@@ -344,6 +349,9 @@ function switchView(viewName) {
         void target.offsetWidth;
         target.classList.add('active');
         console.log(`Switched to view: ${viewName}`);
+
+        // Save state
+        localStorage.setItem('lastView', viewName);
 
         // Scroll to top
         window.scrollTo(0, 0);
