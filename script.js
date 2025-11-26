@@ -514,20 +514,23 @@ if (loginForm) {
             let msg = "An unexpected error occurred. Please try again.";
 
             switch (error.code) {
-                case 'auth/invalid-credential':
-                case 'auth/user-not-found':
-                case 'auth/wrong-password':
-                    msg = "Your Email or password is incorrect.";
-                    break;
                 case 'auth/invalid-email':
-                    msg = "The email address is invalid.";
+                    msg = "Invalid email address.";
                     break;
-                case 'auth/too-many-requests':
-                    msg = "Access to this account has been temporarily disabled due to many failed login attempts. Please try again later.";
+                case 'auth/user-disabled':
+                    msg = "User account is disabled.";
                     break;
-                case 'auth/network-request-failed':
-                    msg = "Network error. Please check your internet connection.";
+                case 'auth/user-not-found':
+                    msg = "No account found with this email.";
                     break;
+                case 'auth/wrong-password':
+                    msg = "Incorrect password.";
+                    break;
+                case 'auth/invalid-credential':
+                    msg = "Invalid credentials. Please check your email and password.";
+                    break;
+                default:
+                    msg = "Error: " + error.message; // Show actual error
             }
             showToast(msg, "error");
         }
