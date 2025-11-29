@@ -166,43 +166,48 @@ async function seedDatabase() {
 
 const servicesData = [
     {
-        title: "Instant Lead Capture & Routing",
-        details: [
-            "Capture leads automatically from your website, Facebook, Instagram, or Google Ads.",
-            "Assign leads to the right salesperson based on location, interest, or product/service.",
-            "Receive real-time notifications via WhatsApp or email.",
-            "<strong>Plan Level:</strong> Starter",
-            "<strong>Why it matters:</strong> No leads are ever lost, and your team can respond instantly."
-        ]
-    },
-    {
-        title: "Smart CRM Updates & Segmentation",
-        details: [
-            "Automatically add new leads to your CRM or Google Sheets.",
-            "Tag leads by source, campaign, or service for targeted marketing.",
-            "Create automated reminders for follow-ups.",
-            "<strong>Plan Level:</strong> Starter / Advanced",
-            "<strong>Why it matters:</strong> Keeps all lead data organized and actionable, saving hours of manual work."
-        ]
-    },
-    {
-        title: "Automated Lead Follow-Ups",
-        details: [
-            "Send personalized WhatsApp or email sequences to new leads.",
-            "Set multi-step follow-ups to increase response rates.",
-            "Integrates with lead capture workflow for seamless automation.",
-            "<strong>Plan Level:</strong> Advanced",
-            "<strong>Why it matters:</strong> Faster conversions without extra work from staff."
-        ]
-    },
-    {
-        title: "Ads Monitoring & Performance Reporting",
-        details: [
-            "Monitor Facebook & Google Ads campaigns automatically.",
-            "Generate daily or weekly reports for ad spend, leads, CPL, ROAS, and conversions.",
-            "Receive alerts when campaigns need attention or optimization.",
-            "<strong>Plan Level:</strong> Advanced / Premium",
-            "<strong>Why it matters:</strong> Maximize ROI and remove the need for manual tracking."
+        title: "Marketing Automation",
+        subServices: [
+            {
+                title: "Instant Lead Capture & Routing",
+                details: [
+                    "Capture leads automatically from your website, Facebook, Instagram, or Google Ads.",
+                    "Assign leads to the right salesperson based on location, interest, or product/service.",
+                    "Receive real-time notifications via WhatsApp or email.",
+                    "<strong>Plan Level:</strong> Starter",
+                    "<strong>Why it matters:</strong> No leads are ever lost, and your team can respond instantly."
+                ]
+            },
+            {
+                title: "Smart CRM Updates & Segmentation",
+                details: [
+                    "Automatically add new leads to your CRM or Google Sheets.",
+                    "Tag leads by source, campaign, or service for targeted marketing.",
+                    "Create automated reminders for follow-ups.",
+                    "<strong>Plan Level:</strong> Starter / Advanced",
+                    "<strong>Why it matters:</strong> Keeps all lead data organized and actionable, saving hours of manual work."
+                ]
+            },
+            {
+                title: "Automated Lead Follow-Ups",
+                details: [
+                    "Send personalized WhatsApp or email sequences to new leads.",
+                    "Set multi-step follow-ups to increase response rates.",
+                    "Integrates with lead capture workflow for seamless automation.",
+                    "<strong>Plan Level:</strong> Advanced",
+                    "<strong>Why it matters:</strong> Faster conversions without extra work from staff."
+                ]
+            },
+            {
+                title: "Ads Monitoring & Performance Reporting",
+                details: [
+                    "Monitor Facebook & Google Ads campaigns automatically.",
+                    "Generate daily or weekly reports for ad spend, leads, CPL, ROAS, and conversions.",
+                    "Receive alerts when campaigns need attention or optimization.",
+                    "<strong>Plan Level:</strong> Advanced / Premium",
+                    "<strong>Why it matters:</strong> Maximize ROI and remove the need for manual tracking."
+                ]
+            }
         ]
     }
 ];
@@ -213,12 +218,46 @@ const servicesData = [
 // Database seeding moved to end to prevent blocking UI
 
 // --- 1. Render Services ---
+// --- 1. Render Services ---
 const accordionContainer = document.getElementById('services-accordion');
 if (accordionContainer) {
-    servicesData.forEach((service) => {
-        const item = document.createElement('div');
-        item.className = 'accordion-item';
-        item.innerHTML = `
+    accordionContainer.innerHTML = ''; // Clear default content
+
+    servicesData.forEach((category) => {
+        // 1. Create Parent Category Item
+        const parentItem = document.createElement('div');
+        parentItem.className = 'accordion-item';
+        parentItem.innerHTML = `
+            <div class="accordion-header" style="background: #f8fafc;">
+                <span style="font-size: 1.1rem; font-weight: 700;">${category.title}</span>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content" style="padding: 1rem;">
+                <div class="nested-accordion"></div>
+            </div>
+        `;
+
+        const parentHeader = parentItem.querySelector('.accordion-header');
+        const nestedContainer = parentItem.querySelector('.nested-accordion');
+
+        // Toggle Parent
+        parentHeader.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Close other parents (siblings)
+            [...accordionContainer.children].forEach(child => {
+                if (child !== parentItem && child.classList.contains('accordion-item')) {
+                    child.classList.remove('active');
+                }
+            });
+            parentItem.classList.toggle('active');
+        });
+
+        // 2. Create Sub-Services
+        category.subServices.forEach(service => {
+            const subItem = document.createElement('div');
+            subItem.className = 'accordion-item';
+            subItem.style.marginBottom = '0.5rem';
+            subItem.innerHTML = `
                 <div class="accordion-header">
                     <span>${service.title}</span>
                     <span class="accordion-icon">▼</span>
@@ -230,15 +269,22 @@ if (accordionContainer) {
                 </div>
             `;
 
-        const header = item.querySelector('.accordion-header');
-        header.addEventListener('click', () => {
-            document.querySelectorAll('.accordion-item').forEach(i => {
-                if (i !== item) i.classList.remove('active');
+            const subHeader = subItem.querySelector('.accordion-header');
+            subHeader.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Close other sub-services (siblings)
+                [...nestedContainer.children].forEach(child => {
+                    if (child !== subItem && child.classList.contains('accordion-item')) {
+                        child.classList.remove('active');
+                    }
+                });
+                subItem.classList.toggle('active');
             });
-            item.classList.toggle('active');
+
+            nestedContainer.appendChild(subItem);
         });
 
-        accordionContainer.appendChild(item);
+        accordionContainer.appendChild(parentItem);
     });
 }
 

@@ -379,7 +379,7 @@ select:focus {
 }
 
 .accordion-item.active .accordion-content {
-    max-height: 300px;
+    max-height: 2000px;
     border-top-color: #e2e8f0;
 }
 
