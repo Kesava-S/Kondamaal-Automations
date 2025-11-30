@@ -187,6 +187,17 @@ const servicesData = [
         ],
         whyMatters: "Get instant support automation, faster resolution, and happier customers—all without extra effort.",
         cta: "Automate Support Now"
+    },
+    {
+        title: "Reporting & Dashboard Automation",
+        tagline: "Track performance. Spot issues. Make better decisions.",
+        features: [
+            { icon: "📈", title: "Integrated Data", desc: "Pull data from CRM, website, social ads, and sales automatically." },
+            { icon: "📊", title: "Automated Dashboards", desc: "Weekly/monthly reports with clear, actionable insights." },
+            { icon: "🔔", title: "Alerts & Predictive Notifications", desc: "Get notified when leads or revenue drop." }
+        ],
+        whyMatters: "Make smarter business decisions with minimal effort, even if you’re not a data expert.",
+        cta: "See Your Dashboard"
     }
 ];
 
