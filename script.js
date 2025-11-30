@@ -210,6 +210,17 @@ const servicesData = [
         ],
         whyMatters: "Get paid on time without manual effort and keep your accounting simple and accurate.",
         cta: "Automate Billing Now"
+    },
+    {
+        title: "CRM Integration",
+        tagline: "Unify leads. Prioritize sales. Close deals faster.",
+        features: [
+            { icon: "🔌", title: "Setup & Connect", desc: "Integrate forms, ads, email, WhatsApp, and social channels into your CRM." },
+            { icon: "🗂️", title: "Automated Lead Management", desc: "Assign, tag, and remind sales teams automatically." },
+            { icon: "⭐", title: "Lead Scoring & Alerts", desc: "Prioritize high-value leads with automated notifications." }
+        ],
+        whyMatters: "Get a unified view of customer interactions and make smarter sales decisions effortlessly.",
+        cta: "Integrate Your CRM"
     }
 ];
 
