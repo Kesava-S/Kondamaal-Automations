@@ -166,125 +166,188 @@ async function seedDatabase() {
 
 const servicesData = [
     {
-        title: "Website Automation",
-        tagline: "Capture leads, update content, and post automatically.",
-        features: [
-            { icon: "📥", title: "Auto Lead Capture", desc: "Sync leads directly to CRM or Google Sheets." },
-            { icon: "✅", title: "Smart Form Responses", desc: "Validate entries and send automatic emails." },
-            { icon: "📅", title: "Scheduled Content Updates", desc: "Keep blogs and product pages fresh." },
-            { icon: "🌐", title: "Social Media Integration", desc: "Auto-post updates to your social channels." }
-        ],
-        whyMatters: "Reduce manual work, ensure accurate data, and maintain a professional web presence effortlessly.",
-        cta: "Start Website Automation"
+        category: "1. Automation Services",
+        services: [
+            {
+                title: "Marketing Automation",
+                tagline: "Capture. Engage. Convert.",
+                features: [
+                    { icon: "⚡", title: "Instant Lead Capture", desc: "Automatically get leads from your website or ads and send them to your CRM." },
+                    { icon: "🔄", title: "Automated Follow-Ups", desc: "Personalized WhatsApp or email messages, sent instantly." },
+                    { icon: "📊", title: "Easy Analytics", desc: "Track campaigns, leads, and conversions effortlessly." },
+                    { icon: "📱", title: "Optional Social Posting", desc: "Auto-post to your social media and blog with built-in analytics." }
+                ],
+                whyMatters: "Never miss a lead, engage instantly, and make smarter marketing decisions—without extra work.",
+                cta: "See It in Action"
+            },
+            {
+                title: "Customer Support & Chatbot Automation",
+                tagline: "Respond faster. Reduce workload. Delight customers.",
+                features: [
+                    { icon: "💬", title: "Multi-Channel Chatbots", desc: "Website, WhatsApp, and Messenger." },
+                    { icon: "🎫", title: "Auto-Ticketing", desc: "Queries converted into tickets automatically." },
+                    { icon: "🤖", title: "Smart FAQ Automation", desc: "Auto-replies for FAQs with human escalation for complex issues." }
+                ],
+                whyMatters: "Get instant support automation, faster resolution, and happier customers—all without extra effort.",
+                cta: "Automate Support Now"
+            },
+            {
+                title: "Reporting & Dashboard Automation",
+                tagline: "Track performance. Spot issues. Make better decisions.",
+                features: [
+                    { icon: "📈", title: "Integrated Data", desc: "Pull data from CRM, website, social ads, and sales automatically." },
+                    { icon: "📊", title: "Automated Dashboards", desc: "Weekly/monthly reports with clear, actionable insights." },
+                    { icon: "🔔", title: "Alerts & Predictive Notifications", desc: "Get notified when leads or revenue drop." }
+                ],
+                whyMatters: "Make smarter business decisions with minimal effort, even if you’re not a data expert.",
+                cta: "See Your Dashboard"
+            },
+            {
+                title: "Invoice & Payment Automation",
+                tagline: "Automate billing. Chase payments. Get paid faster.",
+                features: [
+                    { icon: "🧾", title: "Auto Invoicing", desc: "Generate and send invoices automatically." },
+                    { icon: "⏰", title: "Smart Payment Reminders", desc: "Follow up with clients automatically; pay only on success." },
+                    { icon: "🔗", title: "Accounting Integration", desc: "Sync with Xero, QuickBooks, and more." },
+                    { icon: "💳", title: "Recurring & Multi-Channel Support", desc: "Handle subscriptions and multiple payment options." }
+                ],
+                whyMatters: "Get paid on time without manual effort and keep your accounting simple and accurate.",
+                cta: "Automate Billing Now"
+            },
+            {
+                title: "Data Cleaning & Database Automation",
+                tagline: "Clean data. Reduce errors. Automate reporting.",
+                features: [
+                    { icon: "🔄", title: "Import & Export Workflows", desc: "CSV to database to reporting automated." },
+                    { icon: "✅", title: "Data Validation & Deduplication", desc: "Keep records accurate and consistent." },
+                    { icon: "📊", title: "Recurring Reports", desc: "Sales, inventory, and client reports generated automatically." }
+                ],
+                whyMatters: "Reduce errors, save time, and maintain reliable data for decision-making.",
+                cta: "Start Data Automation"
+            },
+            {
+                title: "Internal Tools for SMEs",
+                tagline: "Streamline tasks, track projects, and simplify workflows.",
+                features: [
+                    { icon: "🖥️", title: "Employee & Project Dashboards", desc: "Manage data and projects efficiently." },
+                    { icon: "⚙️", title: "Task Automation", desc: "Daily reports, approvals, and reminders automated." },
+                    { icon: "📂", title: "Client Portals", desc: "Feedback collection and project tracking." }
+                ],
+                whyMatters: "Reduce admin overhead and free up time for core business activities.",
+                cta: "Automate Operations"
+            },
+            {
+                title: "Social Media & Content Automation",
+                tagline: "Post smarter. Save time. Boost engagement.",
+                features: [
+                    { icon: "📢", title: "Auto-Posting", desc: "Pull blogs or RSS feeds directly to your social channels." },
+                    { icon: "🗓️", title: "Scheduling & Reposting", desc: "Schedule posts and automatically repost top-performing content." },
+                    { icon: "📈", title: "Analytics Integration", desc: "Track engagement and optimize content automatically." }
+                ],
+                whyMatters: "Maintain a professional digital presence without extra effort.",
+                cta: "Start Social Automation"
+            }
+        ]
     },
     {
-        title: "Marketing Automation",
-        tagline: "Capture. Engage. Convert.",
-        features: [
-            { icon: "⚡", title: "Instant Lead Capture", desc: "Automatically get leads from your website or ads and send them to your CRM." },
-            { icon: "🔄", title: "Automated Follow-Ups", desc: "Personalized WhatsApp or email messages, sent instantly." },
-            { icon: "📊", title: "Easy Analytics", desc: "Track campaigns, leads, and conversions effortlessly." },
-            { icon: "📱", title: "Optional Social Posting", desc: "Auto-post to your social media and blog with built-in analytics." }
-        ],
-        whyMatters: "Never miss a lead, engage instantly, and make smarter marketing decisions—without extra work.",
-        cta: "See It in Action"
+        category: "2. Integrations",
+        services: [
+            {
+                title: "CRM Integration",
+                tagline: "Unify leads. Prioritize sales. Close deals faster.",
+                features: [
+                    { icon: "🔌", title: "Setup & Connect", desc: "Integrate forms, ads, email, WhatsApp, and social channels into your CRM." },
+                    { icon: "🗂️", title: "Automated Lead Management", desc: "Assign, tag, and remind sales teams automatically." },
+                    { icon: "⭐", title: "Lead Scoring & Alerts", desc: "Prioritize high-value leads with automated notifications." }
+                ],
+                whyMatters: "Get a unified view of customer interactions and make smarter sales decisions effortlessly.",
+                cta: "Start CRM Automation"
+            },
+            {
+                title: "Third-party App Integrations",
+                tagline: "Connect your favorite tools. Automate workflows.",
+                features: [
+                    { icon: "🔗", title: "API Connections", desc: "Seamlessly connect different software platforms." },
+                    { icon: "⚡", title: "Zapier/Make Integration", desc: "Automate workflows between apps without code." },
+                    { icon: "🎣", title: "Custom Webhooks", desc: "Trigger actions in real-time across systems." }
+                ],
+                whyMatters: "Eliminate data silos and make your tools talk to each other.",
+                cta: "Connect My Apps"
+            },
+            {
+                title: "Custom API Development",
+                tagline: "Build custom connections. Scale without limits.",
+                features: [
+                    { icon: "🛡️", title: "Secure API Endpoints", desc: "Robust and secure data exchange." },
+                    { icon: "🚀", title: "Scalable Architecture", desc: "Built to handle growing data loads." },
+                    { icon: "📚", title: "Documentation", desc: "Clear guides for developers and integrators." }
+                ],
+                whyMatters: "Get bespoke solutions when off-the-shelf tools aren't enough.",
+                cta: "Build Custom API"
+            }
+        ]
     },
     {
-        title: "Customer Support & Chatbot Automation",
-        tagline: "Respond faster. Reduce workload. Delight customers.",
-        features: [
-            { icon: "💬", title: "Multi-Channel Chatbots", desc: "Website, WhatsApp, and Messenger." },
-            { icon: "🎫", title: "Auto-Ticketing", desc: "Queries converted into tickets automatically." },
-            { icon: "🤖", title: "Smart FAQ Automation", desc: "Auto-replies for FAQs with human escalation for complex issues." }
-        ],
-        whyMatters: "Get instant support automation, faster resolution, and happier customers—all without extra effort.",
-        cta: "Automate Support Now"
+        category: "3. Web & App Development",
+        services: [
+            {
+                title: "Website Development",
+                tagline: "Fast, responsive, and SEO-optimized websites.",
+                features: [
+                    { icon: "🎨", title: "Modern Design", desc: "Visually stunning and user-friendly interfaces." },
+                    { icon: "📱", title: "Mobile Responsive", desc: "Looks great on all devices." },
+                    { icon: "🔍", title: "SEO Best Practices", desc: "Built to rank higher in search results." }
+                ],
+                whyMatters: "Make a lasting first impression with a professional website.",
+                cta: "Build My Website"
+            },
+            {
+                title: "Web App & Mobile App Development",
+                tagline: "Turn ideas into powerful applications.",
+                features: [
+                    { icon: "💻", title: "Cross-Platform Apps", desc: "Works on Web, iOS, and Android." },
+                    { icon: "☁️", title: "Scalable Backend", desc: "Robust infrastructure to support growth." },
+                    { icon: "👤", title: "User-Centric Design", desc: "Intuitive experiences for your users." }
+                ],
+                whyMatters: "Launch products that users love and scale with your business.",
+                cta: "Start App Development"
+            }
+        ]
     },
     {
-        title: "Reporting & Dashboard Automation",
-        tagline: "Track performance. Spot issues. Make better decisions.",
-        features: [
-            { icon: "📈", title: "Integrated Data", desc: "Pull data from CRM, website, social ads, and sales automatically." },
-            { icon: "📊", title: "Automated Dashboards", desc: "Weekly/monthly reports with clear, actionable insights." },
-            { icon: "🔔", title: "Alerts & Predictive Notifications", desc: "Get notified when leads or revenue drop." }
-        ],
-        whyMatters: "Make smarter business decisions with minimal effort, even if you’re not a data expert.",
-        cta: "See Your Dashboard"
-    },
-    {
-        title: "Invoice & Payment Automation",
-        tagline: "Automate billing. Chase payments. Get paid faster.",
-        features: [
-            { icon: "🧾", title: "Auto Invoicing", desc: "Generate and send invoices automatically." },
-            { icon: "⏰", title: "Smart Payment Reminders", desc: "Follow up with clients automatically; pay only on success." },
-            { icon: "🔗", title: "Accounting Integration", desc: "Sync with Xero, QuickBooks, and more." },
-            { icon: "💳", title: "Recurring & Multi-Channel Support", desc: "Handle subscriptions and multiple payment options." }
-        ],
-        whyMatters: "Get paid on time without manual effort and keep your accounting simple and accurate.",
-        cta: "Automate Billing Now"
-    },
-    {
-        title: "CRM Integration",
-        tagline: "Unify leads. Prioritize sales. Close deals faster.",
-        features: [
-            { icon: "🔌", title: "Setup & Connect", desc: "Integrate forms, ads, email, WhatsApp, and social channels into your CRM." },
-            { icon: "🗂️", title: "Automated Lead Management", desc: "Assign, tag, and remind sales teams automatically." },
-            { icon: "⭐", title: "Lead Scoring & Alerts", desc: "Prioritize high-value leads with automated notifications." }
-        ],
-        whyMatters: "Get a unified view of customer interactions and make smarter sales decisions effortlessly.",
-        cta: "Start CRM Automation"
-    },
-    {
-        title: "Marketing Funnel Automation (End-to-End)",
-        tagline: "From Ad Click to Retention. The Complete Journey.",
-        isHighlight: true,
-        workflow: ["Ad click", "Lead", "Qualification", "Nurture", "Conversion", "Upsell", "CRM Update", "Retention"],
-        features: [
-            { icon: "🎯", title: "Ads", desc: "Meta, Google" },
-            { icon: "📄", title: "Landing pages", desc: "Form capture → auto follow-up" },
-            { icon: "📧", title: "Nurturing", desc: "Email/SMS/WhatsApp nurturing" },
-            { icon: "💹", title: "Tracking", desc: "Conversion & upsell tracking" }
-        ],
-        differentiation: [
-            "Pre-built industry templates: e-commerce, real estate, service businesses",
-            "“All-in-one” funnels instead of separate tools",
-            "GDPR-compliant, UK-based best practices"
-        ],
-        whyMatters: "All-in-one packages combining lead capture, CRM, social, support, and funnel in one workflow.",
-        cta: "Build My Funnel"
-    },
-    {
-        title: "Internal Tools for SMEs",
-        tagline: "Streamline tasks, track projects, and simplify workflows.",
-        features: [
-            { icon: "🖥️", title: "Employee & Project Dashboards", desc: "Manage data and projects efficiently." },
-            { icon: "⚙️", title: "Task Automation", desc: "Daily reports, approvals, and reminders automated." },
-            { icon: "📂", title: "Client Portals", desc: "Feedback collection and project tracking." }
-        ],
-        whyMatters: "Reduce admin overhead and free up time for core business activities.",
-        cta: "Automate Operations"
-    },
-    {
-        title: "Data Cleaning & Database Automation",
-        tagline: "Clean data. Reduce errors. Automate reporting.",
-        features: [
-            { icon: "🔄", title: "Import & Export Workflows", desc: "CSV to database to reporting automated." },
-            { icon: "✅", title: "Data Validation & Deduplication", desc: "Keep records accurate and consistent." },
-            { icon: "📊", title: "Recurring Reports", desc: "Sales, inventory, and client reports generated automatically." }
-        ],
-        whyMatters: "Reduce errors, save time, and maintain reliable data for decision-making.",
-        cta: "Start Data Automation"
-    },
-    {
-        title: "Social Media & Content Automation",
-        tagline: "Post smarter. Save time. Boost engagement.",
-        features: [
-            { icon: "📢", title: "Auto-Posting", desc: "Pull blogs or RSS feeds directly to your social channels." },
-            { icon: "🗓️", title: "Scheduling & Reposting", desc: "Schedule posts and automatically repost top-performing content." },
-            { icon: "📈", title: "Analytics Integration", desc: "Track engagement and optimize content automatically." }
-        ],
-        whyMatters: "Maintain a professional digital presence without extra effort.",
-        cta: "Start Social Automation"
+        category: "4. End-to-End Systems",
+        services: [
+            {
+                title: "Marketing Funnel Automation (End-to-End)",
+                tagline: "From Ad Click to Retention. The Complete Journey.",
+                isHighlight: true,
+                workflow: ["Ad click", "Lead", "Qualification", "Nurture", "Conversion", "Upsell", "CRM Update", "Retention"],
+                features: [
+                    { icon: "🎯", title: "Ads", desc: "Meta, Google" },
+                    { icon: "📄", title: "Landing pages", desc: "Form capture → auto follow-up" },
+                    { icon: "📧", title: "Nurturing", desc: "Email/SMS/WhatsApp nurturing" },
+                    { icon: "💹", title: "Tracking", desc: "Conversion & upsell tracking" }
+                ],
+                differentiation: [
+                    "Pre-built industry templates: e-commerce, real estate, service businesses",
+                    "“All-in-one” funnels instead of separate tools",
+                    "GDPR-compliant, UK-based best practices"
+                ],
+                whyMatters: "All-in-one packages combining lead capture, CRM, social, support, and funnel in one workflow.",
+                cta: "Build My Funnel"
+            },
+            {
+                title: "Business Process Automation (BPA)",
+                tagline: "Streamline operations. Reduce costs. Scale faster.",
+                features: [
+                    { icon: "🔍", title: "Workflow Analysis", desc: "Identify bottlenecks and inefficiencies." },
+                    { icon: "🗺️", title: "Process Mapping", desc: "Visualise and optimize your operations." },
+                    { icon: "🤖", title: "Automated Execution", desc: "Let bots handle repetitive tasks." }
+                ],
+                whyMatters: "Remove bottlenecks and operational inefficiencies.",
+                cta: "Automate Processes"
+            }
+        ]
     }
 ];
 
@@ -311,11 +374,24 @@ function updateParentHeight(element) {
 if (accordionContainer) {
     accordionContainer.innerHTML = ''; // Clear default content
 
-    servicesData.forEach((category) => {
-        // 1. Create Parent Category Item
-        const parentItem = document.createElement('div');
-        parentItem.className = 'accordion-item';
-        parentItem.innerHTML = `
+    servicesData.forEach((categoryGroup) => {
+        // Create Category Header
+        const categoryHeader = document.createElement('h3');
+        categoryHeader.className = 'service-category-header';
+        categoryHeader.textContent = categoryGroup.category;
+        categoryHeader.style.color = 'var(--color-primary)';
+        categoryHeader.style.marginTop = '2rem';
+        categoryHeader.style.marginBottom = '1rem';
+        categoryHeader.style.paddingLeft = '0.5rem';
+        categoryHeader.style.borderLeft = '4px solid var(--color-accent)';
+        accordionContainer.appendChild(categoryHeader);
+
+        // Render Services in this Category
+        categoryGroup.services.forEach((category) => {
+            // 1. Create Parent Category Item
+            const parentItem = document.createElement('div');
+            parentItem.className = 'accordion-item';
+            parentItem.innerHTML = `
             <div class="accordion-header" style="background: #f8fafc;">
                 <span style="font-size: 1.1rem; font-weight: 700;">${category.title}</span>
                 <span class="accordion-icon">▼</span>
@@ -325,38 +401,38 @@ if (accordionContainer) {
             </div>
         `;
 
-        const parentHeader = parentItem.querySelector('.accordion-header');
-        const parentContent = parentItem.querySelector('.accordion-content');
-        const nestedContainer = parentItem.querySelector('.nested-accordion');
+            const parentHeader = parentItem.querySelector('.accordion-header');
+            const parentContent = parentItem.querySelector('.accordion-content');
+            const nestedContainer = parentItem.querySelector('.nested-accordion');
 
-        // Toggle Parent
-        parentHeader.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isActive = parentItem.classList.contains('active');
+            // Toggle Parent
+            parentHeader.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isActive = parentItem.classList.contains('active');
 
-            // Close other parents (siblings)
-            [...accordionContainer.children].forEach(child => {
-                if (child !== parentItem && child.classList.contains('accordion-item')) {
-                    child.classList.remove('active');
-                    child.querySelector('.accordion-content').style.maxHeight = null;
+                // Close other parents (siblings)
+                [...accordionContainer.children].forEach(child => {
+                    if (child !== parentItem && child.classList.contains('accordion-item')) {
+                        child.classList.remove('active');
+                        child.querySelector('.accordion-content').style.maxHeight = null;
+                    }
+                });
+
+                if (isActive) {
+                    parentItem.classList.remove('active');
+                    parentContent.style.maxHeight = null;
+                } else {
+                    parentItem.classList.add('active');
+                    parentContent.style.maxHeight = parentContent.scrollHeight + "px";
                 }
             });
 
-            if (isActive) {
-                parentItem.classList.remove('active');
-                parentContent.style.maxHeight = null;
-            } else {
-                parentItem.classList.add('active');
-                parentContent.style.maxHeight = parentContent.scrollHeight + "px";
-            }
-        });
+            // 2. Create Content based on Type
+            let contentHTML = '';
 
-        // 2. Create Content based on Type
-        let contentHTML = '';
-
-        if (category.isHighlight) {
-            // Render Highlighted Complex Layout
-            contentHTML = `
+            if (category.isHighlight) {
+                // Render Highlighted Complex Layout
+                contentHTML = `
                 <div class="service-detail-view">
                     <p class="service-tagline">${category.tagline}</p>
                     
@@ -378,8 +454,6 @@ if (accordionContainer) {
                         `).join('')}
                     </div>
 
-                    </div>
-
                     <h4 style="margin-bottom: 1rem; color: var(--color-primary);">Why Choose Us?</h4>
                     <ul class="differentiation-list">
                         ${category.differentiation.map(item => `<li>${item}</li>`).join('')}
@@ -392,14 +466,14 @@ if (accordionContainer) {
                 </div>
             `;
 
-            // Append content directly
-            const contentDiv = parentItem.querySelector('.nested-accordion');
-            contentDiv.innerHTML = contentHTML;
-            contentDiv.style.padding = '0';
+                // Append content directly
+                const contentDiv = parentItem.querySelector('.nested-accordion');
+                contentDiv.innerHTML = contentHTML;
+                contentDiv.style.padding = '0';
 
-        } else if (category.features) {
-            // Render Standard Rich Layout
-            contentHTML = `
+            } else if (category.features) {
+                // Render Standard Rich Layout
+                contentHTML = `
                 <div class="service-detail-view">
                     <p class="service-tagline">${category.tagline}</p>
                     <div class="feature-grid">
@@ -419,19 +493,19 @@ if (accordionContainer) {
                 </div>
             `;
 
-            // Append content directly
-            const contentDiv = parentItem.querySelector('.nested-accordion');
-            contentDiv.innerHTML = contentHTML;
-            // Remove padding from nested-accordion if we want full control in service-detail-view
-            contentDiv.style.padding = '0';
+                // Append content directly
+                const contentDiv = parentItem.querySelector('.nested-accordion');
+                contentDiv.innerHTML = contentHTML;
+                // Remove padding from nested-accordion if we want full control in service-detail-view
+                contentDiv.style.padding = '0';
 
-        } else if (category.subServices) {
-            // Render Old Nested Accordion Layout (Legacy support)
-            category.subServices.forEach(service => {
-                const subItem = document.createElement('div');
-                subItem.className = 'accordion-item';
-                subItem.style.marginBottom = '0.5rem';
-                subItem.innerHTML = `
+            } else if (category.subServices) {
+                // Render Old Nested Accordion Layout (Legacy support)
+                category.subServices.forEach(service => {
+                    const subItem = document.createElement('div');
+                    subItem.className = 'accordion-item';
+                    subItem.style.marginBottom = '0.5rem';
+                    subItem.innerHTML = `
                     <div class="accordion-header">
                         <span>${service.title}</span>
                         <span class="accordion-icon">▼</span>
@@ -443,38 +517,39 @@ if (accordionContainer) {
                     </div>
                 `;
 
-                const subHeader = subItem.querySelector('.accordion-header');
-                const subContent = subItem.querySelector('.accordion-content');
+                    const subHeader = subItem.querySelector('.accordion-header');
+                    const subContent = subItem.querySelector('.accordion-content');
 
-                subHeader.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const isActive = subItem.classList.contains('active');
+                    subHeader.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const isActive = subItem.classList.contains('active');
 
-                    // Close other sub-services (siblings)
-                    [...nestedContainer.children].forEach(child => {
-                        if (child !== subItem && child.classList.contains('accordion-item')) {
-                            child.classList.remove('active');
-                            child.querySelector('.accordion-content').style.maxHeight = null;
+                        // Close other sub-services (siblings)
+                        [...nestedContainer.children].forEach(child => {
+                            if (child !== subItem && child.classList.contains('accordion-item')) {
+                                child.classList.remove('active');
+                                child.querySelector('.accordion-content').style.maxHeight = null;
+                            }
+                        });
+
+                        if (isActive) {
+                            subItem.classList.remove('active');
+                            subContent.style.maxHeight = null;
+                        } else {
+                            subItem.classList.add('active');
+                            subContent.style.maxHeight = subContent.scrollHeight + "px";
                         }
+
+                        // Recalculate parent height
+                        setTimeout(() => updateParentHeight(subItem), 50);
                     });
 
-                    if (isActive) {
-                        subItem.classList.remove('active');
-                        subContent.style.maxHeight = null;
-                    } else {
-                        subItem.classList.add('active');
-                        subContent.style.maxHeight = subContent.scrollHeight + "px";
-                    }
-
-                    // Recalculate parent height
-                    setTimeout(() => updateParentHeight(subItem), 50);
+                    nestedContainer.appendChild(subItem);
                 });
+            }
 
-                nestedContainer.appendChild(subItem);
-            });
-        }
-
-        accordionContainer.appendChild(parentItem);
+            accordionContainer.appendChild(parentItem);
+        });
     });
 }
 
