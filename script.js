@@ -213,6 +213,12 @@ const servicesData = [
                 whyMatters: "Reduce admin overhead and free up time for core business activities.",
                 cta: "Automate Operations"
             },
+
+        ]
+    },
+    {
+        category: "Social Media Management",
+        services: [
             {
                 title: "Social Media & Content Automation",
                 tagline: "Post smarter. Save time. Boost engagement.",
