@@ -282,7 +282,7 @@ const servicesData = [
         ]
     },
     {
-        category: "4. End-to-End Systems",
+        category: "4. End-to-End Automation",
         services: [
             {
                 title: "Marketing Funnel Automation (End-to-End)",
