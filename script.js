@@ -245,7 +245,7 @@ const servicesData = [
                 tagline: "Connect your favorite tools. Automate workflows.",
                 features: [
                     { icon: "🔗", title: "API Connections", desc: "Seamlessly connect different software platforms." },
-                    { icon: "⚡", title: "Zapier/Make Integration", desc: "Automate workflows between apps without code." },
+                    { icon: "⚡", title: "n8n Integration", desc: "Automate workflows between apps without code." },
                     { icon: "🎣", title: "Custom Webhooks", desc: "Trigger actions in real-time across systems." }
                 ],
                 whyMatters: "Eliminate data silos and make your tools talk to each other.",
