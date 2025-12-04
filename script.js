@@ -375,144 +375,180 @@ if (accordionContainer) {
     accordionContainer.innerHTML = ''; // Clear default content
 
     servicesData.forEach((categoryGroup) => {
-        // Create Category Header
-        const categoryHeader = document.createElement('h3');
-        categoryHeader.className = 'service-category-header';
-        categoryHeader.textContent = categoryGroup.category;
-        categoryHeader.style.color = 'var(--color-primary)';
-        categoryHeader.style.marginTop = '2rem';
-        categoryHeader.style.marginBottom = '1rem';
-        categoryHeader.style.paddingLeft = '0.5rem';
-        categoryHeader.style.borderLeft = '4px solid var(--color-accent)';
-        accordionContainer.appendChild(categoryHeader);
+        // 1. Create Category Accordion Item (The "Dropdown")
+        const categoryItem = document.createElement('div');
+        categoryItem.className = 'accordion-item category-item';
+        categoryItem.style.marginBottom = '1rem';
+        categoryItem.style.border = '1px solid #e2e8f0';
+        categoryItem.style.borderRadius = '8px';
+        categoryItem.style.overflow = 'hidden';
 
-        // Render Services in this Category
-        categoryGroup.services.forEach((category) => {
-            // 1. Create Parent Category Item
-            const parentItem = document.createElement('div');
-            parentItem.className = 'accordion-item';
-            parentItem.innerHTML = `
-            <div class="accordion-header" style="background: #f8fafc;">
-                <span style="font-size: 1.1rem; font-weight: 700;">${category.title}</span>
-                <span class="accordion-icon">▼</span>
+        categoryItem.innerHTML = `
+            <div class="accordion-header category-header" style="background: #fff; padding: 1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 1.2rem; font-weight: 700; color: var(--color-primary);">${categoryGroup.category}</span>
+                <span class="accordion-icon" style="transition: transform 0.3s ease;">▼</span>
             </div>
-            <div class="accordion-content">
-                <div class="nested-accordion" style="padding: 0.5rem;"></div>
+            <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                <div class="category-services-container" style="padding: 1rem; background: #f8fafc;"></div>
             </div>
         `;
 
-            const parentHeader = parentItem.querySelector('.accordion-header');
-            const parentContent = parentItem.querySelector('.accordion-content');
-            const nestedContainer = parentItem.querySelector('.nested-accordion');
+        const categoryHeader = categoryItem.querySelector('.category-header');
+        const categoryContent = categoryItem.querySelector('.accordion-content');
+        const servicesContainer = categoryItem.querySelector('.category-services-container');
+        const categoryIcon = categoryItem.querySelector('.accordion-icon');
 
-            // Toggle Parent
-            parentHeader.addEventListener('click', (e) => {
+        // Toggle Category
+        categoryHeader.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isActive = categoryItem.classList.contains('active');
+
+            // Close other categories (Accordion behavior for top level)
+            [...accordionContainer.children].forEach(child => {
+                if (child !== categoryItem && child.classList.contains('category-item')) {
+                    child.classList.remove('active');
+                    child.querySelector('.accordion-content').style.maxHeight = null;
+                    const icon = child.querySelector('.accordion-icon');
+                    if (icon) icon.style.transform = 'rotate(0deg)';
+                }
+            });
+
+            if (isActive) {
+                categoryItem.classList.remove('active');
+                categoryContent.style.maxHeight = null;
+                categoryIcon.style.transform = 'rotate(0deg)';
+            } else {
+                categoryItem.classList.add('active');
+                categoryContent.style.maxHeight = categoryContent.scrollHeight + "px";
+                categoryIcon.style.transform = 'rotate(180deg)';
+            }
+        });
+
+        // 2. Render Services INSIDE this Category
+        categoryGroup.services.forEach((service) => {
+            // Create Service Accordion Item
+            const serviceItem = document.createElement('div');
+            serviceItem.className = 'accordion-item service-item';
+            serviceItem.style.marginBottom = '0.5rem';
+            serviceItem.style.background = '#fff';
+            serviceItem.style.borderRadius = '6px';
+            serviceItem.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05)';
+
+            serviceItem.innerHTML = `
+            <div class="accordion-header" style="padding: 0.8rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 1rem; font-weight: 600;">${service.title}</span>
+                <span class="accordion-icon" style="transition: transform 0.3s ease;">▼</span>
+            </div>
+            <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                <div class="nested-accordion" style="padding: 0;"></div>
+            </div>
+        `;
+
+            const serviceHeader = serviceItem.querySelector('.accordion-header');
+            const serviceContent = serviceItem.querySelector('.accordion-content');
+            const nestedContainer = serviceItem.querySelector('.nested-accordion');
+            const serviceIcon = serviceItem.querySelector('.accordion-icon');
+
+            // Toggle Service
+            serviceHeader.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const isActive = parentItem.classList.contains('active');
+                const isActive = serviceItem.classList.contains('active');
 
-                // Close other parents (siblings)
-                [...accordionContainer.children].forEach(child => {
-                    if (child !== parentItem && child.classList.contains('accordion-item')) {
+                // Close other services in the same category
+                [...servicesContainer.children].forEach(child => {
+                    if (child !== serviceItem && child.classList.contains('service-item')) {
                         child.classList.remove('active');
                         child.querySelector('.accordion-content').style.maxHeight = null;
+                        const icon = child.querySelector('.accordion-icon');
+                        if (icon) icon.style.transform = 'rotate(0deg)';
                     }
                 });
 
                 if (isActive) {
-                    parentItem.classList.remove('active');
-                    parentContent.style.maxHeight = null;
+                    serviceItem.classList.remove('active');
+                    serviceContent.style.maxHeight = null;
+                    serviceIcon.style.transform = 'rotate(0deg)';
                 } else {
-                    parentItem.classList.add('active');
-                    parentContent.style.maxHeight = parentContent.scrollHeight + "px";
+                    serviceItem.classList.add('active');
+                    serviceContent.style.maxHeight = serviceContent.scrollHeight + "px";
+                    serviceIcon.style.transform = 'rotate(180deg)';
                 }
+
+                // Update Parent Category Height
+                setTimeout(() => updateParentHeight(serviceItem), 50);
             });
 
-            // 2. Create Content based on Type
+            // 3. Create Content based on Type
             let contentHTML = '';
 
-            if (category.isHighlight) {
-                // Render Highlighted Complex Layout
+            if (service.isHighlight) {
                 contentHTML = `
-                <div class="service-detail-view">
-                    <p class="service-tagline">${category.tagline}</p>
+                <div class="service-detail-view" style="padding: 1rem;">
+                    <p class="service-tagline" style="font-style: italic; color: #64748b; margin-bottom: 1rem;">${service.tagline}</p>
                     
-                    <div class="workflow-container">
-                        ${category.workflow.map((step, index) => `
-                            <span class="workflow-step">${step}</span>
-                            ${index < category.workflow.length - 1 ? '<span class="workflow-arrow">→</span>' : ''}
+                    <div class="workflow-container" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                        ${service.workflow.map((step, index) => `
+                            <span class="workflow-step" style="background: #e0f2fe; color: #0369a1; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.9rem;">${step}</span>
+                            ${index < service.workflow.length - 1 ? '<span class="workflow-arrow">→</span>' : ''}
                         `).join('')}
                     </div>
 
-                    <div class="feature-grid">
-                        ${category.features.map(f => `
-                            <div class="feature-item">
+                    <div class="feature-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                        ${service.features.map(f => `
+                            <div class="feature-item" style="display: flex; gap: 0.5rem;">
                                 <span class="feature-icon">${f.icon}</span>
                                 <div class="feature-text">
-                                    <strong>${f.title}</strong> – ${f.desc}
+                                    <strong>${f.title}</strong> – <span style="font-size: 0.9rem; color: #475569;">${f.desc}</span>
                                 </div>
                             </div>
                         `).join('')}
                     </div>
 
-                    <h4 style="margin-bottom: 1rem; color: var(--color-primary);">Why Choose Us?</h4>
-                    <ul class="differentiation-list">
-                        ${category.differentiation.map(item => `<li>${item}</li>`).join('')}
+                    <h4 style="margin-bottom: 0.5rem; color: var(--color-primary);">Why Choose Us?</h4>
+                    <ul class="differentiation-list" style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;">
+                        ${service.differentiation.map(item => `<li>${item}</li>`).join('')}
                     </ul>
 
-                    <div class="why-matters-box">
-                        <strong>Why it matters:</strong> ${category.whyMatters}
+                    <div class="why-matters-box" style="background: #f0fdf4; padding: 0.8rem; border-radius: 6px; border-left: 4px solid #22c55e; margin-bottom: 1rem;">
+                        <strong>Why it matters:</strong> ${service.whyMatters}
                     </div>
-                    <button class="btn-primary cta-btn" onclick="document.querySelector('.inquiry-section').scrollIntoView({behavior: 'smooth'})">${category.cta}</button>
+                    <button class="btn-primary cta-btn" onclick="document.querySelector('.inquiry-section').scrollIntoView({behavior: 'smooth'})">${service.cta}</button>
                 </div>
             `;
-
-                // Append content directly
-                const contentDiv = parentItem.querySelector('.nested-accordion');
-                contentDiv.innerHTML = contentHTML;
-                contentDiv.style.padding = '0';
-
-            } else if (category.features) {
-                // Render Standard Rich Layout
+            } else if (service.features) {
                 contentHTML = `
-                <div class="service-detail-view">
-                    <p class="service-tagline">${category.tagline}</p>
-                    <div class="feature-grid">
-                        ${category.features.map(f => `
-                            <div class="feature-item">
+                <div class="service-detail-view" style="padding: 1rem;">
+                    <p class="service-tagline" style="font-style: italic; color: #64748b; margin-bottom: 1rem;">${service.tagline}</p>
+                    <div class="feature-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                        ${service.features.map(f => `
+                            <div class="feature-item" style="display: flex; gap: 0.5rem;">
                                 <span class="feature-icon">${f.icon}</span>
                                 <div class="feature-text">
-                                    <strong>${f.title}</strong> – ${f.desc}
+                                    <strong>${f.title}</strong> – <span style="font-size: 0.9rem; color: #475569;">${f.desc}</span>
                                 </div>
                             </div>
                         `).join('')}
                     </div>
-                    <div class="why-matters-box">
-                        <strong>Why it matters:</strong> ${category.whyMatters}
+                    <div class="why-matters-box" style="background: #f0fdf4; padding: 0.8rem; border-radius: 6px; border-left: 4px solid #22c55e; margin-bottom: 1rem;">
+                        <strong>Why it matters:</strong> ${service.whyMatters}
                     </div>
-                    <button class="btn-primary cta-btn" onclick="document.querySelector('.inquiry-section').scrollIntoView({behavior: 'smooth'})">${category.cta}</button>
+                    <button class="btn-primary cta-btn" onclick="document.querySelector('.inquiry-section').scrollIntoView({behavior: 'smooth'})">${service.cta}</button>
                 </div>
             `;
-
-                // Append content directly
-                const contentDiv = parentItem.querySelector('.nested-accordion');
-                contentDiv.innerHTML = contentHTML;
-                // Remove padding from nested-accordion if we want full control in service-detail-view
-                contentDiv.style.padding = '0';
-
-            } else if (category.subServices) {
-                // Render Old Nested Accordion Layout (Legacy support)
-                category.subServices.forEach(service => {
+            } else if (service.subServices) {
+                // Legacy support logic...
+                service.subServices.forEach(sub => {
                     const subItem = document.createElement('div');
                     subItem.className = 'accordion-item';
                     subItem.style.marginBottom = '0.5rem';
                     subItem.innerHTML = `
                     <div class="accordion-header">
-                        <span>${service.title}</span>
+                        <span>${sub.title}</span>
                         <span class="accordion-icon">▼</span>
                     </div>
                     <div class="accordion-content">
-                        <ul>
-                            ${service.details.map(detail => `<li>${detail}</li>`).join('')}
+                        <ul style="padding: 1rem;">
+                            ${sub.details.map(detail => `<li>${detail}</li>`).join('')}
                         </ul>
                     </div>
                 `;
@@ -523,15 +559,6 @@ if (accordionContainer) {
                     subHeader.addEventListener('click', (e) => {
                         e.stopPropagation();
                         const isActive = subItem.classList.contains('active');
-
-                        // Close other sub-services (siblings)
-                        [...nestedContainer.children].forEach(child => {
-                            if (child !== subItem && child.classList.contains('accordion-item')) {
-                                child.classList.remove('active');
-                                child.querySelector('.accordion-content').style.maxHeight = null;
-                            }
-                        });
-
                         if (isActive) {
                             subItem.classList.remove('active');
                             subContent.style.maxHeight = null;
@@ -539,8 +566,6 @@ if (accordionContainer) {
                             subItem.classList.add('active');
                             subContent.style.maxHeight = subContent.scrollHeight + "px";
                         }
-
-                        // Recalculate parent height
                         setTimeout(() => updateParentHeight(subItem), 50);
                     });
 
@@ -548,8 +573,14 @@ if (accordionContainer) {
                 });
             }
 
-            accordionContainer.appendChild(parentItem);
+            if (contentHTML) {
+                nestedContainer.innerHTML = contentHTML;
+            }
+
+            servicesContainer.appendChild(serviceItem);
         });
+
+        accordionContainer.appendChild(categoryItem);
     });
 }
 
