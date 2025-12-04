@@ -406,21 +406,45 @@ if (accordionContainer) {
             // Close other categories (Accordion behavior for top level)
             [...accordionContainer.children].forEach(child => {
                 if (child !== categoryItem && child.classList.contains('category-item')) {
-                    child.classList.remove('active');
-                    child.querySelector('.accordion-content').style.maxHeight = null;
-                    const icon = child.querySelector('.accordion-icon');
-                    if (icon) icon.style.transform = 'rotate(0deg)';
+                    const childContent = child.querySelector('.accordion-content');
+                    const childIcon = child.querySelector('.accordion-icon');
+
+                    if (child.classList.contains('active')) {
+                        // Restore explicit height before closing to allow animation
+                        childContent.style.maxHeight = childContent.scrollHeight + "px";
+                        // Force reflow
+                        void childContent.offsetWidth;
+
+                        child.classList.remove('active');
+                        childContent.style.maxHeight = null;
+                        if (childIcon) childIcon.style.transform = 'rotate(0deg)';
+                    }
                 }
             });
 
             if (isActive) {
+                // Close current
+                // Restore explicit height first
+                categoryContent.style.maxHeight = categoryContent.scrollHeight + "px";
+                void categoryContent.offsetWidth;
+
                 categoryItem.classList.remove('active');
                 categoryContent.style.maxHeight = null;
                 categoryIcon.style.transform = 'rotate(0deg)';
             } else {
+                // Open current
                 categoryItem.classList.add('active');
                 categoryContent.style.maxHeight = categoryContent.scrollHeight + "px";
                 categoryIcon.style.transform = 'rotate(180deg)';
+
+                // After transition, set max-height to none to allow nested expansion
+                const onTransitionEnd = () => {
+                    if (categoryItem.classList.contains('active')) {
+                        categoryContent.style.maxHeight = 'none';
+                    }
+                    categoryContent.removeEventListener('transitionend', onTransitionEnd);
+                };
+                categoryContent.addEventListener('transitionend', onTransitionEnd);
             }
         });
 
@@ -474,8 +498,7 @@ if (accordionContainer) {
                     serviceIcon.style.transform = 'rotate(180deg)';
                 }
 
-                // Update Parent Category Height
-                setTimeout(() => updateParentHeight(serviceItem), 50);
+                // No need to update parent height manually because parent has max-height: none
             });
 
             // 3. Create Content based on Type
@@ -566,7 +589,6 @@ if (accordionContainer) {
                             subItem.classList.add('active');
                             subContent.style.maxHeight = subContent.scrollHeight + "px";
                         }
-                        setTimeout(() => updateParentHeight(subItem), 50);
                     });
 
                     nestedContainer.appendChild(subItem);
