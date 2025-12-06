@@ -225,10 +225,21 @@
 
             <section class="services-section">
                 <h2>Our Services</h2>
-                <div class="accordion" id="services-accordion">
+                <div class="services-grid" id="services-grid">
                     <!-- Services injected via JS -->
                 </div>
             </section>
+        </section>
+
+        <!-- SERVICE DETAIL VIEW (Apple-Style) -->
+        <section id="view-service-detail" class="view hidden">
+            <button id="back-to-home" class="nav-btn"
+                style="position: fixed; top: 80px; left: 20px; z-index: 1000; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); border-radius: 20px; padding: 0.5rem 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">←
+                Back</button>
+            <div id="service-detail-content">
+                <!-- Content injected via JS -->
+            </div>
+        </section>
 
 
         </section>
@@ -827,6 +838,255 @@
     </div>
 
     <script type="module" src="script.js"></script>
+    <script>
+        console.log("Inline Script Running");
+        // Inline rendering logic as fallback
+        const servicesDataFallback = [
+            {
+                category: "2. Social Media Management",
+                services: [
+                    {
+                        title: "Social Media & Content Automation",
+                        tagline: "Post smarter. Save time. Boost engagement.",
+                        features: [
+                            { icon: "📢", title: "Auto-Posting", desc: "Pull blogs or RSS feeds directly to your social channels." },
+                            { icon: "🗓️", title: "Scheduling & Reposting", desc: "Schedule posts and automatically repost top-performing content." },
+                            { icon: "📈", title: "Analytics Integration", desc: "Track engagement and optimize content automatically." }
+                        ],
+                        whyMatters: "Maintain a professional digital presence without extra effort.",
+                        cta: "Start Social Automation"
+                    }
+                ]
+            },
+            {
+                category: "4. Development",
+                services: [
+                    {
+                        title: "Website Development",
+                        tagline: "Fast, responsive, and SEO-optimized websites.",
+                        features: [
+                            { icon: "🎨", title: "Modern Design", desc: "Visually stunning and user-friendly interfaces." },
+                            { icon: "📱", title: "Mobile Responsive", desc: "Looks great on all devices." },
+                            { icon: "🔍", title: "SEO Best Practices", desc: "Built to rank higher in search results." }
+                        ],
+                        whyMatters: "Make a lasting first impression with a professional website.",
+                        cta: "Build My Website"
+                    },
+                    {
+                        title: "Web App & Mobile App Development",
+                        tagline: "Turn ideas into powerful applications.",
+                        features: [
+                            { icon: "💻", title: "Cross-Platform Apps", desc: "Works on Web, iOS, and Android." },
+                            { icon: "☁️", title: "Scalable Backend", desc: "Robust infrastructure to support growth." },
+                            { icon: "👤", title: "User-Centric Design", desc: "Intuitive experiences for your users." }
+                        ],
+                        whyMatters: "Launch products that users love and scale with your business.",
+                        cta: "Start App Development"
+                    }
+                ]
+            },
+            {
+                category: "5. End-to-End Automation",
+                services: [
+                    {
+                        title: "Marketing Funnel Automation (End-to-End)",
+                        tagline: "From Ad Click to Retention. The Complete Journey.",
+                        isHighlight: true,
+                        workflow: ["Ad click", "Lead", "Qualification", "Nurture", "Conversion", "Upsell", "CRM Update", "Retention"],
+                        features: [
+                            { icon: "🎯", title: "Ads", desc: "Meta, Google" },
+                            { icon: "📄", title: "Landing pages", desc: "Form capture → auto follow-up" },
+                            { icon: "📧", title: "Nurturing", desc: "Email/SMS/WhatsApp nurturing" },
+                            { icon: "💹", title: "Tracking", desc: "Conversion & upsell tracking" }
+                        ],
+                        differentiation: [
+                            "Pre-built industry templates: e-commerce, real estate, service businesses",
+                            "“All-in-one” funnels instead of separate tools",
+                            "GDPR-compliant, UK-based best practices"
+                        ],
+                        whyMatters: "All-in-one packages combining lead capture, CRM, social, support, and funnel in one workflow.",
+                        cta: "Build My Funnel"
+                    },
+                    {
+                        title: "Business Process Automation (BPA)",
+                        tagline: "Streamline operations. Reduce costs. Scale faster.",
+                        features: [
+                            { icon: "🔍", title: "Workflow Analysis", desc: "Identify bottlenecks and inefficiencies." },
+                            { icon: "🗺️", title: "Process Mapping", desc: "Visualise and optimize your operations." },
+                            { icon: "🤖", title: "Automated Execution", desc: "Let bots handle repetitive tasks." }
+                        ],
+                        whyMatters: "Remove bottlenecks and operational inefficiencies.",
+                        cta: "Automate Processes"
+                    }
+                ]
+            },
+            {
+                category: "6. Process & Task Automation",
+                services: [
+                    {
+                        title: "Business Workflow Automation",
+                        tagline: "Streamline operations from data entry to notifications.",
+                        features: [
+                            { icon: "📝", title: "Data Entry", desc: "Google Sheets ↔ CRM synchronization." },
+                            { icon: "🎣", title: "Lead Management", desc: "Lead capture → email/SMS follow-up." },
+                            { icon: "💳", title: "Finance", desc: "Invoice reminders & payment tracking." },
+                            { icon: "👥", title: "HR Processes", desc: "Onboarding/offboarding steps." },
+                            { icon: "📂", title: "Admin", desc: "File organisation, report generation." },
+                            { icon: "📱", title: "Social Media", desc: "Social media posting workflows." },
+                            { icon: "🔔", title: "Alerts", desc: "Slack/WhatsApp notifications for events." }
+                        ],
+                        whyMatters: "Automate repetitive tasks to save time and reduce errors.",
+                        cta: "Automate My Workflows"
+                    }
+                ]
+            },
+            {
+                category: "7. Customer & Marketing Automation",
+                services: [
+                    {
+                        title: "Growth & Engagement Automation",
+                        tagline: "Attract, engage, and retain customers automatically.",
+                        features: [
+                            { icon: "🎣", title: "Lead Flow", desc: "Lead capture → CRM → automated follow-up." },
+                            { icon: "📧", title: "Campaigns", desc: "Sending newsletters or drip campaigns." },
+                            { icon: "📱", title: "Social Media", desc: "Social media posting & scheduling." },
+                            { icon: "💬", title: "Notifications", desc: "SMS/WhatsApp notifications for offers or events." },
+                            { icon: "⭐", title: "Feedback", desc: "Customer feedback collection & surveys." },
+                            { icon: "🏷️", title: "Segmentation", desc: "Tagging & segmenting customers automatically." }
+                        ],
+                        whyMatters: "Build stronger customer relationships and drive sales on autopilot.",
+                        cta: "Boost Customer Engagement"
+                    }
+                ]
+            }
+        ];
+
+        function renderServicesFallback() {
+            const servicesGrid = document.getElementById('services-grid');
+            if (servicesGrid) {
+                console.log("Fallback Render: Rendering Services Grid");
+                servicesGrid.innerHTML = '';
+                servicesDataFallback.forEach((categoryGroup) => {
+                    categoryGroup.services.forEach((service) => {
+                        const card = document.createElement('div');
+                        card.className = 'service-card';
+                        card.innerHTML = `
+                            <div>
+                                <span style="font-size: 0.8rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">${categoryGroup.category.replace(/^\d+\.\s*/, '')}</span>
+                                <h3 style="margin-top: 0.5rem;">${service.title}</h3>
+                                <p style="color: var(--text-light); font-size: 0.95rem;">${service.tagline}</p>
+                            </div>
+                            <span class="card-arrow">→</span>
+                        `;
+                        card.addEventListener('click', () => openServiceDetailFallback(service));
+                        servicesGrid.appendChild(card);
+                    });
+                });
+            }
+        }
+
+        function openServiceDetailFallback(service) {
+            const detailView = document.getElementById('view-service-detail');
+            const contentContainer = document.getElementById('service-detail-content');
+
+            if (!detailView) {
+                return;
+            }
+
+            contentContainer.innerHTML = `
+                <div class="sd-hero">
+                    <h1>${service.title}</h1>
+                    <p>${service.tagline}</p>
+                </div>
+                <div class="sd-section">
+                    <div class="sd-container">
+                        <div class="sd-content scroll-reveal">
+                            <h2>Why it matters</h2>
+                            <p>${service.whyMatters}</p>
+                            <ul class="differentiation-list" style="margin-top: 1rem;">
+                                ${service.differentiation ? service.differentiation.map(d => `<li>${d}</li>`).join('') : ''}
+                            </ul>
+                        </div>
+                        <div class="sd-visual scroll-reveal">
+                            <span>${service.features && service.features[0] ? service.features[0].icon : '🚀'}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sd-section bg-light">
+                    <div class="sd-container reversed">
+                        <div class="sd-content scroll-reveal">
+                            <h2>Key Features</h2>
+                            <p>Everything you need to succeed.</p>
+                            <div class="sd-features-grid">
+                                ${service.features ? service.features.map(f => `
+                                    <div class="sd-feature-card">
+                                        <span class="sd-feature-icon">${f.icon}</span>
+                                        <h3>${f.title}</h3>
+                                        <p style="font-size: 0.9rem; color: var(--text-light);">${f.desc}</p>
+                                    </div>
+                                `).join('') : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ${service.workflow ? `
+                <div class="sd-section">
+                    <div class="sd-container">
+                        <div class="sd-content scroll-reveal" style="text-align: center; margin: 0 auto;">
+                            <h2>How it works</h2>
+                            <div class="workflow-container" style="justify-content: center; margin-top: 2rem;">
+                                ${service.workflow.map((step, index) => `
+                                    <span class="workflow-step" style="font-size: 1.1rem; padding: 0.5rem 1rem;">${step}</span>
+                                    ${index < service.workflow.length - 1 ? '<span class="workflow-arrow">→</span>' : ''}
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ` : ''}
+                <div class="sd-section bg-light" style="min-height: 50vh;">
+                    <div class="sd-content scroll-reveal" style="text-align: center;">
+                        <h2>Ready to get started?</h2>
+                        <p style="margin-bottom: 2rem;">Take your business to the next level with ${service.title}.</p>
+                        <button class="btn-primary cta-btn" style="font-size: 1.2rem; padding: 1rem 3rem;" onclick="document.getElementById('back-to-home').click(); setTimeout(() => document.querySelector('.inquiry-section').scrollIntoView({behavior: 'smooth'}), 500);">
+                            ${service.cta}
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.querySelectorAll('.view').forEach(v => {
+                v.classList.add('hidden');
+                v.classList.remove('active');
+            });
+
+            detailView.classList.remove('hidden');
+            detailView.classList.add('active');
+            window.scrollTo(0, 0);
+
+            setTimeout(() => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) entry.target.classList.add('visible');
+                    });
+                }, { threshold: 0.1 });
+                document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+            }, 100);
+        }
+
+        // Back Button
+        const backBtn = document.getElementById('back-to-home');
+        if (backBtn) {
+            backBtn.addEventListener('click', () => {
+                document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+                document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+                document.getElementById('view-landing').classList.remove('hidden');
+                document.getElementById('view-landing').classList.add('active');
+            });
+        }
+
+        window.addEventListener('load', renderServicesFallback);
+    </script>
 </body>
 
 </html>

@@ -4,6 +4,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+console.log("Script.js loaded!");
 
 // --- FIREBASE CONFIGURATION ---
 // TODO: Replace with your actual Firebase project configuration
@@ -291,253 +292,138 @@ const servicesData = [
 
 // --- 1. Render Services ---
 // --- 1. Render Services ---
-const accordionContainer = document.getElementById('services-accordion');
+// --- 1. Render Services (Grid Layout) ---
+// --- 1. Render Services (Grid Layout) ---
+function renderServices() {
+    const servicesGrid = document.getElementById('services-grid') || document.querySelector('.services-grid');
+    console.log("Attempting to render services. Grid Element:", servicesGrid);
 
-function updateParentHeight(element) {
-    let parent = element.parentElement;
-    while (parent) {
-        if (parent.classList.contains('accordion-content')) {
-            // This is a parent content container. Update its max-height.
-            parent.style.maxHeight = parent.scrollHeight + "px";
-        }
-        parent = parent.parentElement;
+    if (servicesGrid) {
+        console.log("Rendering Services Grid with data length:", servicesData.length);
+        servicesGrid.innerHTML = ''; // Clear default content
+
+        servicesData.forEach((categoryGroup) => {
+            categoryGroup.services.forEach((service) => {
+                const card = document.createElement('div');
+                card.className = 'service-card';
+                card.innerHTML = `
+                    <div>
+                        <span style="font-size: 0.8rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">${categoryGroup.category.replace(/^\d+\.\s*/, '')}</span>
+                        <h3 style="margin-top: 0.5rem;">${service.title}</h3>
+                        <p style="color: var(--text-light); font-size: 0.95rem;">${service.tagline}</p>
+                    </div>
+                    <span class="card-arrow">→</span>
+                `;
+
+                card.addEventListener('click', () => openServiceDetail(service));
+                servicesGrid.appendChild(card);
+            });
+        });
+    } else {
+        console.error("CRITICAL ERROR: Services Grid element not found in DOM!");
     }
 }
 
-if (accordionContainer) {
-    accordionContainer.innerHTML = ''; // Clear default content
+// Call render immediately (if script is deferred, DOM should be ready)
+renderServices();
+// Also try on load just in case
+window.addEventListener('load', renderServices);
 
-    servicesData.forEach((categoryGroup) => {
-        // 1. Create Category Accordion Item (The "Dropdown")
-        const categoryItem = document.createElement('div');
-        categoryItem.className = 'accordion-item category-item';
-        categoryItem.style.marginBottom = '1rem';
-        categoryItem.style.border = '1px solid #e2e8f0';
-        categoryItem.style.borderRadius = '8px';
-        categoryItem.style.overflow = 'hidden';
+// --- Service Detail View Logic ---
+function openServiceDetail(service) {
+    const detailView = document.getElementById('view-service-detail');
+    const contentContainer = document.getElementById('service-detail-content');
 
-        categoryItem.innerHTML = `
-            <div class="accordion-header category-header" style="background: #fff; padding: 1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 1.2rem; font-weight: 700; color: var(--color-primary);">${categoryGroup.category}</span>
-                <span class="accordion-icon" style="transition: transform 0.3s ease;">▼</span>
+    // Populate Content
+    contentContainer.innerHTML = `
+        <div class="sd-hero">
+            <h1>${service.title}</h1>
+            <p>${service.tagline}</p>
+        </div>
+
+        <div class="sd-section">
+            <div class="sd-container">
+                <div class="sd-content scroll-reveal">
+                    <h2>Why it matters</h2>
+                    <p>${service.whyMatters}</p>
+                    <ul class="differentiation-list" style="margin-top: 1rem;">
+                        ${service.differentiation ? service.differentiation.map(d => `<li>${d}</li>`).join('') : ''}
+                    </ul>
+                </div>
+                <div class="sd-visual scroll-reveal">
+                    <span>${service.features && service.features[0] ? service.features[0].icon : '🚀'}</span>
+                </div>
             </div>
-            <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                <div class="category-services-container" style="padding: 1rem; background: #f8fafc;"></div>
+        </div>
+
+        <div class="sd-section bg-light">
+            <div class="sd-container reversed">
+                <div class="sd-content scroll-reveal">
+                    <h2>Key Features</h2>
+                    <p>Everything you need to succeed.</p>
+                    <div class="sd-features-grid">
+                        ${service.features ? service.features.map(f => `
+                            <div class="sd-feature-card">
+                                <span class="sd-feature-icon">${f.icon}</span>
+                                <h3>${f.title}</h3>
+                                <p style="font-size: 0.9rem; color: var(--text-light);">${f.desc}</p>
+                            </div>
+                        `).join('') : ''}
+                    </div>
+                </div>
             </div>
-        `;
+        </div>
 
-        const categoryHeader = categoryItem.querySelector('.category-header');
-        const categoryContent = categoryItem.querySelector('.accordion-content');
-        const servicesContainer = categoryItem.querySelector('.category-services-container');
-        const categoryIcon = categoryItem.querySelector('.accordion-icon');
-
-        // Toggle Category
-        categoryHeader.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isActive = categoryItem.classList.contains('active');
-
-            // Close other categories (Accordion behavior for top level)
-            [...accordionContainer.children].forEach(child => {
-                if (child !== categoryItem && child.classList.contains('category-item')) {
-                    const childContent = child.querySelector('.accordion-content');
-                    const childIcon = child.querySelector('.accordion-icon');
-
-                    if (child.classList.contains('active')) {
-                        // Restore explicit height before closing to allow animation
-                        childContent.style.maxHeight = childContent.scrollHeight + "px";
-                        // Force reflow
-                        void childContent.offsetWidth;
-
-                        child.classList.remove('active');
-                        childContent.style.maxHeight = null;
-                        if (childIcon) childIcon.style.transform = 'rotate(0deg)';
-                    }
-                }
-            });
-
-            if (isActive) {
-                // Close current
-                // Restore explicit height first
-                categoryContent.style.maxHeight = categoryContent.scrollHeight + "px";
-                void categoryContent.offsetWidth;
-
-                categoryItem.classList.remove('active');
-                categoryContent.style.maxHeight = null;
-                categoryIcon.style.transform = 'rotate(0deg)';
-            } else {
-                // Open current
-                categoryItem.classList.add('active');
-                categoryContent.style.maxHeight = categoryContent.scrollHeight + "px";
-                categoryIcon.style.transform = 'rotate(180deg)';
-
-                // After transition, set max-height to none to allow nested expansion
-                const onTransitionEnd = () => {
-                    if (categoryItem.classList.contains('active')) {
-                        categoryContent.style.maxHeight = 'none';
-                    }
-                    categoryContent.removeEventListener('transitionend', onTransitionEnd);
-                };
-                categoryContent.addEventListener('transitionend', onTransitionEnd);
-            }
-        });
-
-        // 2. Render Services INSIDE this Category
-        categoryGroup.services.forEach((service) => {
-            // Create Service Accordion Item
-            const serviceItem = document.createElement('div');
-            serviceItem.className = 'accordion-item service-item';
-            serviceItem.style.marginBottom = '0.5rem';
-            serviceItem.style.background = '#fff';
-            serviceItem.style.borderRadius = '6px';
-            serviceItem.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05)';
-
-            serviceItem.innerHTML = `
-            <div class="accordion-header" style="padding: 0.8rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 1rem; font-weight: 600;">${service.title}</span>
-                <span class="accordion-icon" style="transition: transform 0.3s ease;">▼</span>
-            </div>
-            <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                <div class="nested-accordion" style="padding: 0;"></div>
-            </div>
-        `;
-
-            const serviceHeader = serviceItem.querySelector('.accordion-header');
-            const serviceContent = serviceItem.querySelector('.accordion-content');
-            const nestedContainer = serviceItem.querySelector('.nested-accordion');
-            const serviceIcon = serviceItem.querySelector('.accordion-icon');
-
-            // Toggle Service
-            serviceHeader.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const isActive = serviceItem.classList.contains('active');
-
-                // Close other services in the same category
-                [...servicesContainer.children].forEach(child => {
-                    if (child !== serviceItem && child.classList.contains('service-item')) {
-                        child.classList.remove('active');
-                        child.querySelector('.accordion-content').style.maxHeight = null;
-                        const icon = child.querySelector('.accordion-icon');
-                        if (icon) icon.style.transform = 'rotate(0deg)';
-                    }
-                });
-
-                if (isActive) {
-                    serviceItem.classList.remove('active');
-                    serviceContent.style.maxHeight = null;
-                    serviceIcon.style.transform = 'rotate(0deg)';
-                } else {
-                    serviceItem.classList.add('active');
-                    serviceContent.style.maxHeight = serviceContent.scrollHeight + "px";
-                    serviceIcon.style.transform = 'rotate(180deg)';
-                }
-
-                // No need to update parent height manually because parent has max-height: none
-            });
-
-            // 3. Create Content based on Type
-            let contentHTML = '';
-
-            if (service.isHighlight) {
-                contentHTML = `
-                <div class="service-detail-view" style="padding: 1rem;">
-                    <p class="service-tagline" style="font-style: italic; color: #64748b; margin-bottom: 1rem;">${service.tagline}</p>
-                    
-                    <div class="workflow-container" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+        ${service.workflow ? `
+        <div class="sd-section">
+            <div class="sd-container">
+                <div class="sd-content scroll-reveal" style="text-align: center; margin: 0 auto;">
+                    <h2>How it works</h2>
+                    <div class="workflow-container" style="justify-content: center; margin-top: 2rem;">
                         ${service.workflow.map((step, index) => `
-                            <span class="workflow-step" style="background: #e0f2fe; color: #0369a1; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.9rem;">${step}</span>
+                            <span class="workflow-step" style="font-size: 1.1rem; padding: 0.5rem 1rem;">${step}</span>
                             ${index < service.workflow.length - 1 ? '<span class="workflow-arrow">→</span>' : ''}
                         `).join('')}
                     </div>
-
-                    <div class="feature-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
-                        ${service.features.map(f => `
-                            <div class="feature-item" style="display: flex; gap: 0.5rem;">
-                                <span class="feature-icon">${f.icon}</span>
-                                <div class="feature-text">
-                                    <strong>${f.title}</strong> – <span style="font-size: 0.9rem; color: #475569;">${f.desc}</span>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-
-                    <h4 style="margin-bottom: 0.5rem; color: var(--color-primary);">Why Choose Us?</h4>
-                    <ul class="differentiation-list" style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem;">
-                        ${service.differentiation.map(item => `<li>${item}</li>`).join('')}
-                    </ul>
-
-                    <div class="why-matters-box" style="background: #f0fdf4; padding: 0.8rem; border-radius: 6px; border-left: 4px solid #22c55e; margin-bottom: 1rem;">
-                        <strong>Why it matters:</strong> ${service.whyMatters}
-                    </div>
-                    <button class="btn-primary cta-btn" onclick="document.querySelector('.inquiry-section').scrollIntoView({behavior: 'smooth'})">${service.cta}</button>
                 </div>
-            `;
-            } else if (service.features) {
-                contentHTML = `
-                <div class="service-detail-view" style="padding: 1rem;">
-                    <p class="service-tagline" style="font-style: italic; color: #64748b; margin-bottom: 1rem;">${service.tagline}</p>
-                    <div class="feature-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
-                        ${service.features.map(f => `
-                            <div class="feature-item" style="display: flex; gap: 0.5rem;">
-                                <span class="feature-icon">${f.icon}</span>
-                                <div class="feature-text">
-                                    <strong>${f.title}</strong> – <span style="font-size: 0.9rem; color: #475569;">${f.desc}</span>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="why-matters-box" style="background: #f0fdf4; padding: 0.8rem; border-radius: 6px; border-left: 4px solid #22c55e; margin-bottom: 1rem;">
-                        <strong>Why it matters:</strong> ${service.whyMatters}
-                    </div>
-                    <button class="btn-primary cta-btn" onclick="document.querySelector('.inquiry-section').scrollIntoView({behavior: 'smooth'})">${service.cta}</button>
-                </div>
-            `;
-            } else if (service.subServices) {
-                // Legacy support logic...
-                service.subServices.forEach(sub => {
-                    const subItem = document.createElement('div');
-                    subItem.className = 'accordion-item';
-                    subItem.style.marginBottom = '0.5rem';
-                    subItem.innerHTML = `
-                    <div class="accordion-header">
-                        <span>${sub.title}</span>
-                        <span class="accordion-icon">▼</span>
-                    </div>
-                    <div class="accordion-content">
-                        <ul style="padding: 1rem;">
-                            ${sub.details.map(detail => `<li>${detail}</li>`).join('')}
-                        </ul>
-                    </div>
-                `;
+            </div>
+        </div>
+        ` : ''}
 
-                    const subHeader = subItem.querySelector('.accordion-header');
-                    const subContent = subItem.querySelector('.accordion-content');
+        <div class="sd-section bg-light" style="min-height: 50vh;">
+            <div class="sd-content scroll-reveal" style="text-align: center;">
+                <h2>Ready to get started?</h2>
+                <p style="margin-bottom: 2rem;">Take your business to the next level with ${service.title}.</p>
+                <button class="btn-primary cta-btn" style="font-size: 1.2rem; padding: 1rem 3rem;" onclick="document.getElementById('back-to-home').click(); setTimeout(() => document.querySelector('.inquiry-section').scrollIntoView({behavior: 'smooth'}), 500);">
+                    ${service.cta}
+                </button>
+            </div>
+        </div>
+    `;
 
-                    subHeader.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const isActive = subItem.classList.contains('active');
-                        if (isActive) {
-                            subItem.classList.remove('active');
-                            subContent.style.maxHeight = null;
-                        } else {
-                            subItem.classList.add('active');
-                            subContent.style.maxHeight = subContent.scrollHeight + "px";
-                        }
-                    });
+    // Switch View
+    switchView('serviceDetail');
 
-                    nestedContainer.appendChild(subItem);
-                });
-            }
-
-            if (contentHTML) {
-                nestedContainer.innerHTML = contentHTML;
-            }
-
-            servicesContainer.appendChild(serviceItem);
-        });
-
-        accordionContainer.appendChild(categoryItem);
-    });
+    // Initialize Scroll Animations
+    setTimeout(initScrollAnimations, 100);
 }
+
+function initScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+}
+
+// Back Button Logic
+document.getElementById('back-to-home').addEventListener('click', () => {
+    switchView('landing');
+});
 
 // --- 2. Navigation & Views ---
 const views = {
@@ -547,7 +433,8 @@ const views = {
     manager: document.getElementById('view-dashboard-manager'),
     client: document.getElementById('view-dashboard-client'),
     owner: document.getElementById('view-dashboard-owner'),
-    careers: document.getElementById('view-careers')
+    careers: document.getElementById('view-careers'),
+    serviceDetail: document.getElementById('view-service-detail')
 };
 
 const navBtns = {

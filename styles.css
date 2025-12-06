@@ -1049,3 +1049,234 @@ textarea.error {
     cursor: pointer;
     accent-color: var(--color-secondary);
 }
+
+/* --- Services Grid Redesign --- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.service-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2.5rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.service-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+    z-index: 2;
+}
+
+.service-card .card-arrow {
+    align-self: flex-end;
+    font-size: 1.5rem;
+    color: var(--color-secondary);
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover .card-arrow {
+    transform: translateX(5px);
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.service-card:hover::before {
+    opacity: 1;
+}
+
+/* --- Apple-Style Service Detail Page --- */
+#view-service-detail {
+    background: #fff;
+    padding-top: 0;
+    /* Override default view padding if any */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    z-index: 50;
+    /* Above nav if needed, or adjust nav z-index */
+}
+
+.sd-hero {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    background: radial-gradient(circle at center, #f8fafc 0%, #fff 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.sd-hero h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.sd-hero p {
+    font-size: 1.5rem;
+    color: var(--text-light);
+    max-width: 700px;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+.sd-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    position: relative;
+}
+
+.sd-section.bg-light {
+    background: #f8fafc;
+}
+
+.sd-container {
+    max-width: 1000px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .sd-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .sd-container.reversed {
+        direction: rtl;
+        /* Simple way to swap columns, reset text direction in children */
+    }
+
+    .sd-container.reversed>* {
+        direction: ltr;
+    }
+}
+
+.sd-content h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--color-primary);
+}
+
+.sd-content p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.sd-visual {
+    background: #e2e8f0;
+    border-radius: 24px;
+    height: 400px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: #94a3b8;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease;
+}
+
+.sd-visual:hover {
+    transform: scale(1.02);
+}
+
+/* Scroll Animations */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Feature Grid in Detail View */
+.sd-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.sd-feature-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sd-feature-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.sd-feature-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
