@@ -206,11 +206,19 @@ const servicesData = [
         category: "4. Internal Process and Task Automation",
         services: [
             {
-                title: "Internal Process and Task Automation",
-                tagline: "Content coming soon...",
-                features: [],
-                whyMatters: "Content coming soon...",
-                cta: "Learn More"
+                title: "Process & Task Automation",
+                tagline: "Streamline operations, reduce errors, and scale faster.",
+                features: [
+                    { icon: "🔄", title: "Data Entry & Sync Automation", desc: "Auto-sync data between Google Sheets, CRMs, accounting tools, databases. Remove manual copy-paste work." },
+                    { icon: "⚙️", title: "Workflow Automation", desc: "Automate approvals, reminders, internal notifications (Slack/Email). Build multi-step business workflows." },
+                    { icon: "📄", title: "Document & Report Automation", desc: "Auto-generate PDF invoices, proposals, reports. Schedule daily/weekly business dashboards." },
+                    { icon: "📂", title: "File & Data Management", desc: "Auto-organise files in Google Drive/OneDrive. Format, clean, and route incoming data via APIs or forms." },
+                    { icon: "👥", title: "Employee Onboarding/Offboarding", desc: "Create accounts, send welcome emails, assign tasks. Remove access & archive files during offboarding." },
+                    { icon: "📅", title: "Task Scheduling & Reminders", desc: "Automated deadline reminders for teams. Recurring tasks management across systems." },
+                    { icon: "🔌", title: "API Integrations", desc: "Connect any SaaS/CRM/ERP the SME uses. Build custom workflows tailored to their operations." }
+                ],
+                whyMatters: "Eliminate manual bottlenecks, ensure data accuracy, and free up your team to focus on high-value work.",
+                cta: "Start Automating"
             }
         ]
     },
