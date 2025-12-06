@@ -307,15 +307,12 @@ function openServiceDetail(service) {
 
         <div class="sd-section">
             <div class="sd-container">
-                <div class="sd-content scroll-reveal">
+                <div class="sd-content scroll-reveal" style="text-align: center; margin: 0 auto; max-width: 800px;">
                     <h2>Why it matters</h2>
                     <p>${service.whyMatters}</p>
-                    <ul class="differentiation-list" style="margin-top: 1rem;">
+                    <ul class="differentiation-list" style="margin-top: 1rem; text-align: left; display: inline-block;">
                         ${service.differentiation ? service.differentiation.map(d => `<li>${d}</li>`).join('') : ''}
                     </ul>
-                </div>
-                <div class="sd-visual scroll-reveal">
-                    <span>${service.features && service.features[0] ? service.features[0].icon : '🚀'}</span>
                 </div>
             </div>
         </div>
