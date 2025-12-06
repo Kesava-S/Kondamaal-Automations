@@ -315,7 +315,6 @@ function openServiceDetail(service) {
                     <div class="sd-features-grid">
                         ${service.features ? service.features.map(f => `
                             <div class="sd-feature-card">
-                                <span class="sd-feature-icon">${f.icon}</span>
                                 <h3>${f.title}</h3>
                                 <p style="font-size: 0.9rem; color: var(--text-light);">${f.desc}</p>
                             </div>
