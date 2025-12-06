@@ -1354,10 +1354,12 @@ textarea.error {
 .sd-container {
     max-width: 1200px;
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 6rem;
+    display: flex;
+    /* Changed from grid to flex for better centering */
+    flex-direction: column;
+    gap: 4rem;
     align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 768px) {
@@ -1366,19 +1368,7 @@ textarea.error {
     }
 }
 
-@media (min-width: 1024px) {
-    .sd-container {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .sd-container.reversed {
-        direction: rtl;
-    }
-
-    .sd-container.reversed>* {
-        direction: ltr;
-    }
-}
+/* Removed min-width 1024px grid layout to force single column */
 
 .sd-content h2 {
     font-size: 3.5rem;

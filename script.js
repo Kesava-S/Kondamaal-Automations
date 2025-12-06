@@ -323,7 +323,7 @@ function openServiceDetail(service) {
 
         <div class="sd-section">
             <div class="sd-container">
-                <div class="sd-content scroll-reveal" style="text-align: center; margin: 0 auto; max-width: 800px;">
+                <div class="sd-content scroll-reveal" style="text-align: center; margin: 0 auto; max-width: 800px; display: flex; flex-direction: column; align-items: center;">
                     <h2>Why it matters</h2>
                     <p>${service.whyMatters}</p>
                     <ul class="differentiation-list" style="margin-top: 1rem; text-align: left; display: inline-block;">
@@ -334,8 +334,8 @@ function openServiceDetail(service) {
         </div>
 
         <div class="sd-section bg-light">
-            <div class="sd-container reversed">
-                <div class="sd-content scroll-reveal">
+            <div class="sd-container">
+                <div class="sd-content scroll-reveal" style="text-align: center; margin: 0 auto; width: 100%;">
                     <h2>Key Features</h2>
                     <p>Everything you need to succeed.</p>
                     <div class="sd-features-grid">
@@ -353,11 +353,11 @@ function openServiceDetail(service) {
         ${service.workflow ? `
         <div class="sd-section">
             <div class="sd-container">
-                <div class="sd-content scroll-reveal" style="text-align: center; margin: 0 auto;">
+                <div class="sd-content scroll-reveal" style="text-align: center; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
                     <h2>How it works</h2>
                     <div class="workflow-container" style="justify-content: center; margin-top: 2rem;">
                         ${service.workflow.map((step, index) => `
-                            <span class="workflow-step" style="font-size: 1.1rem; padding: 0.5rem 1rem;">${step}</span>
+                            <span class="workflow-step" style="font-size: 1rem; padding: 0.5rem 1rem;">${step}</span>
                             ${index < service.workflow.length - 1 ? '<span class="workflow-arrow">→</span>' : ''}
                         `).join('')}
                     </div>
@@ -367,10 +367,10 @@ function openServiceDetail(service) {
         ` : ''}
 
         <div class="sd-section bg-light" style="min-height: 50vh;">
-            <div class="sd-content scroll-reveal" style="text-align: center;">
+            <div class="sd-content scroll-reveal" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
                 <h2>Ready to get started?</h2>
                 <p style="margin-bottom: 2rem;">Take your business to the next level with ${service.title}.</p>
-                <button class="btn-primary cta-btn" style="font-size: 1.2rem; padding: 1rem 3rem;" onclick="document.getElementById('back-to-home').click(); setTimeout(() => document.querySelector('.inquiry-section').scrollIntoView({behavior: 'smooth'}), 500);">
+                <button class="btn-primary cta-btn" style="font-size: 1rem; padding: 0.8rem 2rem;" onclick="document.getElementById('back-to-home').click(); setTimeout(() => document.querySelector('.inquiry-section').scrollIntoView({behavior: 'smooth'}), 500);">
                     ${service.cta}
                 </button>
             </div>
