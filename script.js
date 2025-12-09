@@ -567,6 +567,23 @@ function switchView(viewName, historyMode = 'push') {
         const state = { view: viewName };
         const url = viewName === 'landing' ? '/' : `#${viewName}`;
 
+        // Smart History: Prevent pushing state if we are already on this view
+        // This fixes the "reload loop" issue where reloads stack history entries
+        const currentHash = window.location.hash;
+        const currentPath = window.location.pathname;
+        let isSameView = false;
+
+        if (viewName === 'landing') {
+            isSameView = (currentPath === '/' && (currentHash === '' || currentHash === '#'));
+        } else {
+            isSameView = (currentHash === `#${viewName}`);
+        }
+
+        if (isSameView && historyMode === 'push') {
+            console.log(`View ${viewName} is already active. Switching to 'replace' mode.`);
+            historyMode = 'replace';
+        }
+
         if (historyMode === 'push') {
             history.pushState(state, '', url);
         } else if (historyMode === 'replace') {

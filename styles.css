@@ -1650,3 +1650,28 @@ textarea.error {
     line-height: 1.5;
     margin-bottom: 0;
 }
+
+/* Privacy Policy Specific Styles */
+#view-privacy-policy .hero {
+    min-height: 40vh !important;
+    height: auto !important;
+    padding: 6rem 2rem 4rem !important;
+    justify-content: flex-start;
+}
+
+#view-privacy-policy .hero h1 {
+    font-size: 4rem;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+#view-privacy-policy .card {
+    margin-top: -2rem !important;
+}
+
+@media (max-width: 768px) {
+    #view-privacy-policy .hero h1 {
+        font-size: 3rem;
+        /* Smaller on mobile to fit */
+    }
+}
