@@ -268,7 +268,13 @@ main {
 
 .view.active {
     display: block;
+    /* Default to block */
     opacity: 1;
+}
+
+/* Allow specific views to override display */
+#view-login.active {
+    display: flex;
 }
 
 .hidden {
@@ -668,15 +674,27 @@ select:focus {
 }
 
 /* Login Styles */
+#view-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 4rem;
+    /* To account for navbar */
+    background: var(--bg-secondary);
+}
+
 .login-container {
+    width: 100%;
     max-width: 400px;
-    margin: 8rem auto 4rem;
-    /* Increased top margin to clear fixed navbar */
     background: var(--white);
     border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 2rem;
-    box-shadow: var(--shadow-md);
+    border-radius: 16px;
+    /* More rounded */
+    padding: 2.5rem;
+    box-shadow: var(--shadow-card);
+    margin: 0;
+    /* Reset margin as flex handles centering */
 }
 
 .login-help {
