@@ -1,5 +1,5 @@
 
-// --- Dynamic Tagline Typing Effect ---
+// --- Dynamic Tagline Fade Effect (Classic) ---
 function initDynamicTagline() {
     const taglineElement = document.querySelector('.hero-tagline');
     if (!taglineElement) return;
@@ -16,41 +16,26 @@ function initDynamicTagline() {
     ];
 
     let phraseIndex = 0;
-    let charIndex = phrases[0].length;
-    let isDeleting = true; // Start by deleting after the initial pause
-    let typeSpeed = 100;
 
-    function type() {
-        const currentPhrase = phrases[phraseIndex];
+    function rotateText() {
+        // 1. Fade Out
+        taglineElement.style.opacity = '0';
 
-        if (isDeleting) {
-            taglineElement.textContent = currentPhrase.substring(0, charIndex);
-            charIndex--;
-            typeSpeed = 30; // Faster deleting
+        setTimeout(() => {
+            // 2. Change Text
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            taglineElement.textContent = phrases[phraseIndex];
 
-            if (charIndex < 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                charIndex = 0;
-                typeSpeed = 500; // Pause before typing next
-            }
-        } else {
-            taglineElement.textContent = currentPhrase.substring(0, charIndex);
-            charIndex++;
-            typeSpeed = 80; // Normal typing
-
-            if (charIndex > currentPhrase.length) {
-                isDeleting = true;
-                charIndex = currentPhrase.length;
-                typeSpeed = 1500; // Pause at end before deleting
-            }
-        }
-
-        setTimeout(type, typeSpeed);
+            // 3. Fade In
+            taglineElement.style.opacity = '1';
+        }, 500); // Wait for 0.5s fade out (matches CSS transition)
     }
 
-    // Start the typing loop after initial delay of 1.5s
-    setTimeout(type, 1500);
+    // Start the rotation loop
+    // Initial delay to let the entrance animation finish
+    setTimeout(() => {
+        setInterval(rotateText, 4000); // Rotate every 4 seconds
+    }, 2000);
 }
 
 // Initialize dynamic tagline on load

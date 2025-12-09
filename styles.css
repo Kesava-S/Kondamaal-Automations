@@ -135,8 +135,7 @@ body {
     text-align: center;
     position: relative;
     overflow: hidden;
-    background: var(--bg-color);
-    /* Clean white background */
+    background: radial-gradient(circle at center, #111 0%, #000 100%);
     padding: 0 1.5rem;
 }
 
@@ -156,18 +155,17 @@ body {
 
 .hero h1 {
     font-size: 5rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: -0.03em;
-    background: var(--gradient-primary);
-    /* Dark gradient text */
+    background: linear-gradient(180deg, #fff 0%, #aaa 100%);
     -webkit-background-clip: text;
     background-clip: text;
-    /* Added standard property */
     -webkit-text-fill-color: transparent;
     margin-bottom: 1.5rem;
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 1.2s var(--ease-out-expo) forwards;
+    line-height: 1.1;
 }
 
 @media (max-width: 768px) {
@@ -179,7 +177,7 @@ body {
 
 .hero .subtitle {
     font-size: 1.8rem;
-    color: var(--text-main);
+    color: var(--text-muted);
     font-weight: 400;
     margin-bottom: 1rem;
     opacity: 0;
@@ -195,6 +193,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 1.2s var(--ease-out-expo) 0.4s forwards;
+    transition: opacity 0.5s ease;
 }
 
 

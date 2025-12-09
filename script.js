@@ -401,7 +401,7 @@ function openServiceDetail(service) {
             <div class="sd-content scroll-reveal" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
                 <h2>Ready to get started?</h2>
                 <p style="margin-bottom: 2rem;">Take your business to the next level with ${service.title}.</p>
-                <button class="btn-primary cta-btn" style="font-size: 1rem; padding: 0.8rem 2rem;" onclick="switchView('landing'); setTimeout(() => document.querySelector('.inquiry-section').scrollIntoView({behavior: 'smooth'}), 500);">
+                <button class="btn-primary cta-btn" style="font-size: 1rem; padding: 0.8rem 2rem;" onclick="handleServiceCtaClick()">
                     ${service.cta}
                 </button>
             </div>
@@ -525,6 +525,18 @@ onAuthStateChanged(auth, async (user) => {
         }
     }
 });
+
+window.handleServiceCtaClick = function () {
+    switchView('landing');
+    setTimeout(() => {
+        const formSection = document.querySelector('.inquiry-section');
+        if (formSection) {
+            formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, 100);
+};
+
+window.switchView = switchView;
 
 function switchView(viewName, addToHistory = true) {
     // 1. Hide all views

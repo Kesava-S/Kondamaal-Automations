@@ -940,6 +940,24 @@
             }
         ];
 
+        function handleServiceCtaClickFallback() {
+            document.querySelectorAll('.view').forEach(v => {
+                v.classList.add('hidden');
+                v.classList.remove('active');
+            });
+            const landing = document.getElementById('view-landing');
+            if (landing) {
+                landing.classList.remove('hidden');
+                landing.classList.add('active');
+            }
+            window.scrollTo(0, 0);
+
+            setTimeout(() => {
+                const formSection = document.querySelector('.inquiry-section');
+                if (formSection) formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
         function renderServicesFallback() {
             const servicesGrid = document.getElementById('services-grid');
             if (servicesGrid) {
@@ -1023,7 +1041,7 @@
                     <div class="sd-content scroll-reveal" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
                         <h2>Ready to get started?</h2>
                         <p style="margin-bottom: 2rem;">Take your business to the next level with ${service.title}.</p>
-                        <button class="btn-primary cta-btn" style="font-size: 1rem; padding: 0.8rem 2rem;" onclick="document.getElementById('back-to-home').click(); setTimeout(() => document.querySelector('.inquiry-section').scrollIntoView({behavior: 'smooth'}), 500);">
+                        <button class="btn-primary cta-btn" style="font-size: 1rem; padding: 0.8rem 2rem;" onclick="handleServiceCtaClickFallback()">
                             ${service.cta}
                         </button>
                     </div>
