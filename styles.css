@@ -177,9 +177,9 @@ body {
     }
 
     .hero h1 {
-        font-size: 13vw;
+        font-size: 15vw;
         /* Massive text to fill the width */
-        line-height: 1.1;
+        line-height: 1.0;
         margin-bottom: 1.5rem;
         width: 100%;
     }
