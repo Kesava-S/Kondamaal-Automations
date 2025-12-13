@@ -1,92 +1,36 @@
-import { useState } from 'react'
-import Head from 'next/head'
+import Link from 'next/link'
 
 export default function Home() {
-    const [step, setStep] = useState(1)
-
-    const nextStep = () => setStep(step + 1)
-    const prevStep = () => setStep(step - 1)
-
     return (
         <>
-            <Head>
-                <title>Home | Kondamaal Automations</title>
-                <meta name="description" content="Reduce Team Cost with AI Workforce. Get started with Kondamaal Automations today." />
-            </Head>
-            <section className="view active">
-                <header className="hero">
-                    <h1>Business Automation - Personalized</h1>
-                    <p className="subtitle">Affordable Automation Partner</p>
-                    <p className="hero-tagline">Reduce Team Cost with AI Workforce</p>
-                </header>
+            <section className="hero">
+                <div className="container">
+                    <h1>Business Automation.<br />Simplified.</h1>
+                    <p>Reduce team costs and streamline operations with our intelligent AI workforce solutions.</p>
+                    <Link href="/services" className="cta-button">
+                        View Our Services
+                    </Link>
+                </div>
+            </section>
 
-                <section className="inquiry-section">
-                    <div className="card">
-                        <h2>Get Started</h2>
-                        <div className="quiz-container">
-                            <div className="progress-bar">
-                                <div className="progress-fill" style={{ width: `${(step / 6) * 100}%` }}></div>
-                            </div>
-
-                            <form onSubmit={(e) => e.preventDefault()}>
-                                {step === 1 && (
-                                    <div className="quiz-step active">
-                                        <h3>1. Business Basics</h3>
-                                        <div className="form-group">
-                                            <label>Business Name *</label>
-                                            <input type="text" name="businessName" placeholder="Business Name" required />
-                                        </div>
-                                        <div className="form-group">
-                                            <input type="text" name="size" placeholder="Size (Employees, Branches)" />
-                                        </div>
-                                        <div className="form-group">
-                                            <input type="text" name="location" placeholder="Location(s)" />
-                                        </div>
-                                        <div className="form-group">
-                                            <label>Industry / Nature of Business *</label>
-                                            <input type="text" name="industry" placeholder="Industry / Nature of Business" required />
-                                        </div>
-                                        <div className="form-group">
-                                            <input type="text" name="website" placeholder="Website / Social Links" />
-                                        </div>
-                                        <div className="step-buttons">
-                                            <button type="button" className="btn-primary btn-next" onClick={nextStep}>Next</button>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {step === 2 && (
-                                    <div className="quiz-step active">
-                                        <h3>2. Current Process Overview</h3>
-                                        <div className="form-group">
-                                            <textarea name="manualTasks" placeholder="What do you need to automate?" rows="3"></textarea>
-                                        </div>
-                                        <div className="step-buttons">
-                                            <button type="button" className="btn-secondary btn-prev" onClick={prevStep}>Back</button>
-                                            <button type="button" className="btn-primary btn-next" onClick={nextStep}>Next</button>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Simplified for brevity - add other steps as needed */}
-                                {step > 2 && (
-                                    <div className="quiz-step active">
-                                        <h3>Step {step} (Placeholder)</h3>
-                                        <p>More steps would go here...</p>
-                                        <div className="step-buttons">
-                                            <button type="button" className="btn-secondary btn-prev" onClick={prevStep}>Back</button>
-                                            {step < 6 ? (
-                                                <button type="button" className="btn-primary btn-next" onClick={nextStep}>Next</button>
-                                            ) : (
-                                                <button type="submit" className="btn-primary">Submit Inquiry</button>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
-                            </form>
+            <section className="services-section">
+                <div className="container">
+                    <h2 className="section-title">Why Choose Us</h2>
+                    <div className="grid">
+                        <div className="card">
+                            <h3>Cost Effective</h3>
+                            <p>Significantly reduce operational costs by automating repetitive tasks and workflows.</p>
+                        </div>
+                        <div className="card">
+                            <h3>24/7 Operation</h3>
+                            <p>Our automated systems work round the clock, ensuring your business never sleeps.</p>
+                        </div>
+                        <div className="card">
+                            <h3>Scalable</h3>
+                            <p>Solutions that grow with your business, handling increased workload effortlessly.</p>
                         </div>
                     </div>
-                </section>
+                </div>
             </section>
         </>
     )

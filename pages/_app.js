@@ -10,40 +10,35 @@ function MyApp({ Component, pageProps }) {
         <>
             <Head>
                 <title>Kondamaal Automations</title>
-                <meta name="description" content="Streamline your business processes with intelligent automation." />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <link rel="icon" href="/logo.png" />
-                <link rel="apple-touch-icon" href="/logo.png" />
-
-                {/* Open Graph */}
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://kondamaal.com" />
-                <meta property="og:title" content="Kondamaal Automations" />
-                <meta property="og:description" content="Streamline your business processes with intelligent automation." />
-                <meta property="og:image" content="https://kondamaal.com/logo.png" />
-                <meta property="og:site_name" content="Kondamaal Automations" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.ico" />
             </Head>
 
             <nav className="navbar">
-                <div className="logo" id="nav-logo" onClick={() => router.push('/')}>
-                    <img src="/logo.png" alt="Kondamaal AutoTech Logo" className="logo-img" />
-                    <div className="logo-text">
-                        <span>Kondamaal Business Automation</span>
+                <div className="container nav-content">
+                    <Link href="/" className="logo">
+                        Kondamaal
+                    </Link>
+                    <div className="nav-links">
+                        <Link href="/" className={`nav-link ${router.pathname === '/' ? 'active' : ''}`}>
+                            Home
+                        </Link>
+                        <Link href="/services" className={`nav-link ${router.pathname === '/services' ? 'active' : ''}`}>
+                            Services
+                        </Link>
                     </div>
-                </div>
-                <div className="nav-links">
-                    <Link href="/" legacyBehavior>
-                        <a className={`nav-btn ${router.pathname === '/' ? 'active' : ''}`}>Home</a>
-                    </Link>
-                    <Link href="/services" legacyBehavior>
-                        <a className={`nav-btn ${router.pathname === '/services' ? 'active' : ''}`}>Services</a>
-                    </Link>
                 </div>
             </nav>
 
-            <main id="app">
+            <main>
                 <Component {...pageProps} />
             </main>
+
+            <footer>
+                <div className="container">
+                    <p>&copy; {new Date().getFullYear()} Kondamaal Automations. All rights reserved.</p>
+                </div>
+            </footer>
         </>
     )
 }

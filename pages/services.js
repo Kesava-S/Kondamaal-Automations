@@ -1,47 +1,51 @@
 import Head from 'next/head'
 
 export default function Services() {
-    const servicesData = [
+    const services = [
         {
-            category: "1. Comprehensive Business Automation",
-            services: [
-                {
-                    title: "Automate Your Business Marketing",
-                    tagline: "Save Hours Every Week",
-                    whyMatters: "We help businesses automate social media posting, lead capture, CRM updates, ad reporting, and content workflows.",
-                    cta: "Book a Demo"
-                }
-            ]
+            title: "Marketing Automation",
+            description: "Automate social media posting, lead capture, and ad reporting to save hours every week."
         },
-        // Add other services here
-    ];
+        {
+            title: "CRM Integration",
+            description: "Seamlessly sync data between your sales tools and customer databases."
+        },
+        {
+            title: "Custom Workflows",
+            description: "Tailored automation solutions designed specifically for your unique business processes."
+        },
+        {
+            title: "Data Analytics",
+            description: "Real-time insights and reporting dashboards to help you make data-driven decisions."
+        }
+    ]
 
     return (
         <>
             <Head>
-                <title>Our Services | Kondamaal Automations</title>
-                <meta name="description" content="Explore our comprehensive automation solutions including marketing automation, CRM integration, and custom workflows." />
+                <title>Services | Kondamaal Automations</title>
             </Head>
-            <section className="view active">
-                <header className="hero" style={{ minHeight: '60vh', height: 'auto', paddingTop: '8rem' }}>
-                    <h1>Our Services</h1>
-                    <p className="subtitle">Comprehensive Automation Solutions</p>
-                </header>
-                <section className="services-section" style={{ paddingTop: 0 }}>
-                    <div className="services-grid">
-                        {servicesData.map((category, idx) => (
-                            category.services.map((service, sIdx) => (
-                                <div key={`${idx}-${sIdx}`} className="service-card">
-                                    <div>
-                                        <h3 style={{ marginTop: '0.5rem' }}>{service.title}</h3>
-                                        <p style={{ color: 'var(--text-light)', fontSize: '0.95rem' }}>{service.tagline}</p>
-                                    </div>
-                                    <span className="card-arrow">→</span>
-                                </div>
-                            ))
+
+            <div style={{ paddingTop: '120px', paddingBottom: '60px', textAlign: 'center' }}>
+                <div className="container">
+                    <h1 style={{ fontSize: '3rem', fontWeight: '700', marginBottom: '1rem' }}>Our Services</h1>
+                    <p style={{ fontSize: '1.25rem', color: 'var(--gray-500)', maxWidth: '600px', margin: '0 auto' }}>
+                        Comprehensive solutions to power your business growth.
+                    </p>
+                </div>
+            </div>
+
+            <section className="services-section" style={{ background: 'white' }}>
+                <div className="container">
+                    <div className="grid">
+                        {services.map((service, index) => (
+                            <div key={index} className="card" style={{ background: 'var(--gray-50)' }}>
+                                <h3>{service.title}</h3>
+                                <p>{service.description}</p>
+                            </div>
                         ))}
                     </div>
-                </section>
+                </div>
             </section>
         </>
     )
