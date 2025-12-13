@@ -5,7 +5,16 @@ export default function Home() {
     return (
         <>
             <Head>
+                <title>Kondamaal Automations | Business Automation Simplified</title>
                 <meta name="description" content="Affordable business automation solutions. Simplify marketing, sales, lead capture, and reporting with AI automation and reduce workforce costs." />
+
+                <meta property="og:title" content="Kondamaal Automations | Business Automation Simplified" />
+                <meta property="og:description" content="Affordable business automation solutions. Simplify marketing, sales, lead capture, and reporting with AI automation and reduce workforce costs." />
+                <meta property="og:url" content="https://kondamaal.com/" />
+
+                <meta name="twitter:title" content="Kondamaal Automations | Business Automation Simplified" />
+                <meta name="twitter:description" content="Affordable business automation solutions. Simplify marketing, sales, lead capture, and reporting with AI automation and reduce workforce costs." />
+
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{

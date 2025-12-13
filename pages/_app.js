@@ -14,6 +14,15 @@ function MyApp({ Component, pageProps }) {
                 <title>Kondamaal Automations</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/logo.png" />
+
+                {/* Open Graph / Facebook */}
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="Kondamaal Automations" />
+                <meta property="og:image" content="https://kondamaal.com/logo.png" />
+
+                {/* Twitter */}
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:image" content="https://kondamaal.com/logo.png" />
             </Head>
 
             <nav className="navbar">

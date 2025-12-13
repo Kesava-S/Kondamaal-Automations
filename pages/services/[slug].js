@@ -21,6 +21,14 @@ export default function ServicePage({ service }) {
             <Head>
                 <title>{service.title} | Kondamaal Automations</title>
                 <meta name="description" content={service.description} />
+
+                <meta property="og:title" content={`${service.title} | Kondamaal Automations`} />
+                <meta property="og:description" content={service.description} />
+                <meta property="og:url" content={`https://kondamaal.com/services/${service.slug}`} />
+
+                <meta name="twitter:title" content={`${service.title} | Kondamaal Automations`} />
+                <meta name="twitter:description" content={service.description} />
+
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
