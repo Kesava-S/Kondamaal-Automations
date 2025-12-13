@@ -16,15 +16,15 @@ function MyApp({ Component, pageProps }) {
 
             <nav className="navbar">
                 <div className="container nav-content">
-                    <Link href="/" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Link href="/" replace={router.pathname === '/'} className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <img src="/logo.png" alt="Kondamaal Automations Logo" style={{ height: '32px', width: 'auto' }} />
                         Kondamaal Automations
                     </Link>
                     <div className="nav-links">
-                        <Link href="/" className={`nav-link ${router.pathname === '/' ? 'active' : ''}`}>
+                        <Link href="/" replace={router.pathname === '/'} className={`nav-link ${router.pathname === '/' ? 'active' : ''}`}>
                             Home
                         </Link>
-                        <Link href="/services" className={`nav-link ${router.pathname === '/services' ? 'active' : ''}`}>
+                        <Link href="/services" replace={router.pathname === '/services'} className={`nav-link ${router.pathname === '/services' ? 'active' : ''}`}>
                             Services
                         </Link>
                     </div>
