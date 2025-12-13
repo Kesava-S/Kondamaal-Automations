@@ -4,9 +4,10 @@
   "description": "This is a prototype website for Kondamaal, a Marketing Automation company.",
   "main": "script.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "repository": {
     "type": "git",
@@ -21,14 +22,14 @@
   },
   "homepage": "https://github.com/Kesava-S/Brandify-Digital#readme",
   "dependencies": {
+    "@supabase/supabase-js": "^2.87.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "firebase-admin": "^13.6.0",
     "googleapis": "^166.0.0",
-    "multer": "^2.0.2"
-  },
-  "devDependencies": {
-    "vite": "^7.2.7"
+    "multer": "^2.0.2",
+    "next": "^16.0.10",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
   }
 }

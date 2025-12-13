@@ -1,12 +1,19 @@
-const multer = require('multer');
-const { google } = require('googleapis');
-const stream = require('stream');
+import multer from 'multer';
+import { google } from 'googleapis';
+import stream from 'stream';
+import { supabase } from '../../lib/supabaseClient';
 
 // Configure Multer (Memory Storage)
 const upload = multer({
     storage: multer.memoryStorage(),
     limits: { fileSize: 4.5 * 1024 * 1024 } // 4.5MB limit for Vercel
 });
+
+export const config = {
+    api: {
+        bodyParser: false,
+    },
+};
 
 // Helper to run middleware
 function runMiddleware(req, res, fn) {
@@ -20,14 +27,14 @@ function runMiddleware(req, res, fn) {
     });
 }
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
     // Enable CORS
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
     res.setHeader(
         'Access-Control-Allow-Headers',
-        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization'
     );
 
     if (req.method === 'OPTIONS') {
@@ -46,9 +53,10 @@ module.exports = async (req, res) => {
     }
 
     try {
-        // Lazy load admin to avoid cold start penalty if not needed, but we need it here
-        const admin = require('../lib/firebaseAdmin');
-        await admin.auth().verifyIdToken(token);
+        const { data: { user }, error } = await supabase.auth.getUser(token);
+        if (error || !user) {
+            throw new Error('Invalid token');
+        }
     } catch (authError) {
         return res.status(401).json({ error: 'Unauthorized: Invalid token' });
     }
@@ -115,4 +123,4 @@ module.exports = async (req, res) => {
         console.error('Error uploading to Drive:', error);
         res.status(500).json({ error: 'Failed to upload file.', details: error.message });
     }
-};
+}
