@@ -11,41 +11,73 @@ export default function PrivacyPolicy() {
                 <h1 style={{ fontSize: '2.5rem', fontWeight: '700', marginBottom: '2rem' }}>Privacy Policy</h1>
 
                 <div style={{ maxWidth: '800px', lineHeight: '1.6', color: 'var(--text-secondary)' }}>
-                    <p style={{ marginBottom: '1.5rem' }}>Last Updated: {new Date().toLocaleDateString()}</p>
+                    <p style={{ marginBottom: '1.5rem' }}><strong>Last Updated:</strong> 13/12/2025</p>
 
                     <section style={{ marginBottom: '2rem' }}>
                         <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>1. Introduction</h2>
-                        <p>Kondamaal Automations ("we," "our," or "us") respects your privacy and is committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website and tell you about your privacy rights and how the law protects you.</p>
+                        <p>Kondamaal Automations (“we,” “our,” “us”) respects your privacy. This policy explains how we collect, use, and protect your personal data when you use our website or services.</p>
                     </section>
 
                     <section style={{ marginBottom: '2rem' }}>
                         <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>2. Data We Collect</h2>
-                        <p>We may collect, use, store and transfer different kinds of personal data about you which we have grouped together follows:</p>
+                        <p>We may collect:</p>
                         <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', marginTop: '0.5rem' }}>
-                            <li><strong>Identity Data:</strong> includes first name, last name, username or similar identifier.</li>
-                            <li><strong>Contact Data:</strong> includes billing address, delivery address, email address and telephone numbers.</li>
-                            <li><strong>Technical Data:</strong> includes internet protocol (IP) address, your login data, browser type and version, time zone setting and location, browser plug-in types and versions, operating system and platform and other technology on the devices you use to access this website.</li>
+                            <li><strong>Identity & Contact:</strong> name, email, phone, billing details.</li>
+                            <li><strong>Technical Data:</strong> IP address, browser info, device data.</li>
                         </ul>
                     </section>
 
                     <section style={{ marginBottom: '2rem' }}>
                         <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>3. How We Use Your Data</h2>
-                        <p>We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:</p>
+                        <p>We use your data to:</p>
                         <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', marginTop: '0.5rem' }}>
-                            <li>Where we need to perform the contract we are about to enter into or have entered into with you.</li>
-                            <li>Where it is necessary for our legitimate interests (or those of a third party) and your interests and fundamental rights do not override those interests.</li>
-                            <li>Where we need to comply with a legal or regulatory obligation.</li>
+                            <li>Provide and manage our services.</li>
+                            <li>Communicate with you.</li>
+                            <li>Comply with legal obligations.</li>
+                            <li>Improve our website and services.</li>
                         </ul>
                     </section>
 
                     <section style={{ marginBottom: '2rem' }}>
-                        <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>4. Data Security</h2>
-                        <p>We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorized way, altered or disclosed.</p>
+                        <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>4. Legal Basis</h2>
+                        <p>For EU/UK users, we process data based on:</p>
+                        <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', marginTop: '0.5rem' }}>
+                            <li>Contract performance.</li>
+                            <li>Legitimate interests.</li>
+                            <li>Consent (where required).</li>
+                            <li>Legal obligations.</li>
+                        </ul>
                     </section>
 
                     <section style={{ marginBottom: '2rem' }}>
-                        <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>5. Contact Us</h2>
-                        <p>If you have any questions about this privacy policy or our privacy practices, please contact us at: support@kondamaal.com</p>
+                        <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>5. International Transfers</h2>
+                        <p>Your data may be stored or processed in India. We ensure appropriate protections are in place.</p>
+                    </section>
+
+                    <section style={{ marginBottom: '2rem' }}>
+                        <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>6. Your Rights</h2>
+                        <p>You can:</p>
+                        <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', marginTop: '0.5rem' }}>
+                            <li>Access, correct, or delete your data.</li>
+                            <li>Object to processing or request restriction.</li>
+                            <li>Withdraw consent at any time.</li>
+                        </ul>
+                    </section>
+
+                    <section style={{ marginBottom: '2rem' }}>
+                        <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>7. Data Security & Retention</h2>
+                        <p>We protect your data using appropriate security measures and retain it only as long as necessary.</p>
+                    </section>
+
+                    <section style={{ marginBottom: '2rem' }}>
+                        <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>8. Cookies & Tracking</h2>
+                        <p>We use cookies and similar tools for website functionality and analytics. You can manage preferences via your browser.</p>
+                    </section>
+
+                    <section style={{ marginBottom: '2rem' }}>
+                        <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>9. Contact & Complaints</h2>
+                        <p>For questions, data requests, or complaints, contact: <a href="mailto:support@kondamaal.com" style={{ color: '#0071e3' }}>support@kondamaal.com</a></p>
+                        <p style={{ marginTop: '0.5rem' }}>EU/UK users can also contact their local data protection authority.</p>
                     </section>
                 </div>
             </div>
