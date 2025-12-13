@@ -2,14 +2,13 @@ import '../styles/globals.css'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import * as Sentry from "@sentry/nextjs";
 import { DefaultSeo } from 'next-seo';
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
 
     return (
-        <Sentry.ErrorBoundary fallback={<p>An error has occurred</p>}>
+        <>
             <DefaultSeo
                 title="Kondamaal Automations"
                 description="Streamline your business processes with intelligent automation."
@@ -58,7 +57,7 @@ function MyApp({ Component, pageProps }) {
             <main id="app">
                 <Component {...pageProps} />
             </main>
-        </Sentry.ErrorBoundary>
+        </>
     )
 }
 
