@@ -5,8 +5,7 @@ import { supabase } from '../lib/supabaseClient'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import * as Sentry from "@sentry/nextjs";
-import { DefaultSeo, OrganizationJsonLd, WebPageJsonLd } from 'next-seo';
-import SEO from '../next-seo.config';
+import { DefaultSeo } from 'next-seo';
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
@@ -32,28 +31,25 @@ function MyApp({ Component, pageProps }) {
 
     return (
         <Sentry.ErrorBoundary fallback={<p>An error has occurred</p>}>
-            <DefaultSeo {...SEO} />
-            <OrganizationJsonLd
-                type="Organization"
-                id="https://kondamaal.com/#organization"
-                name="Kondamaal Automations"
-                url="https://kondamaal.com/"
-                logo="https://kondamaal.com/logo.png"
-                contactPoint={[
-                    {
-                        telephone: '+1-555-555-5555',
-                        contactType: 'customer service',
-                    },
-                ]}
-                sameAs={['https://www.facebook.com/kondamaal', 'https://www.linkedin.com/company/kondamaal']}
-            />
-            <WebPageJsonLd
+            <DefaultSeo
+                title="Kondamaal Automations"
                 description="Streamline your business processes with intelligent automation."
-                id="https://kondamaal.com/#website"
-                lastReviewed="2025-12-13T16:00:00Z"
-                reviewedBy={{
-                    type: 'Person',
-                    name: 'Kondamaal Admin',
+                canonical="https://kondamaal.com"
+                openGraph={{
+                    type: 'website',
+                    locale: 'en_IE',
+                    url: 'https://kondamaal.com',
+                    siteName: 'Kondamaal Automations',
+                    title: 'Kondamaal Automations',
+                    description: 'Streamline your business processes with intelligent automation.',
+                    images: [
+                        {
+                            url: 'https://kondamaal.com/logo.png',
+                            width: 800,
+                            height: 600,
+                            alt: 'Kondamaal Logo',
+                        },
+                    ],
                 }}
             />
 
@@ -71,12 +67,20 @@ function MyApp({ Component, pageProps }) {
                     </div>
                 </div>
                 <div className="nav-links">
-                    <Link href="/" className={`nav-btn ${router.pathname === '/' ? 'active' : ''}`}>Home</Link>
-                    <Link href="/services" className={`nav-btn ${router.pathname === '/services' ? 'active' : ''}`}>Services</Link>
-                    <Link href="/careers" className={`nav-btn ${router.pathname === '/careers' ? 'active' : ''}`}>Careers</Link>
+                    <Link href="/" legacyBehavior>
+                        <a className={`nav-btn ${router.pathname === '/' ? 'active' : ''}`}>Home</a>
+                    </Link>
+                    <Link href="/services" legacyBehavior>
+                        <a className={`nav-btn ${router.pathname === '/services' ? 'active' : ''}`}>Services</a>
+                    </Link>
+                    <Link href="/careers" legacyBehavior>
+                        <a className={`nav-btn ${router.pathname === '/careers' ? 'active' : ''}`}>Careers</a>
+                    </Link>
 
                     {!user ? (
-                        <Link href="/login" className={`nav-btn ${router.pathname === '/login' ? 'active' : ''}`}>Login</Link>
+                        <Link href="/login" legacyBehavior>
+                            <a className={`nav-btn ${router.pathname === '/login' ? 'active' : ''}`}>Login</a>
+                        </Link>
                     ) : (
                         <button onClick={handleLogout} className="nav-btn">Logout</button>
                     )}
