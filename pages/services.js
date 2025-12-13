@@ -1,4 +1,4 @@
-import { NextSeo } from 'next-seo'
+import Head from 'next/head'
 
 export default function Services() {
     const servicesData = [
@@ -18,10 +18,10 @@ export default function Services() {
 
     return (
         <>
-            <NextSeo
-                title="Our Services"
-                description="Explore our comprehensive automation solutions including marketing automation, CRM integration, and custom workflows."
-            />
+            <Head>
+                <title>Our Services | Kondamaal Automations</title>
+                <meta name="description" content="Explore our comprehensive automation solutions including marketing automation, CRM integration, and custom workflows." />
+            </Head>
             <section className="view active">
                 <header className="hero" style={{ minHeight: '60vh', height: 'auto', paddingTop: '8rem' }}>
                     <h1>Our Services</h1>

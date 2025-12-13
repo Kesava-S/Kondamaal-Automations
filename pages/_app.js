@@ -2,39 +2,26 @@ import '../styles/globals.css'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { DefaultSeo } from 'next-seo';
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
 
     return (
         <>
-            <DefaultSeo
-                title="Kondamaal Automations"
-                description="Streamline your business processes with intelligent automation."
-                canonical="https://kondamaal.com"
-                openGraph={{
-                    type: 'website',
-                    locale: 'en_IE',
-                    url: 'https://kondamaal.com',
-                    siteName: 'Kondamaal Automations',
-                    title: 'Kondamaal Automations',
-                    description: 'Streamline your business processes with intelligent automation.',
-                    images: [
-                        {
-                            url: 'https://kondamaal.com/logo.png',
-                            width: 800,
-                            height: 600,
-                            alt: 'Kondamaal Logo',
-                        },
-                    ],
-                }}
-            />
-
             <Head>
+                <title>Kondamaal Automations</title>
+                <meta name="description" content="Streamline your business processes with intelligent automation." />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <link rel="icon" href="/logo.png" />
                 <link rel="apple-touch-icon" href="/logo.png" />
+
+                {/* Open Graph */}
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://kondamaal.com" />
+                <meta property="og:title" content="Kondamaal Automations" />
+                <meta property="og:description" content="Streamline your business processes with intelligent automation." />
+                <meta property="og:image" content="https://kondamaal.com/logo.png" />
+                <meta property="og:site_name" content="Kondamaal Automations" />
             </Head>
 
             <nav className="navbar">

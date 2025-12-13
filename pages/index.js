@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { NextSeo } from 'next-seo'
+import Head from 'next/head'
 
 export default function Home() {
     const [step, setStep] = useState(1)
@@ -9,10 +9,10 @@ export default function Home() {
 
     return (
         <>
-            <NextSeo
-                title="Home"
-                description="Reduce Team Cost with AI Workforce. Get started with Kondamaal Automations today."
-            />
+            <Head>
+                <title>Home | Kondamaal Automations</title>
+                <meta name="description" content="Reduce Team Cost with AI Workforce. Get started with Kondamaal Automations today." />
+            </Head>
             <section className="view active">
                 <header className="hero">
                     <h1>Business Automation - Personalized</h1>

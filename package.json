@@ -21,7 +21,6 @@
   "homepage": "https://github.com/Kesava-S/Brandify-Digital#readme",
   "dependencies": {
     "next": "^16.0.10",
-    "next-seo": "^6.6.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3"
   }
