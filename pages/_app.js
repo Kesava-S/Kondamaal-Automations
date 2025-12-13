@@ -16,8 +16,8 @@ function MyApp({ Component, pageProps }) {
 
             <nav className="navbar">
                 <div className="container nav-content">
-                    <Link href="/" replace={router.pathname === '/'} className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <img src="/logo.png" alt="Kondamaal Automations Logo" style={{ height: '32px', width: 'auto' }} />
+                    <Link href="/" replace={router.pathname === '/'} className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        <img src="/logo.png" alt="Kondamaal Automations Logo" style={{ height: '48px', width: 'auto' }} />
                         Kondamaal Automations
                     </Link>
                     <div className="nav-links">
