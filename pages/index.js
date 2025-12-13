@@ -6,6 +6,21 @@ export default function Home() {
         <>
             <Head>
                 <meta name="description" content="Affordable business automation solutions. Simplify marketing, sales, lead capture, and reporting with AI automation and reduce workforce costs." />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "Organization",
+                            "name": "Kondamaal Automations",
+                            "url": "https://kondamaal.com",
+                            "logo": "https://kondamaal.com/logo.png",
+                            "description": "Affordable business automation solutions. Simplify marketing, sales, lead capture, and reporting with AI automation.",
+                            "email": "support@kondamaal.com",
+                            "sameAs": []
+                        })
+                    }}
+                />
             </Head>
             <section className="hero">
                 <div className="container">

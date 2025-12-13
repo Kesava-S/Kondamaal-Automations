@@ -21,6 +21,36 @@ export default function ServicePage({ service }) {
             <Head>
                 <title>{service.title} | Kondamaal Automations</title>
                 <meta name="description" content={service.description} />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "Service",
+                            "name": service.title,
+                            "description": service.description,
+                            "provider": {
+                                "@type": "Organization",
+                                "name": "Kondamaal Automations",
+                                "url": "https://kondamaal.com"
+                            },
+                            "areaServed": "Global",
+                            "hasOfferCatalog": {
+                                "@type": "OfferCatalog",
+                                "name": "Business Automation Services",
+                                "itemListElement": [
+                                    {
+                                        "@type": "Offer",
+                                        "itemOffered": {
+                                            "@type": "Service",
+                                            "name": service.title
+                                        }
+                                    }
+                                ]
+                            }
+                        })
+                    }}
+                />
             </Head>
 
             <div style={{ paddingTop: '120px', paddingBottom: '80px' }}>
