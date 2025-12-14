@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import ExportedImage from "next-image-export-optimizer";
+
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }) {
             <nav className="navbar">
                 <div className="container nav-content">
                     <Link href="/" replace={router.pathname === '/'} className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                        <ExportedImage src="images/logo.png" alt="Kondamaal Automations Logo" width={48} height={48} style={{ width: 'auto', height: '48px' }} priority />
+                        <img src="/logo.png" alt="Kondamaal Automations Logo" style={{ height: '48px', width: 'auto' }} loading="lazy" />
                         Kondamaal Automations
                     </Link>
                     <div className="nav-links">

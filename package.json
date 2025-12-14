@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "node scripts/generate-sitemap.js && node scripts/generate-robots.js && next build && next-image-export-optimizer",
+        "build": "node scripts/generate-sitemap.js && node scripts/generate-robots.js && next build",
         "start": "next start",
         "lint": "next lint"
     },
