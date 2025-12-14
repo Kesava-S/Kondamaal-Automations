@@ -32,24 +32,86 @@ export const services = [
         ctaButtonText: "Book Your Free Consultation"
     },
     {
-        id: "crm-integration",
-        title: "CRM Integration",
-        slug: "crm-integration",
-        description: "Seamlessly sync data between your sales tools and customer databases.",
-        fullDescription: "Keep your customer data synchronized across all your tools. We integrate your CRM with your email marketing, support desk, and sales platforms to ensure a single source of truth for your customer data.",
-        features: [
-            "Two-way Data Sync",
-            "Custom Field Mapping",
-            "Automated Contact Updates",
-            "Activity Logging",
-            "Duplicate Prevention"
+        id: "process-automation",
+        title: "Process Automation",
+        slug: "process-automation",
+        description: "Streamline your business. Save time. Delight your customers.",
+        fullDescription: "Streamline your business. Save time. Delight your customers.",
+        detailedFeatures: [
+            {
+                title: "Instant Quotes & Smart Pricing",
+                items: [
+                    "AI-generated quotes instantly based on job type and location",
+                    "Custom pricing rules & loyalty discounts applied automatically",
+                    "Send quotes via WhatsApp, email, or SMS in seconds"
+                ]
+            },
+            {
+                title: "Auto Invoicing & Payments",
+                items: [
+                    "Invoices generated & sent immediately after job completion",
+                    "Track payments and overdue invoices in real time",
+                    "Automatic payment reminders & recurring billing"
+                ]
+            },
+            {
+                title: "Smart Booking Automation",
+                items: [
+                    "WhatsApp booking captures inquiries automatically",
+                    "Syncs appointments directly to your calendar or CRM",
+                    "24/7 instant AI responses to all enquiries",
+                    "Follow-ups & reminders sent automatically",
+                    "Allocate jobs to the right team or branch effortlessly"
+                ]
+            },
+            {
+                title: "AI Voice Assistants",
+                items: [
+                    "Human-like AI answers calls and books jobs",
+                    "Understands complex customer questions naturally",
+                    "Qualifies jobs with the right questions",
+                    "Detects urgent requests & alerts your team immediately",
+                    "Calendar integration avoids double-bookings"
+                ]
+            },
+            {
+                title: "Business Insights & Analytics",
+                items: [
+                    "Weekly reports on revenue, top jobs & trends",
+                    "Real-time job profitability insights",
+                    "Track repeat clients & customer behavior",
+                    "See team or branch performance at a glance"
+                ]
+            },
+            {
+                title: "Expense Management",
+                items: [
+                    "Snap receipts and AI categorizes expenses",
+                    "Link costs to jobs for accurate profit margins",
+                    "Real-time insights on margins per job",
+                    "Budget alerts for overspending"
+                ]
+            },
+            {
+                title: "Task Automation & Follow-ups",
+                items: [
+                    "Post-job automated check-ins & feedback requests",
+                    "Upsell & cross-sell recommendations automatically",
+                    "Workflow moves tasks from quote → booking → payment → feedback",
+                    "Team notifications & automatic task assignments"
+                ]
+            },
+            {
+                title: "Customer Relationship Automation",
+                items: [
+                    "Smart customer segmentation based on behavior & preferences",
+                    "Automated reminders & promotional campaigns",
+                    "Track all customer interactions, quotes, and jobs"
+                ]
+            }
         ],
-        benefits: [
-            "Eliminate manual data entry",
-            "Reduce data errors",
-            "Improved sales team efficiency",
-            "Better customer insights"
-        ]
+        features: [],
+        benefits: []
     },
     {
         id: "custom-workflows",

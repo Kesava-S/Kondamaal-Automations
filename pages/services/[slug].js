@@ -81,31 +81,49 @@ export default function ServicePage({ service }) {
                         {service.fullDescription}
                     </p>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem' }}>
-                        <div>
-                            <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>{service.featuresTitle || 'Key Features'}</h2>
-                            <ul style={{ listStyle: 'none' }}>
-                                {service.features.map((feature, index) => (
-                                    <li key={index} style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                        <span style={{ color: '#0071e3', fontSize: '1.2rem' }}>•</span>
-                                        {feature}
-                                    </li>
-                                ))}
-                            </ul>
+                    {service.detailedFeatures ? (
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
+                            {service.detailedFeatures.map((section, index) => (
+                                <div key={index} style={{ marginBottom: '2rem' }}>
+                                    <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem', color: '#1d1d1f' }}>{section.title}</h3>
+                                    <ul style={{ listStyle: 'none' }}>
+                                        {section.items.map((item, i) => (
+                                            <li key={i} style={{ marginBottom: '0.75rem', display: 'flex', alignItems: 'flex-start', gap: '0.75rem', fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
+                                                <span style={{ color: '#34c759', flexShrink: 0 }}>✓</span>
+                                                <span>{item}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
                         </div>
+                    ) : (
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem' }}>
+                            <div>
+                                <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>{service.featuresTitle || 'Key Features'}</h2>
+                                <ul style={{ listStyle: 'none' }}>
+                                    {service.features.map((feature, index) => (
+                                        <li key={index} style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                            <span style={{ color: '#0071e3', fontSize: '1.2rem' }}>•</span>
+                                            {feature}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
 
-                        <div>
-                            <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>Benefits</h2>
-                            <ul style={{ listStyle: 'none' }}>
-                                {service.benefits.map((benefit, index) => (
-                                    <li key={index} style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                        <span style={{ color: '#34c759', fontSize: '1.2rem' }}>✓</span>
-                                        {benefit}
-                                    </li>
-                                ))}
-                            </ul>
+                            <div>
+                                <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>Benefits</h2>
+                                <ul style={{ listStyle: 'none' }}>
+                                    {service.benefits.map((benefit, index) => (
+                                        <li key={index} style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                            <span style={{ color: '#34c759', fontSize: '1.2rem' }}>✓</span>
+                                            {benefit}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                    )}
 
                     <div style={{ marginTop: '6rem', padding: '3rem', background: 'var(--gray-50)', borderRadius: '20px', textAlign: 'center' }}>
                         <h2 style={{ fontSize: '2rem', fontWeight: '600', marginBottom: '1rem' }}>{service.ctaTitle || 'Ready to get started?'}</h2>
