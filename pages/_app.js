@@ -56,6 +56,7 @@ function MyApp({ Component, pageProps }) {
                         <div style={{ display: 'flex', gap: '1.5rem' }}>
                             <Link href="/privacy-policy" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Privacy Policy</Link>
                             <Link href="/terms-of-service" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Terms of Service</Link>
+                            <Link href="/book-consultation" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Book Consultation</Link>
                         </div>
                     </div>
                 </div>

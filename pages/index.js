@@ -35,9 +35,14 @@ export default function Home() {
                 <div className="container">
                     <h1>Business Automation.<br />Simplified.</h1>
                     <p>Reduce workforce cost with AI Automation</p>
-                    <Link href="/services" className="cta-button">
-                        View Our Services
-                    </Link>
+                    <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                        <Link href="/book-consultation" className="cta-button">
+                            Book Free Consultation
+                        </Link>
+                        <Link href="/services" className="cta-button" style={{ background: 'transparent', color: '#0071e3', border: '1px solid #0071e3', boxShadow: 'none' }}>
+                            View Services
+                        </Link>
+                    </div>
                 </div>
             </section>
 
