@@ -5,12 +5,19 @@ import { useRouter } from 'next/router'
 
 
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import BookingModal from '../components/BookingModal'
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
     const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
+
+    useEffect(() => {
+        // Check if we should open the modal (e.g. redirected from /book-consultation)
+        if (router.query.openModal === 'true') {
+            setIsBookingModalOpen(true)
+        }
+    }, [router.query])
 
     const openBookingModal = (e) => {
         e.preventDefault()
