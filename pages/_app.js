@@ -5,8 +5,17 @@ import { useRouter } from 'next/router'
 
 
 
+import { useState } from 'react'
+import BookingModal from '../components/BookingModal'
+
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
+    const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
+
+    const openBookingModal = (e) => {
+        e.preventDefault()
+        setIsBookingModalOpen(true)
+    }
 
     return (
         <>
@@ -38,15 +47,15 @@ function MyApp({ Component, pageProps }) {
                         <Link href="/services" replace={router.pathname === '/services'} className={`nav-link ${router.pathname === '/services' ? 'active' : ''}`}>
                             Services
                         </Link>
-                        <Link href="/book-consultation" replace={router.pathname === '/book-consultation'} className={`nav-link ${router.pathname === '/book-consultation' ? 'active' : ''}`}>
+                        <a href="/book-consultation" onClick={openBookingModal} className={`nav-link ${router.pathname === '/book-consultation' ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
                             Book Consultation
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </nav>
 
             <main>
-                <Component {...pageProps} />
+                <Component {...pageProps} openBookingModal={() => setIsBookingModalOpen(true)} />
             </main>
 
             <footer>
@@ -56,11 +65,13 @@ function MyApp({ Component, pageProps }) {
                         <div style={{ display: 'flex', gap: '1.5rem' }}>
                             <Link href="/privacy-policy" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Privacy Policy</Link>
                             <Link href="/terms-of-service" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Terms of Service</Link>
-                            <Link href="/book-consultation" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Book Consultation</Link>
+                            <a href="/book-consultation" onClick={openBookingModal} style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', cursor: 'pointer' }}>Book Consultation</a>
                         </div>
                     </div>
                 </div>
             </footer>
+
+            <BookingModal isOpen={isBookingModalOpen} onClose={() => setIsBookingModalOpen(false)} />
         </>
     )
 }
