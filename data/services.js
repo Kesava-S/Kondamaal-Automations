@@ -4,7 +4,7 @@ export const services = [
         title: "Marketing Automation",
         slug: "marketing-automation",
         description: "Automate social media posting, lead capture, and ad reporting to save hours every week.",
-        fullDescription: "Stop wasting time on manual marketing tasks. Our Marketing Automation solution handles everything from scheduling social media posts across multiple platforms to capturing leads from your website and funnels directly into your CRM.",
+        fullDescription: "We build intelligent marketing automation systems that reduce you staff's work with AI-driven workflows — capturing leads, nurturing prospects, managing campaigns, Automated replies, Timely Followups and delivering insights automatically across channels.",
         features: [
             "Social Media Scheduling",
             "Automated Lead Capture",
