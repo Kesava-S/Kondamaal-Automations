@@ -83,7 +83,7 @@ export default function ServicePage({ service }) {
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem' }}>
                         <div>
-                            <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>Key Features</h2>
+                            <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>{service.featuresTitle || 'Key Features'}</h2>
                             <ul style={{ listStyle: 'none' }}>
                                 {service.features.map((feature, index) => (
                                     <li key={index} style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>

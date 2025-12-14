@@ -6,17 +6,25 @@ export const services = [
         description: "Automate social media posting, lead capture, and ad reporting to save hours every week.",
         fullDescription: "We build intelligent marketing automation systems that reduce your staff's work with AI-driven workflows.",
         animatedSubtext: "Improve your team's productivity...",
+        featuresTitle: "Key Solutions",
         features: [
+            "CRM Integration",
             "Social Media Scheduling",
-            "Automated Lead Capture",
-            "Ad Performance Reporting",
+            "Content Distribution Workflows",
             "Email Marketing Sequences",
-            "Content Distribution Workflows"
+            "Multi-Channel Campaign Automation",
+            "Automated Lead Capture",
+            "Customer Segmentation & Targeting",
+            "Automated Follow-Ups / Drip Campaigns",
+            "Ad Performance Reporting",
+            "Analytics & ROI Tracking"
         ],
         benefits: [
-            "Save 10+ hours per week",
+            "Save 20+ hours per week",
             "Never miss a lead",
-            "Consistent brand presence",
+            "Boost Response rates",
+            "Reduce Marketing cost",
+            "Improve customer engagement across channels",
             "Data-driven insights"
         ]
     },
