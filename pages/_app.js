@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps }) {
                         <Link href="/services" replace={router.pathname === '/services'} className={`nav-link ${router.pathname === '/services' ? 'active' : ''}`}>
                             Services
                         </Link>
-                        <Link href="/book-consultation" replace={router.pathname === '/book-consultation'} className={`nav-link ${router.pathname === '/book-consultation' ? 'active' : ''}`} style={{ color: '#0071e3', fontWeight: '500' }}>
+                        <Link href="/book-consultation" replace={router.pathname === '/book-consultation'} className={`nav-link ${router.pathname === '/book-consultation' ? 'active' : ''}`}>
                             Book Consultation
                         </Link>
                     </div>
