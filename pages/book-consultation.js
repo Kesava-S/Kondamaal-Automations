@@ -13,15 +13,70 @@ export default function BookConsultation() {
         preferredDate: '',
         website: ''
     })
+    const [errors, setErrors] = useState({})
     const [status, setStatus] = useState('')
+    const [touched, setTouched] = useState({})
+
+    const validateField = (name, value) => {
+        let error = ''
+        switch (name) {
+            case 'name':
+                if (!value.trim()) error = 'Name is required'
+                else if (value.trim().length < 2) error = 'Name must be at least 2 characters'
+                break
+            case 'email':
+                if (!value.trim()) error = 'Email is required'
+                else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) error = 'Invalid email address'
+                break
+            case 'whatsapp':
+                if (!value.trim()) error = 'WhatsApp number is required'
+                else if (!/^\+?[0-9\s-]{10,15}$/.test(value)) error = 'Invalid phone number (e.g., +1 234 567 890)'
+                break
+            case 'website':
+                if (value && !/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(value)) {
+                    error = 'Invalid URL (e.g., https://example.com)'
+                }
+                break
+            default:
+                break
+        }
+        return error
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData(prev => ({ ...prev, [name]: value }))
+
+        // Real-time validation if field has been touched
+        if (touched[name]) {
+            const error = validateField(name, value)
+            setErrors(prev => ({ ...prev, [name]: error }))
+        }
+    }
+
+    const handleBlur = (e) => {
+        const { name, value } = e.target
+        setTouched(prev => ({ ...prev, [name]: true }))
+        const error = validateField(name, value)
+        setErrors(prev => ({ ...prev, [name]: error }))
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        // Validate all fields
+        const newErrors = {}
+        Object.keys(formData).forEach(key => {
+            const error = validateField(key, formData[key])
+            if (error) newErrors[key] = error
+        })
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors)
+            setTouched(Object.keys(formData).reduce((acc, key) => ({ ...acc, [key]: true }), {}))
+            return
+        }
+
         setStatus('submitting')
 
         try {
@@ -46,6 +101,8 @@ export default function BookConsultation() {
                     preferredDate: '',
                     website: ''
                 })
+                setErrors({})
+                setTouched({})
             } else {
                 setStatus('error')
             }
@@ -53,6 +110,16 @@ export default function BookConsultation() {
             setStatus('error')
         }
     }
+
+    const getInputStyle = (name) => ({
+        width: '100%',
+        padding: '12px',
+        borderRadius: '10px',
+        border: `1px solid ${errors[name] && touched[name] ? '#ff3b30' : '#d2d2d7'}`,
+        fontSize: '1rem',
+        outline: 'none',
+        transition: 'border-color 0.2s ease'
+    })
 
     return (
         <>
@@ -82,18 +149,19 @@ export default function BookConsultation() {
                                 </button>
                             </div>
                         ) : (
-                            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }} noValidate>
                                 <div>
                                     <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', fontSize: '0.9rem' }}>Name <span style={{ color: 'red' }}>*</span></label>
                                     <input
                                         type="text"
                                         name="name"
-                                        required
                                         value={formData.name}
                                         onChange={handleChange}
-                                        style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #d2d2d7', fontSize: '1rem' }}
+                                        onBlur={handleBlur}
+                                        style={getInputStyle('name')}
                                         placeholder="John Doe"
                                     />
+                                    {errors.name && touched.name && <p style={{ color: '#ff3b30', fontSize: '0.8rem', marginTop: '0.25rem' }}>{errors.name}</p>}
                                 </div>
 
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
@@ -102,24 +170,26 @@ export default function BookConsultation() {
                                         <input
                                             type="email"
                                             name="email"
-                                            required
                                             value={formData.email}
                                             onChange={handleChange}
-                                            style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #d2d2d7', fontSize: '1rem' }}
+                                            onBlur={handleBlur}
+                                            style={getInputStyle('email')}
                                             placeholder="john@company.com"
                                         />
+                                        {errors.email && touched.email && <p style={{ color: '#ff3b30', fontSize: '0.8rem', marginTop: '0.25rem' }}>{errors.email}</p>}
                                     </div>
                                     <div>
                                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', fontSize: '0.9rem' }}>WhatsApp <span style={{ color: 'red' }}>*</span></label>
                                         <input
                                             type="tel"
                                             name="whatsapp"
-                                            required
                                             value={formData.whatsapp}
                                             onChange={handleChange}
-                                            style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #d2d2d7', fontSize: '1rem' }}
+                                            onBlur={handleBlur}
+                                            style={getInputStyle('whatsapp')}
                                             placeholder="+1 234 567 890"
                                         />
+                                        {errors.whatsapp && touched.whatsapp && <p style={{ color: '#ff3b30', fontSize: '0.8rem', marginTop: '0.25rem' }}>{errors.whatsapp}</p>}
                                     </div>
                                 </div>
 
@@ -130,7 +200,7 @@ export default function BookConsultation() {
                                         name="companyName"
                                         value={formData.companyName}
                                         onChange={handleChange}
-                                        style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #d2d2d7', fontSize: '1rem' }}
+                                        style={getInputStyle('companyName')}
                                         placeholder="Acme Inc."
                                     />
                                 </div>
@@ -142,7 +212,7 @@ export default function BookConsultation() {
                                             name="industry"
                                             value={formData.industry}
                                             onChange={handleChange}
-                                            style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #d2d2d7', fontSize: '1rem', background: 'white' }}
+                                            style={{ ...getInputStyle('industry'), background: 'white' }}
                                         >
                                             <option value="">Select...</option>
                                             <option value="Education">Education</option>
@@ -162,7 +232,7 @@ export default function BookConsultation() {
                                             name="companySize"
                                             value={formData.companySize}
                                             onChange={handleChange}
-                                            style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #d2d2d7', fontSize: '1rem', background: 'white' }}
+                                            style={{ ...getInputStyle('companySize'), background: 'white' }}
                                         >
                                             <option value="">Select...</option>
                                             <option value="1-10 employees">1-10 employees</option>
@@ -180,7 +250,7 @@ export default function BookConsultation() {
                                         name="goal"
                                         value={formData.goal}
                                         onChange={handleChange}
-                                        style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #d2d2d7', fontSize: '1rem', background: 'white' }}
+                                        style={{ ...getInputStyle('goal'), background: 'white' }}
                                     >
                                         <option value="">Select...</option>
                                         <option value="Reduce Costs">Reduce Costs</option>
@@ -199,7 +269,7 @@ export default function BookConsultation() {
                                         name="preferredDate"
                                         value={formData.preferredDate}
                                         onChange={handleChange}
-                                        style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #d2d2d7', fontSize: '1rem' }}
+                                        style={getInputStyle('preferredDate')}
                                     />
                                 </div>
 
@@ -210,9 +280,11 @@ export default function BookConsultation() {
                                         name="website"
                                         value={formData.website}
                                         onChange={handleChange}
-                                        style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #d2d2d7', fontSize: '1rem' }}
+                                        onBlur={handleBlur}
+                                        style={getInputStyle('website')}
                                         placeholder="https://example.com"
                                     />
+                                    {errors.website && touched.website && <p style={{ color: '#ff3b30', fontSize: '0.8rem', marginTop: '0.25rem' }}>{errors.website}</p>}
                                 </div>
 
                                 <button
