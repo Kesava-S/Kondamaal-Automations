@@ -7,14 +7,14 @@ export default function Home() {
         <>
             <Head>
                 <title>Kondamaal | AI & Business Automation</title>
-                <meta name="description" content="Affordable business automation solutions. Simplify marketing, sales, lead capture, and reporting with AI automation and reduce workforce costs." />
+                <meta name="description" content="Affordable business automation solutions. Simplify marketing, sales, process, and reporting with AI automation and reduce workforce costs." />
 
                 <meta property="og:title" content="Kondamaal | AI & Business Automation" />
-                <meta property="og:description" content="Affordable business automation solutions. Simplify marketing, sales, lead capture, and reporting with AI automation and reduce workforce costs." />
+                <meta property="og:description" content="Affordable business automation solutions. Simplify marketing, sales, process, and reporting with AI automation and reduce workforce costs." />
                 <meta property="og:url" content="https://kondamaal.com/" />
 
                 <meta name="twitter:title" content="Kondamaal | AI & Business Automation" />
-                <meta name="twitter:description" content="Affordable business automation solutions. Simplify marketing, sales, lead capture, and reporting with AI automation and reduce workforce costs." />
+                <meta name="twitter:description" content="Affordable business automation solutions. Simplify marketing, sales, process, and reporting with AI automation and reduce workforce costs." />
 
                 <script
                     type="application/ld+json"
@@ -25,7 +25,7 @@ export default function Home() {
                             "name": "Kondamaal Automations",
                             "url": "https://kondamaal.com",
                             "logo": "https://kondamaal.com/logo.png",
-                            "description": "Affordable business automation solutions. Simplify marketing, sales, lead capture, and reporting with AI automation.",
+                            "description": "Affordable business automation solutions. Simplify marketing, sales, process, and reporting with AI automation.",
                             "email": "support@kondamaal.com",
                             "sameAs": []
                         })

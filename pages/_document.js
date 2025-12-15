@@ -1,16 +1,18 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
-    return (
-        <Html lang="en">
-            <Head>
-                {/* Preconnect to critical domains */}
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+  return (
+    <Html lang="en">
+      <Head>
+        {/* Preconnect to critical domains */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="icon" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
 
-                {/* Critical CSS for LCP elements (Hero) */}
-                <style dangerouslySetInnerHTML={{
-                    __html: `
+        {/* Critical CSS for LCP elements (Hero) */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
           :root {
             --background: #ffffff;
             --foreground: #1d1d1f;
@@ -46,11 +48,11 @@ export default function Document() {
             margin-bottom: 1.5rem;
           }
         `}} />
-            </Head>
-            <body>
-                <Main />
-                <NextScript />
-            </body>
-        </Html>
-    )
+      </Head>
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
 }
