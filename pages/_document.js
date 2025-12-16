@@ -7,8 +7,10 @@ export default function Document() {
         {/* Preconnect to critical domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="icon" href="/logo.png" />
+        <link rel="icon" href="/logo.png" type="image/png" sizes="any" />
+        <link rel="icon" href="/logo.png" type="image/png" sizes="32x32" />
         <link rel="apple-touch-icon" href="/logo.png" />
+        <link rel="shortcut icon" href="/logo.png" type="image/png" />
 
         {/* Critical CSS for LCP elements (Hero) */}
         <style dangerouslySetInnerHTML={{
