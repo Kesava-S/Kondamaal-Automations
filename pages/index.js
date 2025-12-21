@@ -35,7 +35,7 @@ export default function Home() {
             <section className="hero">
                 <div className="container">
                     <h1>Kondamaal<br />AI & Business Automation partner</h1>
-                    <p>Cut cost with AI Automation</p>
+                    <p>Save time with AI Automation</p>
                     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                         <Link href="/book-consultation" className="cta-button">
                             Book Free Consultation
