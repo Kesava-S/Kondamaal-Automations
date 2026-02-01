@@ -7,85 +7,54 @@ export const services = [
         fullDescription: "We build intelligent marketing automation systems that reduce your staff's work with AI-driven workflows.",
         animatedSubtext: "Improve your team's productivity...",
         featuresTitle: "Key Solutions",
+        workflowImage: '/images/Unified-Marketing-Automation-Workflow.png',
         detailedFeatures: [
             {
-                title: "CRM Integration – Keep all customer info organized in one central place.",
+                title: "1️⃣ Lead Capture (all sources in one place)",
                 items: [
-                    "Real-time sync from website, ads, social media, and chatbots.",
-                    "Auto-update leads with AI-based data enrichment (adds missing info).",
-                    "Smart deduplication to avoid multiple entries for the same contact."
+                    "Visitors from your website, social media, ads, and chatbots are captured automatically.",
+                    "AI fills missing info and avoids duplicate entries.",
+                    "Leads are instantly organized in a single central dashboard."
                 ]
             },
             {
-                title: "Customer Targeting – Deliver your message to the right audience every time.",
+                title: "2️⃣ Lead Verification & Segmentation",
                 items: [
-                    "AI-driven segmentation based on behavior, location, and purchase history.",
-                    "Dynamic audience updates as user activity changes.",
-                    "Predictive targeting to reach users most likely to convert."
+                    "AI verifies each lead and enriches data in real-time.",
+                    "Segments leads by behavior, location, and purchase likelihood.",
+                    "Predictive targeting ensures messages reach the users most likely to convert."
                 ]
             },
             {
-                title: "Social Media Scheduling – Plan and post content automatically across platforms.",
+                title: "3️⃣ Automated Engagement & Nurturing",
                 items: [
-                    "Smart timing algorithm posts when engagement is highest.",
-                    "Automated content recycling to keep top-performing posts active.",
-                    "Platform-specific optimization for format, captions, and hashtags."
+                    "Trigger personalized email sequences, SMS, or social messages.",
+                    "Behavior-based workflows adapt automatically as users interact.",
+                    "Smart reminders, follow-ups, and content delivery happen without manual work."
                 ]
             },
             {
-                title: "Content Workflows – Automate content delivery across channels.",
+                title: "4️⃣ Social & Content Automation",
                 items: [
-                    "Conditional workflows send content based on user behavior.",
-                    "Multi-channel sequencing across email, social, and web.",
-                    "Automated content approval & publishing with internal review triggers."
+                    "Schedule posts across platforms at optimal times.",
+                    "Recycle top-performing content automatically.",
+                    "Multi-channel campaigns adjust messaging per platform with performance tracking."
                 ]
             },
             {
-                title: "Email Sequences – Nurture leads automatically over time.",
+                title: "5️⃣ Conversion & Customer Journey",
                 items: [
-                    "Behavior-triggered emails based on opens, clicks, and page visits.",
-                    "AI-powered personalization for subject lines and body content.",
-                    "Dynamic branching sequences to adjust based on user engagement."
+                    "Automation follows leads until business completion (e.g., booking, purchase, or review).",
+                    "Sends personalized offers, birthday messages, and loyalty prompts.",
+                    "Tracks engagement and updates lead status throughout the journey."
                 ]
             },
             {
-                title: "Lead Capture – Turn visitors into potential customers effortlessly.",
+                title: "6️⃣ Analytics & Optimization",
                 items: [
-                    "Multi-touch capture via forms, pop-ups, chatbots, and lead ads.",
-                    "Incentive-driven capture like content downloads or special offers.",
-                    "Auto-segment captured leads into appropriate campaigns instantly."
-                ]
-            },
-            {
-                title: "Automated Follow-Ups – Stay top-of-mind with drip campaigns.",
-                items: [
-                    "Time-based reminders combined with behavior triggers.",
-                    "AI-powered response suggestions for personal follow-ups.",
-                    "Cross-channel follow-ups via email, SMS, and social messaging."
-                ]
-            },
-            {
-                title: "Multi-Channel Campaigns – Run ads and promotions everywhere.",
-                items: [
-                    "Campaign orchestration engine adjusts messaging per channel automatically.",
-                    "Retargeting across platforms based on engagement history.",
-                    "Unified performance monitoring with auto-budget reallocation."
-                ]
-            },
-            {
-                title: "Ad Performance Reporting – See what’s working instantly.",
-                items: [
-                    "Consolidated dashboard pulling data from multiple platforms.",
-                    "Real-time alerts when KPIs fall below thresholds.",
-                    "AI-driven insights suggesting optimizations."
-                ]
-            },
-            {
-                title: "Analytics & ROI Tracking – Measure success and make data-driven decisions.",
-                items: [
-                    "Multi-touch attribution linking leads to campaigns.",
-                    "Customizable ROI dashboards by product, region, or channel.",
-                    "Predictive analytics to forecast trends and conversions."
+                    "Unified dashboard shows campaign performance across channels.",
+                    "Real-time alerts if KPIs drop.",
+                    "AI suggests optimizations and reallocates budgets automatically."
                 ]
             }
         ],

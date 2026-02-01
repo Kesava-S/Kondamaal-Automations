@@ -81,22 +81,41 @@ export default function ServicePage({ service }) {
                         {service.fullDescription}
                     </p>
 
-                    {service.detailedFeatures ? (
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
-                            {service.detailedFeatures.map((section, index) => (
-                                <div key={index} className="feature-card">
-                                    <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem', color: '#1d1d1f' }}>{section.title}</h3>
-                                    <ul style={{ listStyle: 'none' }}>
-                                        {section.items.map((item, i) => (
-                                            <li key={i} style={{ marginBottom: '0.75rem', display: 'flex', alignItems: 'flex-start', gap: '0.75rem', fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
-                                                <span style={{ color: '#34c759', flexShrink: 0 }}>✓</span>
-                                                <span>{item}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))}
+                    {service.workflowImage && (
+                        <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
+                            <h2 style={{ fontSize: '2.5rem', fontWeight: '700', marginBottom: '2rem' }}>
+                                Unified Marketing Automation Workflow
+                            </h2>
                         </div>
+                    )}
+
+                    {service.detailedFeatures ? (
+                        <>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
+                                {service.detailedFeatures.map((section, index) => (
+                                    <div key={index} className="feature-card">
+                                        <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem', color: '#1d1d1f' }}>{section.title}</h3>
+                                        <ul style={{ listStyle: 'none' }}>
+                                            {section.items.map((item, i) => (
+                                                <li key={i} style={{ marginBottom: '0.75rem', display: 'flex', alignItems: 'flex-start', gap: '0.75rem', fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
+                                                    <span style={{ color: '#34c759', flexShrink: 0 }}>✓</span>
+                                                    <span>{item}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                            {service.workflowImage && (
+                                <div style={{ marginTop: '4rem', textAlign: 'center' }}>
+                                    <img
+                                        src={service.workflowImage}
+                                        alt="Unified Marketing Automation Workflow"
+                                        style={{ maxWidth: '100%', height: 'auto', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}
+                                    />
+                                </div>
+                            )}
+                        </>
                     ) : (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
                             <div>
