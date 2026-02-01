@@ -22,7 +22,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Kondamaal | AI & Business Automation partner</title>
+                <title>Kondamaal | Digital AI Automation Partner</title>
                 <meta name="description" content="Affordable business automation solutions. Simplify marketing, sales, process, and reporting with AI automation and reduce workforce costs." />
 
                 <meta property="og:title" content="Kondamaal | AI & Business Automation" />
@@ -53,9 +53,9 @@ export default function Home() {
                     <h1>
                         <AnimatedText text="Kondamaal" />
                         <br />
-                        <AnimatedText text="AI & Business Automation partner" delayOffset={0.3} />
+                        <AnimatedText text="Digital AI Automation Partner" delayOffset={0.3} />
                     </h1>
-                    <p>Save time with AI Automation</p>
+                    <p>Empower your Business and Staffs</p>
                     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                         <Link href="/book-consultation" className="cta-button">
                             Book Free Consultation
@@ -73,7 +73,7 @@ export default function Home() {
                     <p style={{ textAlign: 'center', fontSize: '1.2rem', color: 'var(--text-secondary)', marginBottom: '4rem' }}>AI Automation partner for your business</p>
                     <div className="grid">
                         <div className="card">
-                            <h3>Cost Effective</h3>
+                            <h3>Customised, But Cost Effective</h3>
                             <p>We offer tailored pricing based on service needs, delivering the best quality at the most affordable rates.</p>
                         </div>
                         <div className="card">
