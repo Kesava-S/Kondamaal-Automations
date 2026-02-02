@@ -82,10 +82,15 @@ export default function ServicePage({ service }) {
                     </p>
 
                     {service.workflowImage && (
-                        <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
+                        <div style={{ marginBottom: '4rem', textAlign: 'center' }}>
                             <h2 style={{ fontSize: '2.5rem', fontWeight: '700', marginBottom: '2rem' }}>
                                 Unified Marketing Automation Workflow
                             </h2>
+                            <img
+                                src={service.workflowImage}
+                                alt="Unified Marketing Automation Workflow"
+                                style={{ maxWidth: '100%', height: 'auto', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}
+                            />
                         </div>
                     )}
 
@@ -106,15 +111,6 @@ export default function ServicePage({ service }) {
                                     </div>
                                 ))}
                             </div>
-                            {service.workflowImage && (
-                                <div style={{ marginTop: '4rem', textAlign: 'center' }}>
-                                    <img
-                                        src={service.workflowImage}
-                                        alt="Unified Marketing Automation Workflow"
-                                        style={{ maxWidth: '100%', height: 'auto', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}
-                                    />
-                                </div>
-                            )}
                         </>
                     ) : (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
