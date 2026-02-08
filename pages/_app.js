@@ -27,13 +27,13 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <title>HubSmort AI Digital Automation Partner</title>
+                <title>HubSmort AI Digital Automation</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/logo.png" />
 
                 {/* Open Graph / Facebook */}
                 <meta property="og:type" content="website" />
-                <meta property="og:site_name" content="HubSmort AI Digital Automation Partner" />
+                <meta property="og:site_name" content="HubSmort AI Digital Automation" />
                 <meta property="og:image" content="https://kondamaal.com/logo.png" />
 
                 {/* Twitter */}
@@ -44,8 +44,8 @@ function MyApp({ Component, pageProps }) {
             <nav className="navbar">
                 <div className="container nav-content">
                     <Link href="/" replace={router.pathname === '/'} className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                        <img src="/logo.png" alt="HubSmort AI Digital Automation Partner Logo" style={{ height: '48px', width: 'auto' }} loading="lazy" />
-                        HubSmort AI Digital Automation Partner
+                        <img src="/logo.png" alt="HubSmort AI Digital Automation Logo" style={{ height: '48px', width: 'auto' }} loading="lazy" />
+                        HubSmort AI Digital Automation
                     </Link>
                     <div className="nav-links">
                         <Link href="/" replace={router.pathname === '/'} className={`nav-link ${router.pathname === '/' ? 'active' : ''}`}>

@@ -22,7 +22,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>HubSmort | Digital AI Automation Partner</title>
+                <title>HubSmort | Digital AI Automation</title>
                 <meta name="description" content="Affordable business automation solutions. Simplify marketing, sales, process, and reporting with AI automation and reduce workforce costs." />
 
                 <meta property="og:title" content="HubSmort | AI & Business Automation" />
@@ -38,7 +38,7 @@ export default function Home() {
                         __html: JSON.stringify({
                             "@context": "https://schema.org",
                             "@type": "Organization",
-                            "name": "HubSmort AI Digital Automation Partner",
+                            "name": "HubSmort AI Digital Automation",
                             "url": "https://kondamaal.com",
                             "logo": "https://kondamaal.com/logo.png",
                             "description": "Affordable business automation solutions. Simplify marketing, sales, process, and reporting with AI automation.",
@@ -53,7 +53,7 @@ export default function Home() {
                     <h1>
                         <AnimatedText text="HubSmort" />
                         <br />
-                        <AnimatedText text="AI Digital Automation Partner" delayOffset={0.3} />
+                        <AnimatedText text="AI Digital Automation" delayOffset={0.3} />
                     </h1>
                     <p>Empower your Business and Staffs</p>
                     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
