@@ -6,12 +6,12 @@ export default function Services() {
     return (
         <>
             <Head>
-                <title>Kondamaal Services | AI & Business Automation</title>
+                <title>HubSmort Services | AI & Business Automation</title>
             </Head>
 
             <div style={{ paddingTop: '120px', paddingBottom: '60px', textAlign: 'center' }}>
                 <div className="container">
-                    <h1 style={{ fontSize: '3rem', fontWeight: '700', marginBottom: '1rem', background: 'linear-gradient(180deg, #1d1d1f 0%, #434344 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Kondamaal AI & Business Automation Services</h1>
+                    <h1 style={{ fontSize: '3rem', fontWeight: '700', marginBottom: '1rem', background: 'linear-gradient(180deg, #1d1d1f 0%, #434344 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>HubSmort AI & Business Automation Services</h1>
                     <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto' }}>
                         Comprehensive solutions to power your business growth.
                     </p>

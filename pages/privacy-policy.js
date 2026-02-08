@@ -4,7 +4,7 @@ export default function PrivacyPolicy() {
     return (
         <>
             <Head>
-                <title>Privacy Policy | Kondamaal Automations</title>
+                <title>Privacy Policy | HubSmort AI</title>
             </Head>
 
             <div className="container" style={{ paddingTop: '120px', paddingBottom: '60px' }}>
@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
 
                     <section style={{ marginBottom: '2rem' }}>
                         <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>1. Introduction</h2>
-                        <p>Kondamaal Automations (“we,” “our,” “us”) respects your privacy. This policy explains how we collect, use, and protect your personal data when you use our website or services.</p>
+                        <p>HubSmort AI (“we,” “our,” “us”) respects your privacy. This policy explains how we collect, use, and protect your personal data when you use our website or services.</p>
                     </section>
 
                     <section style={{ marginBottom: '2rem' }}>
@@ -76,7 +76,7 @@ export default function PrivacyPolicy() {
 
                     <section style={{ marginBottom: '2rem' }}>
                         <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>9. Contact & Complaints</h2>
-                        <p>For questions, data requests, or complaints, contact: <a href="mailto:support@kondamaal.com" style={{ color: '#0071e3' }}>support@kondamaal.com</a></p>
+                        <p>For questions, data requests, or complaints, contact: <a href="mailto:support@hubsmort.com" style={{ color: '#0071e3' }}>support@hubsmort.com</a></p>
                         <p style={{ marginTop: '0.5rem' }}>EU/UK users can also contact their local data protection authority.</p>
                     </section>
                 </div>

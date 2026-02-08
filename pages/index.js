@@ -22,14 +22,14 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Kondamaal | Digital AI Automation Partner</title>
+                <title>HubSmort | Digital AI Automation Partner</title>
                 <meta name="description" content="Affordable business automation solutions. Simplify marketing, sales, process, and reporting with AI automation and reduce workforce costs." />
 
-                <meta property="og:title" content="Kondamaal | AI & Business Automation" />
+                <meta property="og:title" content="HubSmort | AI & Business Automation" />
                 <meta property="og:description" content="Affordable business automation solutions. Simplify marketing, sales, process, and reporting with AI automation and reduce workforce costs." />
                 <meta property="og:url" content="https://kondamaal.com/" />
 
-                <meta name="twitter:title" content="Kondamaal | AI & Business Automation" />
+                <meta name="twitter:title" content="HubSmort | AI & Business Automation" />
                 <meta name="twitter:description" content="Affordable business automation solutions. Simplify marketing, sales, process, and reporting with AI automation and reduce workforce costs." />
 
                 <script
@@ -38,7 +38,7 @@ export default function Home() {
                         __html: JSON.stringify({
                             "@context": "https://schema.org",
                             "@type": "Organization",
-                            "name": "Kondamaal Automations",
+                            "name": "HubSmort AI Digital Automation Partner",
                             "url": "https://kondamaal.com",
                             "logo": "https://kondamaal.com/logo.png",
                             "description": "Affordable business automation solutions. Simplify marketing, sales, process, and reporting with AI automation.",
@@ -51,9 +51,9 @@ export default function Home() {
             <section className="hero">
                 <div className="container">
                     <h1>
-                        <AnimatedText text="Kondamaal" />
+                        <AnimatedText text="HubSmort" />
                         <br />
-                        <AnimatedText text="Digital AI Automation Partner" delayOffset={0.3} />
+                        <AnimatedText text="AI Digital Automation Partner" delayOffset={0.3} />
                     </h1>
                     <p>Empower your Business and Staffs</p>
                     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -69,7 +69,7 @@ export default function Home() {
 
             <section className="services-section">
                 <div className="container">
-                    <h2 className="section-title" style={{ marginBottom: '0.5rem' }}>Why Kondamaal</h2>
+                    <h2 className="section-title" style={{ marginBottom: '0.5rem' }}>Why HubSmort</h2>
                     <p style={{ textAlign: 'center', fontSize: '1.2rem', color: 'var(--text-secondary)', marginBottom: '4rem' }}>AI Automation partner for your business</p>
                     <div className="grid">
                         <div className="card">

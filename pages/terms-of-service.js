@@ -5,7 +5,7 @@ export default function TermsOfService() {
     return (
         <>
             <Head>
-                <title>Terms of Service | Kondamaal Automations</title>
+                <title>Terms of Service | HubSmort AI</title>
             </Head>
 
             <div className="container" style={{ paddingTop: '120px', paddingBottom: '60px' }}>
@@ -21,7 +21,7 @@ export default function TermsOfService() {
 
                     <section style={{ marginBottom: '2rem' }}>
                         <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>2. Services</h2>
-                        <p>Kondamaal Automations provides digital automation services, including marketing and workflow automation tools.</p>
+                        <p>HubSmort AI provides digital automation services, including marketing and workflow automation tools.</p>
                     </section>
 
                     <section style={{ marginBottom: '2rem' }}>
@@ -31,7 +31,7 @@ export default function TermsOfService() {
 
                     <section style={{ marginBottom: '2rem' }}>
                         <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>4. Intellectual Property</h2>
-                        <p>All content, software, and branding on our website are owned by Kondamaal Automations and protected by law.</p>
+                        <p>All content, software, and branding on our website are owned by HubSmort AI and protected by law.</p>
                     </section>
 
                     <section style={{ marginBottom: '2rem' }}>
@@ -56,7 +56,7 @@ export default function TermsOfService() {
 
                     <section style={{ marginBottom: '2rem' }}>
                         <h2 style={{ fontSize: '1.5rem', color: 'var(--foreground)', marginBottom: '1rem' }}>9. Contact</h2>
-                        <p>Questions or concerns? Email us at <a href="mailto:support@kondamaal.com" style={{ color: '#0071e3' }}>support@kondamaal.com</a>.</p>
+                        <p>Questions or concerns? Email us at <a href="mailto:support@hubsmort.com" style={{ color: '#0071e3' }}>support@hubsmort.com</a>.</p>
                     </section>
                 </div>
             </div>

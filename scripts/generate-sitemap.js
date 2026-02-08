@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Base URL of the website
-const BASE_URL = 'https://kondamaal.com';
+const BASE_URL = 'https://hubsmort.com';
 
 // Static pages to include
 const staticPages = [

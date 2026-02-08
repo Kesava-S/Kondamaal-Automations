@@ -19,14 +19,14 @@ export default function ServicePage({ service }) {
     return (
         <>
             <Head>
-                <title>{service.title} | Kondamaal Automations</title>
+                <title>{service.title} | HubSmort AI</title>
                 <meta name="description" content={service.description} />
 
-                <meta property="og:title" content={`${service.title} | Kondamaal Automations`} />
+                <meta property="og:title" content={`${service.title} | HubSmort AI`} />
                 <meta property="og:description" content={service.description} />
-                <meta property="og:url" content={`https://kondamaal.com/services/${service.slug}`} />
+                <meta property="og:url" content={`https://hubsmort.com/services/${service.slug}`} />
 
-                <meta name="twitter:title" content={`${service.title} | Kondamaal Automations`} />
+                <meta name="twitter:title" content={`${service.title} | HubSmort AI`} />
                 <meta name="twitter:description" content={service.description} />
 
                 <script
@@ -39,8 +39,8 @@ export default function ServicePage({ service }) {
                             "description": service.description,
                             "provider": {
                                 "@type": "Organization",
-                                "name": "Kondamaal Automations",
-                                "url": "https://kondamaal.com"
+                                "name": "HubSmort AI",
+                                "url": "https://hubsmort.com"
                             },
                             "areaServed": "Global",
                             "hasOfferCatalog": {

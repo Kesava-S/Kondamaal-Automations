@@ -6,4 +6,4 @@ Allow: /
 # Disallow: /private/
 
 # Sitemap location
-Sitemap: https://kondamaal.com/sitemap.xml
+Sitemap: https://hubsmort.com/sitemap.xml
