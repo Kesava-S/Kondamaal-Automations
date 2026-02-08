@@ -19,7 +19,7 @@ body {
     max-width: 100vw;
     overflow-x: hidden;
     font-family: var(--font-sans);
-    background: var(--background);
+    background: radial-gradient(circle at 50% 0%, #fbfbfd 0%, #ffffff 100%);
     color: var(--foreground);
     -webkit-font-smoothing: antialiased;
 }
@@ -89,7 +89,7 @@ a {
 .hero {
     padding: 180px 0 100px;
     text-align: center;
-    background: radial-gradient(circle at 50% 0%, #fbfbfd 0%, #ffffff 100%);
+    background: transparent;
 }
 
 .hero h1 {
@@ -129,7 +129,7 @@ a {
 /* Services Grid */
 .services-section {
     padding: 100px 0;
-    background: var(--background);
+    background: transparent;
 }
 
 .section-title {

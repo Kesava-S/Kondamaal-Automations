@@ -49,8 +49,8 @@ export default function Home() {
                     }}
                 />
             </Head>
+            <FloatingShapes />
             <section className="hero" style={{ position: 'relative', overflow: 'hidden' }}>
-                <FloatingShapes />
                 <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                     <h1>
                         <AnimatedText text="Automaitee" />
@@ -89,7 +89,7 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-            <section className="services-section" style={{ background: '#fbfbfd' }}>
+            <section className="services-section" style={{ background: 'rgba(251, 251, 253, 0.4)' }}>
                 <div className="container">
                     <h2 className="section-title">Frequently Asked Questions</h2>
                     <div className="grid" style={{ marginBottom: '3rem' }}>
