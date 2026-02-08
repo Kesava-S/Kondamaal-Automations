@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Head from 'next/head'
 import { faqs } from '../data/faqs'
-import FloatingShapes from '../components/FloatingShapes'
 
 
 const AnimatedText = ({ text, delayOffset = 0 }) => {
@@ -49,7 +48,7 @@ export default function Home() {
                     }}
                 />
             </Head>
-            <FloatingShapes />
+
             <section className="hero" style={{ position: 'relative', overflow: 'hidden' }}>
                 <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                     <h1>

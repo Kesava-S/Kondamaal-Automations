@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import BookingModal from '../components/BookingModal'
 import ChatBot from '../components/ChatBot'
+import FloatingShapes from '../components/FloatingShapes'
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
@@ -61,6 +62,8 @@ function MyApp({ Component, pageProps }) {
                     </div>
                 </div>
             </nav>
+
+            <FloatingShapes />
 
             <main>
                 <Component {...pageProps} openBookingModal={() => setIsBookingModalOpen(true)} />
