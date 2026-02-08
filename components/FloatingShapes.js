@@ -52,7 +52,7 @@ export default function FloatingShapes() {
             height: '100vh',
             overflow: 'hidden',
             pointerEvents: 'none',
-            zIndex: -1, // Behind content but visible on transparent backgrounds
+            zIndex: 0, // Behind content but visible on transparent backgrounds
         }}>
             {shapes.map((shape, i) => (
                 <div

@@ -90,6 +90,8 @@ a {
     padding: 180px 0 100px;
     text-align: center;
     background: transparent;
+    position: relative;
+    z-index: 2;
 }
 
 .hero h1 {
@@ -130,6 +132,8 @@ a {
 .services-section {
     padding: 100px 0;
     background: transparent;
+    position: relative;
+    z-index: 2;
 }
 
 .section-title {
@@ -180,6 +184,8 @@ footer {
     font-size: 0.9rem;
     border-top: 1px solid var(--card-border);
     background: var(--background);
+    position: relative;
+    z-index: 2;
 }
 
 /* Animations */
