@@ -68,6 +68,11 @@ function MyApp({ Component, pageProps }) {
 
             <nav className="navbar">
                 <div className="container nav-content">
+                    {/* Mobile Menu Button - Placed Left */}
+                    <button className="mobile-menu-btn" onClick={toggleMobileMenu} aria-label="Toggle menu">
+                        {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                    </button>
+
                     <Link href="/" replace={router.pathname === '/'} className="logo">
                         <img src="/logo.png" alt="Automaitee Digital Logo" className="logo-image" loading="lazy" />
                     </Link>
@@ -84,11 +89,6 @@ function MyApp({ Component, pageProps }) {
                             Book Consultation
                         </a>
                     </div>
-
-                    {/* Mobile Menu Button */}
-                    <button className="mobile-menu-btn" onClick={toggleMobileMenu} aria-label="Toggle menu">
-                        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                    </button>
                 </div>
 
                 {/* Mobile Navigation Drawer */}

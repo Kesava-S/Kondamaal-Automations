@@ -68,11 +68,12 @@ a {
 }
 
 .logo-image {
-    height: 50px;
-    /* Fits comfortably inside 64px mobile header */
+    height: 58px;
+    /* Maximized for mobile (64px header - minimal padding) */
     width: auto;
     object-fit: contain;
     transition: height 0.3s ease;
+    display: block;
 }
 
 .mobile-menu-btn {
@@ -83,7 +84,11 @@ a {
     border: none;
     cursor: pointer;
     color: var(--foreground);
-    padding: 0.5rem;
+    padding: 0;
+    margin-right: 0.5rem;
+    /* Space between hamburger and logo */
+    width: 44px;
+    height: 44px;
     z-index: 1100;
 }
 
@@ -309,11 +314,15 @@ footer {
         gap: 1rem;
         padding-top: 1rem;
         padding-bottom: 1rem;
+        justify-content: flex-start;
+        /* Align items to the left on mobile */
     }
 
     .navbar {
         height: auto;
         min-height: 64px;
+        padding-left: 1rem;
+        /* Ensure button isn't flush with edge */
     }
 
     .desktop-only {
