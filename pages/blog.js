@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import { blogs } from '../data/blogs'
 
 export default function Blogs() {
@@ -11,35 +10,23 @@ export default function Blogs() {
                 <meta name="description" content="Latest insights on AI, Automation, and Business Growth." />
             </Head>
 
-            <section className="hero">
-                <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-                    <h1>
-                        <span className="word-wrapper">
-                            <span className="animated-word" style={{ animationDelay: '0s' }}>Latest </span>
-                        </span>
-                        <span className="word-wrapper">
-                            <span className="animated-word" style={{ animationDelay: '0.1s' }}>Insights </span>
-                        </span>
+            <div style={{ paddingTop: '120px', paddingBottom: '60px', textAlign: 'center' }}>
+                <div className="container">
+                    <h1 style={{ fontSize: '3rem', fontWeight: '700', marginBottom: '1rem', background: 'linear-gradient(180deg, #1d1d1f 0%, #434344 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                        Latest Insights
                     </h1>
-                    <p style={{ animation: 'fadeIn 0.8s ease-out 0.4s backwards' }}>
-                        Transforming Business with AI &#38; Automation
+                    <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto' }}>
+                        Transforming Business with AI & Automation
                     </p>
                 </div>
-            </section>
+            </div>
 
             <section className="services-section">
                 <div className="container">
+                    <h2 style={{ fontSize: '2rem', marginBottom: '2rem' }}>All Articles</h2>
                     <div className="grid">
-                        {blogs.map((blog, index) => (
-                            <motion.div
-                                key={blog.id}
-                                className="card"
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                                viewport={{ once: true }}
-                                style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
-                            >
+                        {blogs.map((blog) => (
+                            <Link key={blog.id} href={`/blog/${blog.id}`} className="card" style={{ display: 'flex', flexDirection: 'column', textDecoration: 'none', height: '100%' }}>
                                 <div style={{
                                     height: '200px',
                                     overflow: 'hidden',
@@ -50,7 +37,7 @@ export default function Blogs() {
                                     <img
                                         src={blog.image}
                                         alt={blog.title}
-                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }}
                                         loading="lazy"
                                     />
                                 </div>
@@ -58,22 +45,17 @@ export default function Blogs() {
                                     <div style={{ fontSize: '0.85rem', color: '#0071e3', fontWeight: '600', marginBottom: '0.5rem' }}>
                                         {blog.date} • {blog.author}
                                     </div>
-                                    <h3 style={{ fontSize: '1.25rem', marginBottom: '0.75rem', lineHeight: '1.3' }}>
+                                    <h3 style={{ fontSize: '1.25rem', marginBottom: '0.75rem', lineHeight: '1.3', color: 'var(--foreground)' }}>
                                         {blog.title}
                                     </h3>
                                     <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', flex: 1 }}>
                                         {blog.excerpt}
                                     </p>
-                                    <Link href={`/blog/${blog.id}`} className="cta-button" style={{
-                                        alignSelf: 'flex-start',
-                                        padding: '10px 24px',
-                                        fontSize: '0.9rem',
-                                        textDecoration: 'none'
-                                    }}>
-                                        Read Article
-                                    </Link>
+                                    <div style={{ color: '#0071e3', fontWeight: '500', fontSize: '0.9rem', marginTop: 'auto' }}>
+                                        Read Article →
+                                    </div>
                                 </div>
-                            </motion.div>
+                            </Link>
                         ))}
                     </div>
                 </div>
