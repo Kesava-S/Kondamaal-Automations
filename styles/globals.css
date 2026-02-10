@@ -348,9 +348,11 @@ footer {
     }
 
     .logo-image {
-        height: 80px;
-        /* Fits comfortably inside 90px desktop header */
-        margin-top: 0;
+        height: 140px;
+        /* Oversized logo for desktop */
+        margin-top: -10px;
+        /* Adjust vertical centering */
+        transition: height 0.3s ease;
     }
 
     .mobile-menu-btn {
