@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Script from 'next/script'
 
 
 
@@ -42,6 +43,21 @@ function MyApp({ Component, pageProps }) {
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:image" content="https://kondamaal.com/logo.png" />
             </Head>
+
+            {/* Google Tag (gtag.js) */}
+            <Script
+                src="https://www.googletagmanager.com/gtag/js?id=G-10FZYWH1VQ"
+                strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+                {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+
+                    gtag('config', 'G-10FZYWH1VQ');
+                `}
+            </Script>
 
             <nav className="navbar">
                 <div className="container nav-content">
