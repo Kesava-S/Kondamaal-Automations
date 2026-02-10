@@ -68,12 +68,14 @@ a {
 }
 
 .logo-image {
-    height: 70px;
-    /* Bigger logo for mobile (80px header) */
+    height: 100px;
+    /* Oversized logo for maximum visibility */
     width: auto;
     object-fit: contain;
     transition: height 0.3s ease;
     display: block;
+    margin-top: 5px;
+    /* Slight adjustment */
 }
 
 .mobile-menu-btn {
