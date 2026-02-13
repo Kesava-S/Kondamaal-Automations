@@ -9,11 +9,11 @@ export const team = [
         linkedin: "https://www.linkedin.com/in/kesavs"
     },
     {
-        id: "sarah-jenkins",
-        name: "Sarah Jenkins",
-        role: "Head of Marketing",
-        image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=688&q=80",
-        bio: "Expert in data-driven marketing strategies and customer engagement automation."
+        id: "muthukumar-m",
+        name: "Muthukumar M",
+        role: "Automation Developer",
+        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+        bio: "Designing and building intelligent automation systems that streamline processes and meet core business requirements."
     },
     {
         id: "david-chen",
