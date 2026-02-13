@@ -88,6 +88,9 @@ function MyApp({ Component, pageProps }) {
                         <Link href="/blog" replace={router.pathname === '/blog'} className={`nav-link ${router.pathname === '/blog' ? 'active' : ''}`}>
                             Blog
                         </Link>
+                        <Link href="/team" replace={router.pathname === '/team'} className={`nav-link ${router.pathname === '/team' ? 'active' : ''}`}>
+                            Team
+                        </Link>
                         <a href="/book-consultation" onClick={openBookingModal} className={`nav-link ${router.pathname === '/book-consultation' ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
                             Book Consultation
                         </a>
@@ -105,6 +108,9 @@ function MyApp({ Component, pageProps }) {
                         </Link>
                         <Link href="/blog" replace={router.pathname === '/blog'} onClick={() => setIsMobileMenuOpen(false)} className={`mobile-nav-link ${router.pathname === '/blog' ? 'active' : ''}`}>
                             Blog
+                        </Link>
+                        <Link href="/team" replace={router.pathname === '/team'} onClick={() => setIsMobileMenuOpen(false)} className={`mobile-nav-link ${router.pathname === '/team' ? 'active' : ''}`}>
+                            Team
                         </Link>
                         <a href="/book-consultation" onClick={openBookingModal} className={`mobile-nav-link ${router.pathname === '/book-consultation' ? 'active' : ''}`}>
                             Book Consultation
