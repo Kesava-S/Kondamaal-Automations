@@ -1,10 +1,11 @@
 export const team = [
     {
         id: "kesava-s",
-        name: "Kesava S",
-        role: "Founder & Lead Developer",
+        name: "Kesavaram Sundararaj",
+        role: "Originator & Automation Architect",
         image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80",
-        bio: "Passionate about leveraging AI to automate business processes and drive digital transformation."
+        bio: "In this AI era, every business and individual deserves a personal automation to enhance daily and business processes. We create intelligent, personalized systems that make this possible, so you can focus on what truly matters.",
+        linkedin: "https://www.linkedin.com/in/kesavs"
     },
     {
         id: "sarah-jenkins",
