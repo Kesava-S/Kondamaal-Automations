@@ -3,7 +3,8 @@ export const team = [
         id: "kesava-s",
         name: "Kesavaram Sundararaj",
         role: "Originator & Automation Architect",
-        image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80",
+        image: "/team/kesav.jpg",
+        objectPosition: "20% 20%",
         bio: "In this AI era, every business and individual deserves a personal automation to enhance daily and business processes. We create intelligent, personalized systems that make this possible, so you can focus on what truly matters.",
         linkedin: "https://www.linkedin.com/in/kesavs"
     },
