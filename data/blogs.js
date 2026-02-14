@@ -1,7 +1,7 @@
 export const blogs = [
     {
         id: "ai-marketing-automation-uk-small-business",
-        title: "How AI Automation is Transforming Marketing for UK Small Businesses",
+        title: "Impact of AI Automation in marketing for the small businesses in UK",
         excerpt: "Discover how AI marketing automation helps UK SMEs save time, improve efficiency, and drive growth with smarter tools.",
         date: "February 10, 2026",
         author: "Automaitee Team",
