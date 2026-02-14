@@ -10,6 +10,7 @@ export default function BookingModal({ isOpen, onClose }) {
         name: '',
         email: '',
         whatsapp: '',
+        countryCode: '+1',
         companyName: '',
         industry: '',
         goal: ''
@@ -112,7 +113,7 @@ export default function BookingModal({ isOpen, onClose }) {
                         {/* Left Column: Form */}
                         <div className="form-column">
                             <h3 style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: '600' }}>
-                                Automaitee - AI Automation
+                                Automaitee Digital - AI Automation
                             </h3>
                             <h2 className="animated-text" style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>
                                 Schedule a time to talk
@@ -124,11 +125,43 @@ export default function BookingModal({ isOpen, onClose }) {
                                 </div>
                                 <div className="form-group">
                                     <label>Email</label>
-                                    <input type="email" name="email" required value={formData.email} onChange={handleInputChange} placeholder="work@company.com" />
+                                    <input type="email" name="email" required value={formData.email} onChange={handleInputChange} placeholder="Your Mail ID" />
                                 </div>
                                 <div className="form-group">
                                     <label>WhatsApp</label>
-                                    <input type="tel" name="whatsapp" required value={formData.whatsapp} onChange={handleInputChange} placeholder="+1 234 567 890" />
+                                    <div style={{ display: 'flex', gap: '0.8rem' }}>
+                                        <select
+                                            name="countryCode"
+                                            value={formData.countryCode}
+                                            onChange={handleInputChange}
+                                            style={{
+                                                width: '110px',
+                                                padding: '12px',
+                                                borderRadius: '8px',
+                                                border: '1px solid #e5e5e5',
+                                                backgroundColor: '#f5f5f7',
+                                                fontSize: '0.95rem'
+                                            }}
+                                        >
+                                            <option value="+1">+1 (US)</option>
+                                            <option value="+44">+44 (UK)</option>
+                                            <option value="+91">+91 (IN)</option>
+                                            <option value="+61">+61 (AU)</option>
+                                            <option value="+971">+971 (AE)</option>
+                                            <option value="+65">+65 (SG)</option>
+                                            <option value="+33">+33 (FR)</option>
+                                            <option value="+49">+49 (DE)</option>
+                                        </select>
+                                        <input
+                                            type="tel"
+                                            name="whatsapp"
+                                            required
+                                            value={formData.whatsapp}
+                                            onChange={handleInputChange}
+                                            placeholder="Phone Number"
+                                            style={{ flex: 1 }}
+                                        />
+                                    </div>
                                 </div>
                                 <div className="form-row">
                                     <div className="form-group">
