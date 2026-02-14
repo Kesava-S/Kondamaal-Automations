@@ -19,12 +19,12 @@ export default function Team() {
                 <div className="container">
                     <Reveal width="100%">
                         <h1 style={{ fontSize: '3rem', fontWeight: '700', marginBottom: '1rem', background: 'linear-gradient(180deg, #1d1d1f 0%, #434344 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                            Meet the Team
+                            Meet the Young Energies
                         </h1>
                     </Reveal>
                     <Reveal width="100%" delay={0.2}>
                         <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto' }}>
-                            Passionate experts dedicated to your digital transformation.
+                            Passionate enthusiasts dedicated to your digital transformation.
                         </p>
                     </Reveal>
                 </div>
